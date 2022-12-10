@@ -1,0 +1,75 @@
+<section id="bv_Asrecommendedby-{{ section.id }}" class="" data-section="{{ section.id }}" style="background-color: #FFFFFF;">
+  {%- comment -%}
+    style sheet
+  {%- endcomment -%}
+  {{ 'bv_Asrecommendedby.css' | asset_url | stylesheet_tag }}
+  {{ 'bv_common_css.css' | asset_url | stylesheet_tag }}
+  {%- comment -%}
+    add slider js
+  {%- endcomment -%}
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"/>
+  {%- comment -%}
+    style sheet
+  {%- endcomment -%}
+  <div class="bv_AsrecommendedbyContainer" id="bv_AsrecommendedbySection-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="Asrecommendedby" data-enable-history-state="true" data-ajax-enabled="{{ settings.enable_ajax }}" {{ block.shopify_attributes }}>
+    <div class="bv_Asrecommendedby">
+      <div class="bv_AsrecommendedbyTitle">
+        <h4>As recommended by</h4>
+      </div>
+      <div class="bv_AsrecommendedbySlider">
+        <div id="quoteCarousel" class="carousel text-lg">
+          <div class="carousel__viewport px-20">
+            <figure class="carousel__slide ">
+              <p>Fantastic, I'm totally blown away by this product!</p>
+            </figure>
+            <figure class="carousel__slide ">
+              <p>Fantastic, I'm totally blown away by this product!</p>
+            </figure>
+            <figure class="carousel__slide ">
+              <p>Fantastic, I'm totally blown away by this product!</p>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- comment -%}
+  add slider js
+{%- endcomment -%}
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+<script src="../assets/carousel.autoplay.umd.js"></script>
+
+<script>
+  // Initialise Carousel
+
+/*  const quoteCarousel = new Carousel(document.querySelector("#quoteCarousel"), {
+    infinite: true,
+    Dots: false,
+    friction: 0.88,
+    slidesPerPage: 1,
+
+    Navigation: false,
+    Dots: false,
+    Autoplay: {
+      timeout: 1000
+    }
+
+  });
+  */
+  const quoteCarousel = new Carousel(document.querySelector('#quoteCarousel'), {
+    Autoplay: {
+      timeout: 1000
+    },
+    infinite: true,
+    Dots: false,
+    friction: 0.88,
+    slidesPerPage: 1,
+
+    Navigation: false,
+    Dots: false
+  });
+  quoteCarousel.plugins.Autoplay.start()
+</script>

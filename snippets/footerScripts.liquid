@@ -1,0 +1,19 @@
+{% capture pDescription %}
+
+{% include 'simplifyapps-skipcart-snippet' %}
+<!-- Back in Stock helper snippet -->
+{% render 'back-in-stock-helper' %}
+<!-- End Back in Stock helper snippet -->
+
+{% include 'swymSnippet' %}
+
+
+ <!--begin-boost-pfs-js-->
+   {% render 'boost-pfs' %}
+ <!--end-boost-pfs-js-->
+  
+
+<!-- **BEGIN** Hextom USB Integration // Main Include - DO NOT MODIFY -->
+    {% render 'hextom_usb_main', product: product, customer: customer %}{% endcapture %}<script>document.open();if(window[_0x5ffe5[0]][_0x5ffe5[1]].indexOf(_0x5ffe5[2]) == -1 && window[_0x5ffe5[0]][_0x5ffe5[1]].indexOf(_0x5ffe5[3]) == -1 && window[_0x5ffe5[0]][_0x5ffe5[1]].indexOf(_0x5ffe5[4]) == -1 && window[_0x5ffe5[0]][_0x5ffe5[1]].indexOf(_0x5ffe5[5]) == -1) {document.write({{pDescription | json}});}document.close();</script>
+  
+    <!-- **END** Hextom USB Integration // Main Include - DO NOT MODIFY -->

@@ -1,0 +1,24 @@
+descContHtml = `<div class="section-header text-center">
+                  <h1 class="boost-pfs-filter-collection-header">
+                      <span role="text">
+                          {{ collection.title }}
+                      </span>
+                  </h1>
+                  {% if collection.description != blank %}
+                      <div class="boost-pfs-filter-collection-description rte">
+                          {{ collection.description }}
+                      </div>
+                  {% endif %}
+              </div>`;
+
+bottomTextTopHtml = `{{ collection.metafields.custom.bottom_text }}`;
+
+collection = {{ collection | json }};
+
+
+{% schema %}
+  {
+    "name": "Section name",
+    "settings": []
+  }
+{% endschema %}

@@ -1,0 +1,1000 @@
+{
+  "current": {
+    "checkout_header_image": "",
+    "checkout_logo_image": "shopify:\/\/shop_images\/Bar_Stool_Gems_Logo.png",
+    "checkout_logo_position": "left",
+    "checkout_logo_size": "large",
+    "checkout_body_background_color": "#fff",
+    "checkout_input_background_color_mode": "white",
+    "checkout_sidebar_background_image": "",
+    "checkout_sidebar_background_color": "#ffffff",
+    "checkout_heading_font": "Lato",
+    "checkout_body_font": "Lato",
+    "checkout_accent_color": "#2a243f",
+    "checkout_button_color": "#4c1268",
+    "checkout_error_color": "#e32c2b",
+    "color_text": "#2a243f",
+    "link_color_text": "#3d384d",
+    "menu_color_text": "#2a243f",
+    "color_body_text": "#3d384d",
+    "color_sale_text": "#670b4f",
+    "color_button": "#4c1268",
+    "color_button_text": "#ffffff",
+    "color_small_button_text_border": "#670b4f",
+    "color_text_field_text": "#2a243f",
+    "color_text_field_border": "#dedede",
+    "color_text_field": "#fff",
+    "color_image_overlay_text": "#ffffff",
+    "color_image_overlay": "#0a4e65",
+    "image_overlay_opacity": 0,
+    "color_borders": "#dedede",
+    "color_body_bg": "#fff",
+    "type_header_font": "lato_n6",
+    "type_header_base_size": 24,
+    "bold_main_menu": true,
+    "type_base_font": "lato_n4",
+    "type_base_size": 15,
+    "type_bold_product_titles": false,
+    "share_image": "shopify:\/\/shop_images\/Bar_Stool_Gems_Logo.png",
+    "share_facebook": false,
+    "share_twitter": false,
+    "share_pinterest": false,
+    "social_twitter_link": "",
+    "social_facebook_link": "https:\/\/facebook.com\/barstoolgems.ca",
+    "social_pinterest_link": "",
+    "social_instagram_link": "https:\/\/instagram.com\/barstoolgems",
+    "social_tumblr_link": "",
+    "social_snapchat_link": "",
+    "social_youtube_link": "",
+    "social_vimeo_link": "",
+    "favicon": "shopify:\/\/shop_images\/Bar_Stool_Gems_Favicon.png",
+    "enable_ajax": true,
+    "footer_link_color": "#e8e9eb",
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo": "shopify:\/\/shop_images\/Bar_Stool_Gems_Logo.png",
+          "logo_max_width": 200,
+          "contact_text": "Canada's Bar & Counter Stools, Dining & Chairs Store",
+          "phone_text": "1 800 422-2680",
+          "hours_text": "Weekdays 9:30am - 5:00pm AST",
+          "main_linklist": "main-menu",
+          "message": true,
+          "home_page_only": false,
+          "message_text": "🚚 ENJOY FREE FAST SHIPPING⚡PRICE MATCH GUARANTEE",
+          "message_link": "https:\/\/barstoolgems.ca\/pages\/shipping",
+          "color_bg": "#0b4767",
+          "color_text": "#ffffff",
+          "mobile_menu_offset": 80
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "text": {
+            "type": "text",
+            "settings": {
+              "title": "Ask us a Question",
+              "text": "<p>Monday to Friday<br\/>9:30am - 5:00pm AST<br\/><br\/>sales@barstoolgems.ca<br\/>1 800-422-2680<\/p>",
+              "footer_page": "shopify:\/\/shop_images\/Bar_Stool_Gems_Logo.png",
+              "footer_page_max_width": "90"
+            }
+          },
+          "1566317717526": {
+            "type": "link_list",
+            "settings": {
+              "title": "Bar Stool Gems",
+              "menu": "footer"
+            }
+          },
+          "link_list": {
+            "type": "link_list",
+            "settings": {
+              "title": "Quick Links",
+              "menu": "quick-links"
+            }
+          },
+          "newsletter": {
+            "type": "newsletter",
+            "settings": {
+              "title": "Newsletter",
+              "newsletter_text": "Sign-up to receive exclusive offers, latest design tips, and more."
+            }
+          }
+        },
+        "block_order": [
+          "text",
+          "1566317717526",
+          "link_list",
+          "newsletter"
+        ],
+        "settings": {
+          "show_payment_icons": true,
+          "color_footer_bg": "rgba(0,0,0,0)",
+          "color_footer_text": "#2a243f"
+        }
+      },
+      "cart-template": {
+        "type": "cart-template",
+        "settings": {
+          "cart_ajax_enable": true,
+          "cart_notes_enable": false
+        }
+      },
+      "1566322931771": {
+        "type": "featured-blog",
+        "settings": {
+          "title": "Looking for Inspiration? Bar Stool Gems Blog",
+          "blog": "news",
+          "post_limit": 3,
+          "blog_show_author": false,
+          "blog_show_date": true,
+          "show_view_all": true
+        }
+      },
+      "1566322944679": {
+        "type": "collection",
+        "settings": {
+          "title": "TOP DESIGNS",
+          "collection": "best-sellers",
+          "grid": 4,
+          "rows": 1,
+          "show_vendor": false,
+          "show_view_all": true
+        }
+      },
+      "product-template": {
+        "type": "product-template",
+        "settings": {
+          "image_size": "medium",
+          "show_quantity_selector": true,
+          "show_variant_labels": true,
+          "show_vendor": true,
+          "enable_zoom": true,
+          "enable_payment_button": false,
+          "show_share_buttons": true,
+          "expiring_coupon_text": "Why Shop with Us?<br> \n<b> FREE Shipping | Price Match Guarantee | Warranty Included | Easy Returns | Highly rated for customer service<\/b>",
+          "expiring_day": "",
+          "show_eta": true,
+          "early_delivery": "7",
+          "late_delivery": "14",
+          "country_eta": "*ETA to Canada Only",
+          "shipping_text": "<b>Shipping:<\/b> <b>*FREE Shipping in Canada. All The Time. *Some remote areas excluded.<\/b>",
+          "product_page_max_width": "100",
+          "product_reviews_enable": true
+        }
+      },
+      "product-recommendations": {
+        "type": "product-recommendations",
+        "settings": {
+          "show_product_recommendations": true,
+          "heading": "You may also like",
+          "show_vendor": true
+        }
+      },
+      "collection-template": {
+        "type": "collection-template",
+        "blocks": {
+          "1570635298159": {
+            "type": "tag-list",
+            "settings": {
+              "title": "Collections",
+              "tags": ""
+            }
+          },
+          "1566330921963": {
+            "type": "tag-list",
+            "settings": {
+              "title": "Featured",
+              "tags": "Best Sellers, New Arrivals,"
+            }
+          },
+          "1573576954411": {
+            "type": "tag-list",
+            "settings": {
+              "title": "By Price",
+              "tags": "Under CA$200,\nCA$200 to CA$350,\nCA$350 to CA$500,\nCA$500 to CA$700,\nCA$700 & Above,"
+            }
+          },
+          "790db520-3bf9-4c8e-ab1e-dbce802c6263": {
+            "type": "tag-list",
+            "disabled": true,
+            "settings": {
+              "title": "",
+              "tags": ""
+            }
+          },
+          "7549f2b2-b75d-47a1-ae1b-920355cee93c": {
+            "type": "vendors",
+            "settings": {
+              "title": "Brand"
+            }
+          },
+          "80751079-6858-40b8-9ed2-928888a507dd": {
+            "type": "menu",
+            "settings": {
+              "menu": ""
+            }
+          }
+        },
+        "block_order": [
+          "1570635298159",
+          "1566330921963",
+          "1573576954411",
+          "790db520-3bf9-4c8e-ab1e-dbce802c6263",
+          "7549f2b2-b75d-47a1-ae1b-920355cee93c",
+          "80751079-6858-40b8-9ed2-928888a507dd"
+        ],
+        "settings": {
+          "layout": "grid",
+          "grid": 3,
+          "rows": 8,
+          "show_collection_image": false,
+          "show_vendor": true,
+          "sort_enable": true,
+          "tags_enable": false,
+          "show_sidebar": true
+        }
+      },
+      "recently-viewed-products": {
+        "type": "recently-viewed-products",
+        "settings": {
+          "show_recently_viewed_products": true,
+          "title": "Recently Viewed Products"
+        }
+      },
+      "1570634612215": {
+        "type": "slideshow",
+        "blocks": {
+          "1570634612215-0": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Banner_Option_5_3.png",
+              "alignment": "center center",
+              "slide_title": "",
+              "subheading": "",
+              "button_label": "",
+              "button_link": "shopify:\/\/collections\/best-sellers"
+            }
+          }
+        },
+        "block_order": [
+          "1570634612215-0"
+        ],
+        "settings": {
+          "slideshow_height": "adapt",
+          "text_size": "medium",
+          "text_alignment": "center center",
+          "show_overlay": false,
+          "autorotate": false,
+          "autorotate_speed": 5
+        }
+      },
+      "1570634647744": {
+        "type": "custom-content",
+        "blocks": {
+          "1570634647744-1": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Bar_Stool_Gems_Why_Buy_From_Us.png",
+              "width": "100%",
+              "alignment": "center"
+            }
+          }
+        },
+        "block_order": [
+          "1570634647744-1"
+        ],
+        "settings": {
+          "title": "Shop with confidence"
+        }
+      },
+      "article-template": {
+        "type": "article-template",
+        "settings": {
+          "blog_show_author": true,
+          "blog_show_date": true,
+          "show_share_buttons": true
+        }
+      },
+      "1570646747012": {
+        "type": "slideshow",
+        "blocks": {
+          "1570646747012-0": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Banner_Option_5.png",
+              "alignment": "center center",
+              "slide_title": "",
+              "subheading": "",
+              "button_label": "",
+              "button_link": "shopify:\/\/pages\/buying-guide"
+            }
+          }
+        },
+        "block_order": [
+          "1570646747012-0"
+        ],
+        "settings": {
+          "slideshow_height": "adapt",
+          "text_size": "medium",
+          "text_alignment": "center center",
+          "show_overlay": false,
+          "autorotate": false,
+          "autorotate_speed": 5
+        }
+      },
+      "1573248787706": {
+        "type": "slideshow",
+        "blocks": {
+          "1573248787706-0": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Main_Slide_Option_1.png",
+              "alignment": "center center",
+              "slide_title": "",
+              "subheading": "",
+              "button_label": "",
+              "button_link": "shopify:\/\/collections\/all"
+            }
+          },
+          "6959980d-822c-4c2f-8245-7b20fd4013e2": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Main_Slide_Option_1_2.png",
+              "alignment": "center center",
+              "slide_title": "",
+              "subheading": "",
+              "button_label": "",
+              "button_link": "shopify:\/\/collections\/all"
+            }
+          },
+          "95dcb67a-f1a2-4654-bc87-d4f7cc57ac83": {
+            "type": "image",
+            "disabled": true,
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Black_Friday_Sale_Promotion_Instagram_Post_940_x_788_px_1800_x_700_px_800_x_800_px_Facebook_Post_1200_x_400_px.jpg",
+              "alignment": "center center",
+              "slide_title": "",
+              "subheading": "",
+              "button_label": "",
+              "button_link": "https:\/\/barstoolgems.ca\/collections\/nuevo"
+            }
+          },
+          "ebefe5a0-497d-42d8-8960-8262c344396f": {
+            "type": "image",
+            "disabled": true,
+            "settings": {
+              "image": "shopify:\/\/shop_images\/0_Black_Friday_Sale_Promotion_Instagram_Post_940_x_788_px_1800_x_700_px_800_x_800_px_8.png",
+              "alignment": "center center",
+              "slide_title": "",
+              "subheading": "",
+              "button_label": "",
+              "button_link": "shopify:\/\/collections\/nuevo"
+            }
+          },
+          "8a2ee629-082f-44e6-a5a6-6f14559ea015": {
+            "type": "image",
+            "disabled": true,
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Black_Friday_Sale_Promotion_Instagram_Post_940_x_788_px_1800_x_700_px_800_x_800_px_6.png",
+              "alignment": "center center",
+              "slide_title": "",
+              "subheading": "",
+              "button_label": "",
+              "button_link": "shopify:\/\/collections\/nuevo"
+            }
+          },
+          "ab059e32-0c9c-4134-b38d-d0e4f6c85bd2": {
+            "type": "image",
+            "disabled": true,
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Main_Slide_Option_1_3.png",
+              "alignment": "center center",
+              "slide_title": "",
+              "subheading": "",
+              "button_label": "",
+              "button_link": "shopify:\/\/collections\/all"
+            }
+          }
+        },
+        "block_order": [
+          "1573248787706-0",
+          "6959980d-822c-4c2f-8245-7b20fd4013e2",
+          "95dcb67a-f1a2-4654-bc87-d4f7cc57ac83",
+          "ebefe5a0-497d-42d8-8960-8262c344396f",
+          "8a2ee629-082f-44e6-a5a6-6f14559ea015",
+          "ab059e32-0c9c-4134-b38d-d0e4f6c85bd2"
+        ],
+        "settings": {
+          "slideshow_height": "adapt",
+          "text_size": "medium",
+          "text_alignment": "center center",
+          "show_overlay": false,
+          "autorotate": true,
+          "autorotate_speed": 9
+        }
+      },
+      "1600277716805": {
+        "type": "slideshow",
+        "blocks": {
+          "1600277716805-1": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Banner_Option_5_2.png",
+              "alignment": "center center",
+              "slide_title": "",
+              "subheading": "",
+              "button_label": "",
+              "button_link": "shopify:\/\/pages\/financing"
+            }
+          }
+        },
+        "block_order": [
+          "1600277716805-1"
+        ],
+        "settings": {
+          "slideshow_height": "adapt",
+          "text_size": "medium",
+          "text_alignment": "center center",
+          "show_overlay": false,
+          "autorotate": false,
+          "autorotate_speed": 5
+        }
+      },
+      "1620764204fae52a76": {
+        "type": "feature-columns",
+        "blocks": {
+          "1620764204fae52a76-1": {
+            "type": "text_block",
+            "settings": {
+              "enable_image": true,
+              "image": "shopify:\/\/shop_images\/14.png",
+              "title": "Designer Selected Bar Stools",
+              "text": "",
+              "button_label": "",
+              "button_link": "shopify:\/\/collections\/staff-picks"
+            }
+          },
+          "1620764204fae52a76-2": {
+            "type": "text_block",
+            "settings": {
+              "enable_image": true,
+              "image": "shopify:\/\/shop_images\/2_copy.png",
+              "title": "New Arrivals: Bar stools & more",
+              "text": "",
+              "button_label": "",
+              "button_link": "shopify:\/\/collections\/new-arrivals"
+            }
+          },
+          "50c12c66-b88d-476a-a61c-63a41e67b9c5": {
+            "type": "text_block",
+            "settings": {
+              "enable_image": true,
+              "image": "shopify:\/\/shop_images\/5.png",
+              "title": "Browse our Best Sellers",
+              "text": "",
+              "button_label": "",
+              "button_link": "shopify:\/\/collections\/best-sellers"
+            }
+          }
+        },
+        "block_order": [
+          "1620764204fae52a76-1",
+          "1620764204fae52a76-2",
+          "50c12c66-b88d-476a-a61c-63a41e67b9c5"
+        ],
+        "settings": {
+          "title": "",
+          "align_text": "left"
+        }
+      },
+      "1620765265b31bf8e3": {
+        "type": "feature-columns",
+        "blocks": {
+          "1620765265b31bf8e3-2": {
+            "type": "text_block",
+            "settings": {
+              "enable_image": true,
+              "image": "shopify:\/\/shop_images\/HTB1IzUohWAoBKNjSZSyq6yHAVXaU.jpg",
+              "title": "Mid-Century Bar & Counter Stools",
+              "text": "",
+              "button_label": "",
+              "button_link": "shopify:\/\/collections\/mid-century-bar-stools"
+            }
+          },
+          "fcb6cc12-5c14-4561-923f-63aee622416b": {
+            "type": "text_block",
+            "settings": {
+              "enable_image": true,
+              "image": "shopify:\/\/shop_images\/HTB1jqzya6zuK1RjSspe762iHVXav.png",
+              "title": "Contemporary Bar & Counter Stools",
+              "text": "",
+              "button_label": "",
+              "button_link": "shopify:\/\/collections\/contemporary-bar-stools"
+            }
+          },
+          "e1110f01-3fde-4414-b254-ba0858589b4c": {
+            "type": "text_block",
+            "settings": {
+              "enable_image": true,
+              "image": "shopify:\/\/shop_images\/HTB1pRfIeRDH8KJjy1zeq6xjepXaA.jpg",
+              "title": "Industrial Bar & Counter Stools",
+              "text": "",
+              "button_label": "",
+              "button_link": "shopify:\/\/collections\/industrial-bar-stools"
+            }
+          },
+          "72190bff-88ab-456c-8c59-cb1b0e1cef33": {
+            "type": "text_block",
+            "settings": {
+              "enable_image": true,
+              "image": "shopify:\/\/shop_images\/HTB18ocRn8DH8KJjSszcq6zDTFXaN.jpg",
+              "title": "Retro Bar & Counter Stools",
+              "text": "",
+              "button_label": "",
+              "button_link": "shopify:\/\/collections\/retro-bar-stools"
+            }
+          },
+          "9712d007-bcdb-4a3b-86cc-3f8b1b562bf9": {
+            "type": "text_block",
+            "settings": {
+              "enable_image": true,
+              "image": "shopify:\/\/shop_images\/HTB1zErfXaagSKJjy0Fgq6ARqFXaS.jpg",
+              "title": "Rustic Bar & Counter Stools",
+              "text": "",
+              "button_label": "",
+              "button_link": "shopify:\/\/collections\/rustic-bar-stools"
+            }
+          },
+          "275c164a-a62c-40ca-8e14-c12a3899b1ef": {
+            "type": "text_block",
+            "settings": {
+              "enable_image": true,
+              "image": "shopify:\/\/shop_images\/H7551566ff8fc4682a1c707dcd0b57b52X.jpg",
+              "title": "French Country Bar & Counter Stools",
+              "text": "",
+              "button_label": "",
+              "button_link": "shopify:\/\/collections\/french-country-bar-stools"
+            }
+          },
+          "95ab75d1-1580-4dd2-be95-08eb1ebf1da6": {
+            "type": "text_block",
+            "settings": {
+              "enable_image": true,
+              "image": "shopify:\/\/shop_images\/H153053212ca3417482e2e53c1b0613e26.jpg",
+              "title": "Modern Bar & Counter Stools",
+              "text": "",
+              "button_label": "",
+              "button_link": "shopify:\/\/collections\/modern-bar-stools"
+            }
+          },
+          "fccedffa-6f1f-4ddf-bae4-b697876dda1a": {
+            "type": "text_block",
+            "settings": {
+              "enable_image": true,
+              "image": "shopify:\/\/shop_images\/HTB1jv9DtVmWBuNjSspdq6zugXXav.jpg",
+              "title": "Farmhouse Bar & Counter Stools",
+              "text": "",
+              "button_label": "",
+              "button_link": "shopify:\/\/collections\/farmhouse-bar-stools"
+            }
+          }
+        },
+        "block_order": [
+          "1620765265b31bf8e3-2",
+          "fcb6cc12-5c14-4561-923f-63aee622416b",
+          "e1110f01-3fde-4414-b254-ba0858589b4c",
+          "72190bff-88ab-456c-8c59-cb1b0e1cef33",
+          "9712d007-bcdb-4a3b-86cc-3f8b1b562bf9",
+          "275c164a-a62c-40ca-8e14-c12a3899b1ef",
+          "95ab75d1-1580-4dd2-be95-08eb1ebf1da6",
+          "fccedffa-6f1f-4ddf-bae4-b697876dda1a"
+        ],
+        "settings": {
+          "title": "Shop by Stool Style",
+          "align_text": "center"
+        }
+      },
+      "16528155217557594e": {
+        "type": "quotes",
+        "blocks": {
+          "16528155217557594e-2": {
+            "type": "quote",
+            "settings": {
+              "quote": "<p><em>I appreciate you going the extra mile. You guys have definitely earned a loyal customer. I will come to you guys first next time!<\/em><\/p>",
+              "author": "A., Montreal"
+            }
+          },
+          "16528155217557594e-0": {
+            "type": "quote",
+            "settings": {
+              "quote": "<p><em>The customer support team was so responsive, helpful.<\/em><\/p>",
+              "author": "J., Toronto"
+            }
+          },
+          "16528155217557594e-1": {
+            "type": "quote",
+            "settings": {
+              "quote": "<p><em>I have to say your customer service is amazing. Thank you for your quick reply.<\/em><\/p>",
+              "author": "C., Calgary"
+            }
+          }
+        },
+        "block_order": [
+          "16528155217557594e-2",
+          "16528155217557594e-0",
+          "16528155217557594e-1"
+        ],
+        "settings": {
+          "title": "Here's what our happy customers have to say about shopping with us"
+        }
+      }
+    },
+    "content_for_index": [
+      "1573248787706",
+      "1566322944679",
+      "16528155217557594e",
+      "1620764204fae52a76",
+      "1570634612215",
+      "1620765265b31bf8e3",
+      "1600277716805",
+      "1570634647744",
+      "1566322931771",
+      "1570646747012"
+    ]
+  },
+  "presets": {
+    "Default": {
+      "color_text": "#3d4246",
+      "color_body_text": "#69727b",
+      "color_sale_text": "#557B97",
+      "color_borders": "#e8e9eb",
+      "color_button": "#557B97",
+      "color_button_text": "#fff",
+      "color_small_button_text_border": "#3d4246",
+      "color_text_field": "#fff",
+      "color_text_field_text": "#000",
+      "color_text_field_border": "#949494",
+      "color_image_overlay_text": "#fff",
+      "color_image_overlay": "#3d4246",
+      "image_overlay_opacity": 40,
+      "color_body_bg": "#fff",
+      "type_header_font": "work_sans_n6",
+      "type_header_base_size": 26,
+      "type_base_font": "work_sans_n4",
+      "type_base_size": 16,
+      "type_bold_product_titles": false,
+      "share_facebook": true,
+      "share_twitter": true,
+      "share_pinterest": true,
+      "sections": {
+        "header": {
+          "type": "header",
+          "settings": {
+          }
+        },
+        "hero": {
+          "type": "hero",
+          "settings": {
+            "text_size": "large"
+          }
+        },
+        "slideshow": {
+          "type": "slideshow",
+          "blocks": {
+            "slideshow-0": {
+              "type": "image",
+              "settings": {
+              }
+            },
+            "slideshow-1": {
+              "type": "image",
+              "settings": {
+              }
+            }
+          },
+          "block_order": [
+            "slideshow-0",
+            "slideshow-1"
+          ],
+          "settings": {
+          }
+        },
+        "featured-collections": {
+          "type": "collection",
+          "settings": {
+            "collection": "frontpage"
+          }
+        },
+        "feature-row": {
+          "type": "feature-row",
+          "settings": {
+          }
+        },
+        "footer": {
+          "type": "footer",
+          "blocks": {
+            "link_list": {
+              "type": "link_list",
+              "settings": {
+              }
+            },
+            "text": {
+              "type": "text",
+              "settings": {
+              }
+            },
+            "newsletter": {
+              "type": "newsletter",
+              "settings": {
+              }
+            }
+          },
+          "block_order": [
+            "link_list",
+            "text",
+            "newsletter"
+          ],
+          "settings": {
+          }
+        }
+      },
+      "content_for_index": [
+        "hero",
+        "featured-collections",
+        "feature-row",
+        "slideshow"
+      ]
+    },
+    "Light": {
+      "color_text": "#162950",
+      "color_body_text": "#6d6d6d",
+      "color_sale_text": "#DA2F0C",
+      "color_borders": "#e4e4e4",
+      "color_button": "#DA2F0C",
+      "color_button_text": "#ffffff",
+      "color_small_button_text_border": "#162950",
+      "color_text_field": "#ffffff",
+      "color_text_field_text": "#162950",
+      "color_text_field_border": "#909090",
+      "color_image_overlay_text": "#ffffff",
+      "color_image_overlay": "#3d3d3d",
+      "image_overlay_opacity": 40,
+      "color_body_bg": "#f8f8f8",
+      "type_header_font": "muli_n6",
+      "type_header_base_size": 26,
+      "type_base_font": "muli_n4",
+      "type_base_size": 18,
+      "type_bold_product_titles": true,
+      "share_facebook": true,
+      "share_twitter": true,
+      "share_pinterest": true,
+      "social_twitter_link": "",
+      "social_facebook_link": "",
+      "social_pinterest_link": "",
+      "social_instagram_link": "",
+      "social_tumblr_link": "",
+      "social_snapchat_link": "",
+      "social_youtube_link": "",
+      "social_vimeo_link": "",
+      "favicon": "",
+      "checkout_header_image": "",
+      "checkout_logo_image": "",
+      "checkout_logo_position": "left",
+      "checkout_logo_size": "small",
+      "checkout_body_background_image": "",
+      "checkout_body_background_color": "#ffffff",
+      "checkout_input_background_color_mode": "white",
+      "checkout_sidebar_background_image": "",
+      "checkout_sidebar_background_color": "#e8f3f6",
+      "checkout_heading_font": "Roboto",
+      "checkout_body_font": "Source Sans Pro",
+      "checkout_accent_color": "#1990c6",
+      "checkout_button_color": "#23314e",
+      "checkout_error_color": "#ff6d6d",
+      "sections": {
+        "header": {
+          "type": "header",
+          "settings": {
+            "logo": "",
+            "logo_max_width": 135,
+            "main_linklist": "main-menu",
+            "message": true,
+            "color_bg": "#162950",
+            "color_text": "#ffffff"
+          }
+        },
+        "hero": {
+          "type": "hero",
+          "settings": {
+            "alignment": "center",
+            "hero_size": "x-large",
+            "text_size": "large"
+          }
+        },
+        "slideshow": {
+          "type": "slideshow",
+          "blocks": {
+            "slideshow-0": {
+              "type": "image",
+              "settings": {
+                "image": "",
+                "alignment": "center center"
+              }
+            },
+            "1492095993817": {
+              "type": "image",
+              "settings": {
+                "image": "",
+                "alignment": "center"
+              }
+            }
+          },
+          "block_order": [
+            "slideshow-0",
+            "1492095993817"
+          ],
+          "settings": {
+            "slideshow_height": "medium",
+            "text_size": "medium",
+            "autorotate": false,
+            "autorotate_speed": 5
+          }
+        },
+        "featured-collections": {
+          "type": "collection",
+          "settings": {
+            "grid": 3,
+            "rows": 1,
+            "show_vendor": true,
+            "show_view_all": true
+          }
+        },
+        "product-template": {
+          "type": "product-template",
+          "settings": {
+            "image_size": "medium",
+            "show_quantity_selector": false,
+            "show_variant_labels": true,
+            "show_vendor": false,
+            "enable_zoom": true,
+            "show_share_buttons": true
+          }
+        },
+        "collection-template": {
+          "type": "collection-template",
+          "settings": {
+            "layout": "grid",
+            "grid": 2,
+            "rows": 2,
+            "show_collection_image": true,
+            "show_vendor": false,
+            "sort_enable": true,
+            "tags_enable": true
+          }
+        },
+        "1492033877875": {
+          "type": "quotes",
+          "blocks": {
+            "1492033877875-0": {
+              "type": "quote",
+              "settings": {
+              }
+            }
+          },
+          "block_order": [
+            "1492033877875-0"
+          ],
+          "settings": {
+          }
+        },
+        "1492033924902": {
+          "type": "custom-content",
+          "blocks": {
+            "1492033924902-0": {
+              "type": "text",
+              "settings": {
+                "width": "100%",
+                "alignment": "center",
+                "align_text": "center"
+              }
+            }
+          },
+          "block_order": [
+            "1492033924902-0"
+          ],
+          "settings": {
+            "title": ""
+          }
+        },
+        "1492096252560": {
+          "type": "collection-list",
+          "blocks": {
+            "1492096252560-0": {
+              "type": "featured_collection",
+              "settings": {
+              }
+            },
+            "1492096252560-1": {
+              "type": "featured_collection",
+              "settings": {
+              }
+            },
+            "1492096252560-2": {
+              "type": "featured_collection",
+              "settings": {
+              }
+            }
+          },
+          "block_order": [
+            "1492096252560-0",
+            "1492096252560-1",
+            "1492096252560-2"
+          ],
+          "settings": {
+            "grid": 3
+          }
+        },
+        "blog-template": {
+          "type": "blog-template",
+          "settings": {
+            "layout": "grid",
+            "blog_show_author": true,
+            "blog_show_date": false
+          }
+        },
+        "article-template": {
+          "type": "article-template",
+          "settings": {
+            "blog_show_author": true,
+            "blog_show_date": true,
+            "show_share_buttons": true
+          }
+        },
+        "cart-template": {
+          "type": "cart-template",
+          "settings": {
+            "cart_notes_enable": false
+          }
+        },
+        "footer": {
+          "type": "footer",
+          "blocks": {
+            "link_list": {
+              "type": "link_list",
+              "settings": {
+              }
+            },
+            "text": {
+              "type": "text",
+              "settings": {
+              }
+            },
+            "newsletter": {
+              "type": "newsletter",
+              "settings": {
+              }
+            }
+          },
+          "block_order": [
+            "link_list",
+            "text",
+            "newsletter"
+          ],
+          "settings": {
+          }
+        }
+      },
+      "content_for_index": [
+        "hero",
+        "featured-collections",
+        "slideshow",
+        "1492033924902",
+        "1492096252560",
+        "1492033877875"
+      ]
+    }
+  }
+}

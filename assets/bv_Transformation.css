@@ -1,0 +1,23 @@
+.TransformationCardContainer {
+  display: grid;
+  grid-template-columns: auto;
+  column-gap: 50px;
+}
+.card {
+  max-width: 500px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+.card h1 {
+    margin: 30px auto;
+ 
+}
+
+@media (min-width: 750px) {
+  .TransformationCardContainer {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    column-gap: 50px;
+  }
+}

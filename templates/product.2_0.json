@@ -1,0 +1,46 @@
+{
+  "sections": {
+    "main": {
+      "type": "product-template",
+      "settings": {
+        "image_size": "medium",
+        "show_quantity_selector": false,
+        "show_variant_labels": true,
+        "show_vendor": false,
+        "enable_zoom": true,
+        "enable_payment_button": true,
+        "show_share_buttons": true,
+        "expiring_coupon_text": "",
+        "expiring_day": "",
+        "show_eta": false,
+        "early_delivery": "",
+        "late_delivery": "",
+        "country_eta": "",
+        "shipping_text": "",
+        "product_page_max_width": "100",
+        "product_reviews_enable": false
+      }
+    },
+    "recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+      }
+    },
+    "recently-viewed": {
+      "type": "recently-viewed-products",
+      "settings": {
+      }
+    },
+    "product-bottom": {
+      "type": "product-bottom",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "main",
+    "recommendations",
+    "recently-viewed",
+    "product-bottom"
+  ]
+}

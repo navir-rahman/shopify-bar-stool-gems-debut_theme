@@ -1,0 +1,2191 @@
+<script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/gsap/1.16.1/TweenMax.min.js'></script>
+<script type='text/javascript' src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/231648/Draggable.min.js'></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+ 
+<script>
+  if(typeof(SimplifyApps) === 'undefined'){
+    var SimplifyApps = {};
+  }
+  if(!SimplifyApps.SkipCart){
+    SimplifyApps.SkipCart = {};
+    SimplifyApps.SkipCart.version = 'v6';
+    SimplifyApps.SkipCart.url = 'https://skip-cart-v2.herokuapp.com';
+  }
+  SimplifyApps.SkipCart.token = 'c543efd0b368c1845d0098fc6af2f08e';
+  SimplifyApps.SkipCart.shop_currency = '{{ shop.currency }}';
+  SimplifyApps.SkipCart.money_format = '{{ shop.money_format }}';
+  SimplifyApps.SkipCart.formatMoney = Shopify.formatMoney;
+  SimplifyApps.SkipCart.cart = {{ cart | json }};
+  SimplifyApps.SkipCart.customer_id= '{{ customer.id }}';
+  SimplifyApps.SkipCart.product= {{ product | json }};
+  SimplifyApps.SkipCart.collections= {{ product.collections | json }};
+  SimplifyApps.SkipCart.inventory = {};
+  SimplifyApps.SkipCart.checkoutLoading = false;
+  SimplifyApps.SkipCart.productDataLoading = true;
+  SimplifyApps.SkipCart.isDataFromOffer = false;
+  SimplifyApps.SkipCart.popupLoading = false;
+  SimplifyApps.SkipCart.subtotalText = "{{ 'cart.general.subtotal' | t }}";
+  SimplifyApps.SkipCart.addtocartText ="{{ 'products.product.add_to_cart' | t}}";
+  
+  SimplifyApps.SkipCart.bestSellingProducts = {{collections['skipcart-best-selling-products'].products | json}}.slice(0,4);
+  
+  if (SimplifyApps.SkipCart.bestSellingProducts == ""){
+    SimplifyApps.SkipCart.bestSellingProducts = [];
+    //create skipcart-best-selling-products collection
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", SimplifyApps.SkipCart.url + '/api/'+ SimplifyApps.SkipCart.version + '/client/best_selling_product?shopify_domain='+ Shopify.shop, true); // false for synchronous request
+    xmlHttp.send( null );
+  }
+
+  SimplifyApps.SkipCart.bestSellingProducts.forEach(
+    function(product){
+      product.variants.forEach(
+        function(variant){
+          variant.price = variant.price / 100;
+        }
+      )
+    }
+  )
+
+  //prepare currency codes and formats
+  SimplifyApps.SkipCart.currencyFormats = CURRENCY_FORMATS =   {
+    USD: {
+        format_without_currency: "${=amount=}",
+        format_with_currency: "${=amount=} USD",
+    },
+    EUR: {
+        format_without_currency: "&euro;{=amount=}",
+        format_with_currency: "&euro;{=amount=} EUR"
+    },
+    GBP: {
+        format_without_currency: "&pound;{=amount=}",
+        format_with_currency: "&pound;{=amount=} GBP"
+    },
+    CAD: {
+        format_without_currency: "${=amount=}",
+        format_with_currency: "${=amount=} CAD"
+    },
+    ALL: {
+        format_without_currency: "Lek {=amount=}",
+        format_with_currency: "Lek {=amount=} ALL"
+    },
+    DZD: {
+        format_without_currency: "DA {=amount=}",
+        format_with_currency: "DA {=amount=} DZD"
+    },
+    AOA: {
+        format_without_currency: "Kz{=amount=}",
+        format_with_currency: "Kz{=amount=} AOA"
+    },
+    ARS: {
+        format_without_currency: "${=amount_with_comma_separator=}",
+        format_with_currency: "${=amount_with_comma_separator=} ARS"
+    },
+    AMD: {
+        format_without_currency: "{=amount=} AMD",
+        format_with_currency: "{=amount=} AMD"
+    },
+    AWG: {
+        format_without_currency: "Afl{=amount=}",
+        format_with_currency: "Afl{=amount=} AWG"
+    },
+    AUD: {
+        format_without_currency: "${=amount=}",
+        format_with_currency: "${=amount=} AUD"
+    },
+    BBD: {
+        format_without_currency: "${=amount=}",
+        format_with_currency: "${=amount=} Bds"
+    },
+    AZN: {
+        format_without_currency: "m.{=amount=}",
+        format_with_currency: "m.{=amount=} AZN"
+    },
+    BDT: {
+        format_without_currency: "Tk {=amount=}",
+        format_with_currency: "Tk {=amount=} BDT"
+    },
+    BSD: {
+        format_without_currency: "BS${=amount=}",
+        format_with_currency: "BS${=amount=} BSD"
+    },
+    BHD: {
+        format_without_currency: "{=amount=}0 BD",
+        format_with_currency: "{=amount=}0 BHD"
+    },
+    BYR: {
+        format_without_currency: "Br {=amount=}",
+        format_with_currency: "Br {=amount=} BYR"
+    },
+    BZD: {
+        format_without_currency: "BZ${=amount=}",
+        format_with_currency: "BZ${=amount=} BZD"
+    },
+    BTN: {
+        format_without_currency: "Nu {=amount=}",
+        format_with_currency: "Nu {=amount=} BTN"
+    },
+    BAM: {
+        format_without_currency: "KM {=amount_with_comma_separator=}",
+        format_with_currency: "KM {=amount_with_comma_separator=} BAM"
+    },
+    BRL: {
+        format_without_currency: "R$ {=amount_with_comma_separator=}",
+        format_with_currency: "R$ {=amount_with_comma_separator=} BRL"
+    },
+    BOB: {
+        format_without_currency: "Bs{=amount_with_comma_separator=}",
+        format_with_currency: "Bs{=amount_with_comma_separator=} BOB"
+    },
+    BWP: {
+        format_without_currency: "P{=amount=}",
+        format_with_currency: "P{=amount=} BWP"
+    },
+    BND: {
+        format_without_currency: "${=amount=}",
+        format_with_currency: "${=amount=} BND"
+    },
+    BGN: {
+        format_without_currency: "{=amount=} Ð»Ð²",
+        format_with_currency: "{=amount=} Ð»Ð² BGN"
+    },
+    MMK: {
+        format_without_currency: "K{=amount=}",
+        format_with_currency: "K{=amount=} MMK"
+    },
+    KHR: {
+        format_without_currency: "KHR{=amount=}",
+        format_with_currency: "KHR{=amount=}"
+    },
+    KYD: {
+        format_without_currency: "${=amount=}",
+        format_with_currency: "${=amount=} KYD"
+    },
+    XAF: {
+        format_without_currency: "FCFA{=amount=}",
+        format_with_currency: "FCFA{=amount=} XAF"
+    },
+    CLP: {
+        format_without_currency: "${=amount_no_decimals=}",
+        format_with_currency: "${=amount_no_decimals=} CLP"
+    },
+    CNY: {
+        format_without_currency: "&#165;{=amount=}",
+        format_with_currency: "&#165;{=amount=} CNY"
+    },
+    COP: {
+        format_without_currency: "${=amount_with_comma_separator=}",
+        format_with_currency: "${=amount_with_comma_separator=} COP"
+    },
+    CRC: {
+        format_without_currency: "&#8353; {=amount_with_comma_separator=}",
+        format_with_currency: "&#8353; {=amount_with_comma_separator=} CRC"
+    },
+    HRK: {
+        format_without_currency: "{=amount_with_comma_separator=} kn",
+        format_with_currency: "{=amount_with_comma_separator=} kn HRK"
+    },
+    CZK: {
+        format_without_currency: "{=amount_with_comma_separator=} K&#269;",
+        format_with_currency: "{=amount_with_comma_separator=} K&#269;"
+    },
+    DKK: {
+        format_without_currency: "{=amount_with_comma_separator=}",
+        format_with_currency: "kr.{=amount_with_comma_separator=}"
+    },
+    DOP: {
+        format_without_currency: "RD$ {=amount_with_comma_separator=}",
+        format_with_currency: "RD$ {=amount_with_comma_separator=}"
+    },
+    XCD: {
+        format_without_currency: "${=amount=}",
+        format_with_currency: "EC${=amount=}"
+    },
+    EGP: {
+        format_without_currency: "LE {=amount=}",
+        format_with_currency: "LE {=amount=} EGP"
+    },
+    ETB: {
+        format_without_currency: "Br{=amount=}",
+        format_with_currency: "Br{=amount=} ETB"
+    },
+    XPF: {
+        format_without_currency: "{=amount_no_decimals_with_comma_separator=} XPF",
+        format_with_currency: "{=amount_no_decimals_with_comma_separator=} XPF"
+    },
+    FJD: {
+        format_without_currency: "${=amount=}",
+        format_with_currency: "FJ${=amount=}"
+    },
+    GMD: {
+        format_without_currency: "D {=amount=}",
+        format_with_currency: "D {=amount=} GMD"
+    },
+    GHS: {
+        format_without_currency: "GH&#8373;{=amount=}",
+        format_with_currency: "GH&#8373;{=amount=}"
+    },
+    GTQ: {
+        format_without_currency: "Q{=amount=}",
+        format_with_currency: "{=amount=} GTQ"
+    },
+    GYD: {
+        format_without_currency: "G${=amount=}",
+        format_with_currency: "${=amount=} GYD"
+    },
+    GEL: {
+        format_without_currency: "{=amount=} GEL",
+        format_with_currency: "{=amount=} GEL"
+    },
+    HNL: {
+        format_without_currency: "L {=amount=}",
+        format_with_currency: "L {=amount=} HNL"
+    },
+    HKD: {
+        format_without_currency: "${=amount=}",
+        format_with_currency: "HK${=amount=}"
+    },
+    HUF: {
+        format_without_currency: "{=amount_no_decimals_with_comma_separator=}",
+        format_with_currency: "{=amount_no_decimals_with_comma_separator=} Ft"
+    },
+    ISK: {
+        format_without_currency: "{=amount_no_decimals=} kr",
+        format_with_currency: "{=amount_no_decimals=} kr ISK"
+    },
+    INR: {
+        format_without_currency: "â‚¹ {=amount=}",
+        format_with_currency: "â‚¹ {=amount=}"
+    },
+    IDR: {
+        format_without_currency: "{=amount_no_decimals_with_comma_separator=}",
+        format_with_currency: "Rp {=amount_no_decimals_with_comma_separator=}"
+    },
+    ILS: {
+        format_without_currency: "{=amount=} NIS",
+        format_with_currency: "{=amount=} NIS"
+    },
+    JMD: {
+        format_without_currency: "${=amount=}",
+        format_with_currency: "${=amount=} JMD"
+    },
+    JPY: {
+        format_without_currency: "&#165;{=amount_no_decimals=}",
+        format_with_currency: "&#165;{=amount_no_decimals=} JPY"
+    },
+    JEP: {
+        format_without_currency: "&pound;{=amount=}",
+        format_with_currency: "&pound;{=amount=} JEP"
+    },
+    JOD: {
+        format_without_currency: "{=amount=}0 JD",
+        format_with_currency: "{=amount=}0 JOD"
+    },
+    KZT: {
+        format_without_currency: "{=amount=} KZT",
+        format_with_currency: "{=amount=} KZT"
+    },
+    KES: {
+        format_without_currency: "KSh{=amount=}",
+        format_with_currency: "KSh{=amount=}"
+    },
+    KWD: {
+        format_without_currency: "{=amount=}0 KD",
+        format_with_currency: "{=amount=}0 KWD"
+    },
+    KGS: {
+        format_without_currency: "Ð»Ð²{=amount=}",
+        format_with_currency: "Ð»Ð²{=amount=}"
+    },
+    LVL: {
+        format_without_currency: "Ls {=amount=}",
+        format_with_currency: "Ls {=amount=} LVL"
+    },
+    LBP: {
+        format_without_currency: "L&pound;{=amount=}",
+        format_with_currency: "L&pound;{=amount=} LBP"
+    },
+    LTL: {
+        format_without_currency: "{=amount=} Lt",
+        format_with_currency: "{=amount=} Lt"
+    },
+    MGA: {
+        format_without_currency: "Ar {=amount=}",
+        format_with_currency: "Ar {=amount=} MGA"
+    },
+    MKD: {
+        format_without_currency: "Ð´ÐµÐ½ {=amount=}",
+        format_with_currency: "Ð´ÐµÐ½ {=amount=} MKD"
+    },
+    MOP: {
+        format_without_currency: "MOP${=amount=}",
+        format_with_currency: "MOP${=amount=}"
+    },
+    MVR: {
+        format_without_currency: "Rf{=amount=}",
+        format_with_currency: "Rf{=amount=} MRf"
+    },
+    MXN: {
+        format_without_currency: "$ {=amount=}",
+        format_with_currency: "$ {=amount=} MXN"
+    },
+    MYR: {
+        format_without_currency: "RM{=amount=} MYR",
+        format_with_currency: "RM{=amount=} MYR"
+    },
+    MUR: {
+        format_without_currency: "Rs {=amount=}",
+        format_with_currency: "Rs {=amount=} MUR"
+    },
+    MDL: {
+        format_without_currency: "{=amount=} MDL",
+        format_with_currency: "{=amount=} MDL"
+    },
+    MAD: {
+        format_without_currency: "{=amount=} dh",
+        format_with_currency: "Dh {=amount=} MAD"
+    },
+    MNT: {
+        format_without_currency: "{=amount_no_decimals=} &#8366",
+        format_with_currency: "{=amount_no_decimals=} MNT"
+    },
+    MZN: {
+        format_without_currency: "{=amount=} Mt",
+        format_with_currency: "Mt {=amount=} MZN"
+    },
+    NAD: {
+        format_without_currency: "N${=amount=}",
+        format_with_currency: "N${=amount=} NAD"
+    },
+    NPR: {
+        format_without_currency: "Rs{=amount=}",
+        format_with_currency: "Rs{=amount=} NPR"
+    },
+    ANG: {
+        format_without_currency: "&fnof;{=amount=}",
+        format_with_currency: "{=amount=} NA&fnof;"
+    },
+    NZD: {
+        format_without_currency: "${=amount=}",
+        format_with_currency: "${=amount=} NZD"
+    },
+    NIO: {
+        format_without_currency: "C${=amount=}",
+        format_with_currency: "C${=amount=} NIO"
+    },
+    NGN: {
+        format_without_currency: "&#8358;{=amount=}",
+        format_with_currency: "&#8358;{=amount=} NGN"
+    },
+    NOK: {
+        format_without_currency: "kr {=amount_with_comma_separator=}",
+        format_with_currency: "kr {=amount_with_comma_separator=} NOK"
+    },
+    OMR: {
+        format_without_currency: "{=amount_with_comma_separator=} OMR",
+        format_with_currency: "{=amount_with_comma_separator=} OMR"
+    },
+    PKR: {
+        format_without_currency: "Rs.{=amount=}",
+        format_with_currency: "Rs.{=amount=} PKR"
+    },
+    PGK: {
+        format_without_currency: "K {=amount=}",
+        format_with_currency: "K {=amount=} PGK"
+    },
+    PYG: {
+        format_without_currency: "Gs. {=amount_no_decimals_with_comma_separator=}",
+        format_with_currency: "Gs. {=amount_no_decimals_with_comma_separator=} PYG"
+    },
+    PEN: {
+        format_without_currency: "S/. {=amount=}",
+        format_with_currency: "S/. {=amount=} PEN"
+    },
+    PHP: {
+        format_without_currency: "&#8369;{=amount=}",
+        format_with_currency: "&#8369;{=amount=} PHP"
+    },
+    PLN: {
+        format_without_currency: "{=amount_with_comma_separator=} zl",
+        format_with_currency: "{=amount_with_comma_separator=} zl PLN"
+    },
+    QAR: {
+        format_without_currency: "QAR {=amount_with_comma_separator=}",
+        format_with_currency: "QAR {=amount_with_comma_separator=}"
+    },
+    RON: {
+        format_without_currency: "{=amount_with_comma_separator=} lei",
+        format_with_currency: "{=amount_with_comma_separator=} lei RON"
+    },
+    RUB: {
+        format_without_currency: "&#1088;&#1091;&#1073;{=amount_with_comma_separator=}",
+        format_with_currency: "&#1088;&#1091;&#1073;{=amount_with_comma_separator=} RUB"
+    },
+    RWF: {
+        format_without_currency: "{=amount_no_decimals=} RF",
+        format_with_currency: "{=amount_no_decimals=} RWF"
+    },
+    WST: {
+        format_without_currency: "WS$ {=amount=}",
+        format_with_currency: "WS$ {=amount=} WST"
+    },
+    SAR: {
+        format_without_currency: "{=amount=} SR",
+        format_with_currency: "{=amount=} SAR"
+    },
+    SRD: {
+        format_without_currency: "${=amount=} SRD",
+        format_with_currency: "${=amount=}"
+    },
+    STD: {
+        format_without_currency: "Db {=amount=}",
+        format_with_currency: "Db {=amount=} STD"
+    },
+    RSD: {
+        format_without_currency: "{=amount=} RSD",
+        format_with_currency: "{=amount=} RSD"
+    },
+    SCR: {
+        format_without_currency: "Rs {=amount=}",
+        format_with_currency: "Rs {=amount=} SCR"
+    },
+    SGD: {
+        format_without_currency: "${=amount=}",
+        format_with_currency: "${=amount=} SGD"
+    },
+    SYP: {
+        format_without_currency: "S&pound;{=amount=}",
+        format_with_currency: "S&pound;{=amount=} SYP"
+    },
+    ZAR: {
+        format_without_currency: "R {=amount=}",
+        format_with_currency: "R {=amount=} ZAR"
+    },
+    KRW: {
+        format_without_currency: "&#8361;{=amount_no_decimals=}",
+        format_with_currency: "&#8361;{=amount_no_decimals=} KRW"
+    },
+    LKR: {
+        format_without_currency: "Rs {=amount=}",
+        format_with_currency: "Rs {=amount=} LKR"
+    },
+    SEK: {
+        format_without_currency: "{=amount_no_decimals=} kr",
+        format_with_currency: "{=amount_no_decimals=} kr SEK"
+    },
+    CHF: {
+        format_without_currency: "SFr. {=amount=}",
+        format_with_currency: "SFr. {=amount=} CHF"
+    },
+    TWD: {
+        format_without_currency: "${=amount=}",
+        format_with_currency: "${=amount=} TWD"
+    },
+    THB: {
+        format_without_currency: "{=amount=} &#xe3f;",
+        format_with_currency: "{=amount=} &#xe3f; THB"
+    },
+    TZS: {
+        format_without_currency: "{=amount=} TZS",
+        format_with_currency: "{=amount=} TZS"
+    },
+    TTD: {
+        format_without_currency: "${=amount=}",
+        format_with_currency: "${=amount=} TTD"
+    },
+    TND: {
+        format_without_currency: "{=amount=}",
+        format_with_currency: "{=amount=} DT"
+    },
+    TRY: {
+        format_without_currency: "{=amount=}TL",
+        format_with_currency: "{=amount=}TL"
+    },
+    UGX: {
+        format_without_currency: "Ush {=amount_no_decimals=}",
+        format_with_currency: "Ush {=amount_no_decimals=} UGX"
+    },
+    UAH: {
+        format_without_currency: "â‚´{=amount=}",
+        format_with_currency: "â‚´{=amount=} UAH"
+    },
+    AED: {
+        format_without_currency: "Dhs. {=amount=}",
+        format_with_currency: "Dhs. {=amount=} AED"
+    },
+    UYU: {
+        format_without_currency: "${=amount_with_comma_separator=}",
+        format_with_currency: "${=amount_with_comma_separator=} UYU"
+    },
+    VUV: {
+        format_without_currency: "${=amount=}",
+        format_with_currency: "${=amount=}VT"
+    },
+    VEF: {
+        format_without_currency: "Bs. {=amount_with_comma_separator=}",
+        format_with_currency: "Bs. {=amount_with_comma_separator=} VEF"
+    },
+    VND: {
+        format_without_currency: "{=amount_no_decimals_with_comma_separator=}&#8363;",
+        format_with_currency: "{=amount_no_decimals_with_comma_separator=} VND"
+    },
+    XAG: {
+        format_without_currency: "{=amount=} XAG",
+        format_with_currency: "{=amount=} XAG"
+    },
+    XAU: {
+        format_without_currency: "{=amount=} XAU",
+        format_with_currency: "{=amount=} XAU"
+    },
+    XBT: {
+        format_without_currency: "{=amount_no_decimals=} BTC",
+        format_with_currency: "{=amount_no_decimals=} BTC"
+    },
+    XDR: {
+        format_without_currency: "{=amount=} SDR",
+        format_with_currency: "{=amount=} SDR"
+    },
+    XOF: {
+        format_without_currency: "CFA{=amount=}",
+        format_with_currency: "CFA{=amount=} XOF"
+    },
+    YER: {
+        format_without_currency: "{=amount=} ï·¼",
+        format_with_currency: "{=amount=} ï·¼"
+    },
+    ZMK: {
+        format_without_currency: "K{=amount_no_decimals_with_comma_separator=}",
+        format_with_currency: "ZMK{=amount_no_decimals_with_comma_separator=}"
+    },
+    AFN: {
+        format_without_currency: "{=amount=} Ø‹",
+        format_with_currency: "{=amount=} AFN"
+    },
+    BIF: {
+        format_without_currency: "FBu {=amount=}",
+        format_with_currency: "{=amount=} BIF"
+    },
+    BMD: {
+        format_without_currency: "${=amount=}",
+        format_with_currency: "${=amount=} BMD"
+    },
+    CDF: {
+        format_without_currency: "FC {=amount=}",
+        format_with_currency: "{=amount=} CDF"
+    },
+    CVE: {
+        format_without_currency: "${=amount=}",
+        format_with_currency: "${=amount=} CVE"
+    },
+    DJF: {
+        format_without_currency: "{=amount=} ÙØ±Ù†Ùƒâ€Žâ€Ž",
+        format_with_currency: "{=amount=} DJF"
+    },
+    ERN: {
+        format_without_currency: "Nfk {=amount=}",
+        format_with_currency: "{=amount=} ERN"
+    },
+    GNF: {
+        format_without_currency: "FG {=amount=}",
+        format_with_currency: "{=amount=} GNF"
+    },
+    IQD: {
+        format_without_currency: "{=amount=} Ø¯.Ø¹",
+        format_with_currency: "{=amount=} IQD"
+    },
+    IRR: {
+        format_without_currency: "{=amount=} ï·¼",
+        format_with_currency: "{=amount=} IRR"
+    },
+    KMF: {
+        format_without_currency: "CF {=amount=}",
+        format_with_currency: "{=amount=} KMF"
+    },
+    LRD: {
+        format_without_currency: "${=amount=}",
+        format_with_currency: "${=amount=} LRD"
+    },
+    LYD: {
+        format_without_currency: "{=amount=} Ù„.Ø¯",
+        format_with_currency: "{=amount=} LYD"
+    },
+    PAB: {
+        format_without_currency: "B/. {=amount=}",
+        format_with_currency: "{=amount=} PAB"
+    },
+    SDG: {
+        format_without_currency: "{=amount=} Ø¬.Ø³",
+        format_with_currency: "{=amount=} SDG"
+    },
+    SOS: {
+        format_without_currency: "Sh.So. {=amount=}",
+        format_with_currency: "Sh.So. {=amount=}"
+    },
+    TOP: {
+        format_without_currency: "T${=amount=}",
+        format_with_currency: "T${=amount=}"
+    },
+    UZS: {
+        format_without_currency: "{=amount=} UZS",
+        format_with_currency: "{=amount=} UZS"
+    }
+  };
+
+  SimplifyApps.SkipCart.currencyCodes = 
+  {
+      "USD": {
+          symbol: "$",
+          name: "US Dollar",
+          symbol_native: "$",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "USD",
+          name_plural: "US dollars"
+      },
+      "CAD": {
+          symbol: "CA$",
+          name: "Canadian Dollar",
+          symbol_native: "$",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "CAD",
+          name_plural: "Canadian dollars"
+      },
+      "EUR": {
+          symbol: "â‚¬",
+          name: "Euro",
+          symbol_native: "â‚¬",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "EUR",
+          name_plural: "Euros"
+      },
+      "AED": {
+          symbol: "AED",
+          name: "United Arab Emirates Dirham",
+          symbol_native: "Ø¯.Ø¥.â€",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "AED",
+          name_plural: "UAE dirhams"
+      },
+      "AFN": {
+          symbol: "Af",
+          name: "Afghan Afghani",
+          symbol_native: "Ø‹",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "AFN",
+          name_plural: "Afghan Afghanis"
+      },
+      "ALL": {
+          symbol: "ALL",
+          name: "Albanian Lek",
+          symbol_native: "Lek",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "ALL",
+          name_plural: "Albanian lekÃ«"
+      },
+      "AMD": {
+          symbol: "AMD",
+          name: "Armenian Dram",
+          symbol_native: "Õ¤Ö€.",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "AMD",
+          name_plural: "Armenian drams"
+      },
+      "ARS": {
+          symbol: "AR$",
+          name: "Argentine Peso",
+          symbol_native: "$",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "ARS",
+          name_plural: "Argentine pesos"
+      },
+      "AUD": {
+          symbol: "AU$",
+          name: "Australian Dollar",
+          symbol_native: "$",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "AUD",
+          name_plural: "Australian dollars"
+      },
+      "AZN": {
+          symbol: "man.",
+          name: "Azerbaijani Manat",
+          symbol_native: "Ð¼Ð°Ð½.",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "AZN",
+          name_plural: "Azerbaijani manats"
+      },
+      "BAM": {
+          symbol: "KM",
+          name: "Bosnia-Herzegovina Convertible Mark",
+          symbol_native: "KM",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "BAM",
+          name_plural: "Bosnia-Herzegovina convertible marks"
+      },
+      "BDT": {
+          symbol: "Tk",
+          name: "Bangladeshi Taka",
+          symbol_native: "à§³",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "BDT",
+          name_plural: "Bangladeshi takas"
+      },
+      "BGN": {
+          symbol: "BGN",
+          name: "Bulgarian Lev",
+          symbol_native: "Ð»Ð².",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "BGN",
+          name_plural: "Bulgarian leva"
+      },
+      "BHD": {
+          symbol: "BD",
+          name: "Bahraini Dinar",
+          symbol_native: "Ø¯.Ø¨.â€",
+          decimal_digits: 3,
+          rounding: 0,
+          code: "BHD",
+          name_plural: "Bahraini dinars"
+      },
+      "BIF": {
+          symbol: "FBu",
+          name: "Burundian Franc",
+          symbol_native: "FBu",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "BIF",
+          name_plural: "Burundian francs"
+      },
+      "BND": {
+          symbol: "BN$",
+          name: "Brunei Dollar",
+          symbol_native: "$",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "BND",
+          name_plural: "Brunei dollars"
+      },
+      "BOB": {
+          symbol: "Bs",
+          name: "Bolivian Boliviano",
+          symbol_native: "Bs",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "BOB",
+          name_plural: "Bolivian bolivianos"
+      },
+      "BRL": {
+          symbol: "R$",
+          name: "Brazilian Real",
+          symbol_native: "R$",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "BRL",
+          name_plural: "Brazilian reals"
+      },
+      "BWP": {
+          symbol: "BWP",
+          name: "Botswanan Pula",
+          symbol_native: "P",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "BWP",
+          name_plural: "Botswanan pulas"
+      },
+      "BYR": {
+          symbol: "BYR",
+          name: "Belarusian Ruble",
+          symbol_native: "BYR",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "BYR",
+          name_plural: "Belarusian rubles"
+      },
+      "BZD": {
+          symbol: "BZ$",
+          name: "Belize Dollar",
+          symbol_native: "$",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "BZD",
+          name_plural: "Belize dollars"
+      },
+      "CDF": {
+          symbol: "CDF",
+          name: "Congolese Franc",
+          symbol_native: "FrCD",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "CDF",
+          name_plural: "Congolese francs"
+      },
+      "CHF": {
+          symbol: "CHF",
+          name: "Swiss Franc",
+          symbol_native: "CHF",
+          decimal_digits: 2,
+          rounding: 0.05,
+          code: "CHF",
+          name_plural: "Swiss francs"
+      },
+      "CLP": {
+          symbol: "CL$",
+          name: "Chilean Peso",
+          symbol_native: "$",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "CLP",
+          name_plural: "Chilean pesos"
+      },
+      "CNY": {
+          symbol: "CNÂ¥",
+          name: "Chinese Yuan",
+          symbol_native: "CNÂ¥",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "CNY",
+          name_plural: "Chinese yuan"
+      },
+      "COP": {
+          symbol: "CO$",
+          name: "Colombian Peso",
+          symbol_native: "$",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "COP",
+          name_plural: "Colombian pesos"
+      },
+      "CRC": {
+          symbol: "â‚¡",
+          name: "Costa Rican ColÃ³n",
+          symbol_native: "â‚¡",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "CRC",
+          name_plural: "Costa Rican colÃ³ns"
+      },
+      "CVE": {
+          symbol: "CV$",
+          name: "Cape Verdean Escudo",
+          symbol_native: "CV$",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "CVE",
+          name_plural: "Cape Verdean escudos"
+      },
+      "CZK": {
+          symbol: "KÄ",
+          name: "Czech Republic Koruna",
+          symbol_native: "KÄ",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "CZK",
+          name_plural: "Czech Republic korunas"
+      },
+      "DJF": {
+          symbol: "Fdj",
+          name: "Djiboutian Franc",
+          symbol_native: "Fdj",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "DJF",
+          name_plural: "Djiboutian francs"
+      },
+      "DKK": {
+          symbol: "Dkr",
+          name: "Danish Krone",
+          symbol_native: "kr",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "DKK",
+          name_plural: "Danish kroner"
+      },
+      "DOP": {
+          symbol: "RD$",
+          name: "Dominican Peso",
+          symbol_native: "RD$",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "DOP",
+          name_plural: "Dominican pesos"
+      },
+      "DZD": {
+          symbol: "DA",
+          name: "Algerian Dinar",
+          symbol_native: "Ø¯.Ø¬.â€",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "DZD",
+          name_plural: "Algerian dinars"
+      },
+      "EEK": {
+          symbol: "Ekr",
+          name: "Estonian Kroon",
+          symbol_native: "kr",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "EEK",
+          name_plural: "Estonian kroons"
+      },
+      "EGP": {
+          symbol: "EGP",
+          name: "Egyptian Pound",
+          symbol_native: "Ø¬.Ù….â€",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "EGP",
+          name_plural: "Egyptian pounds"
+      },
+      "ERN": {
+          symbol: "Nfk",
+          name: "Eritrean Nakfa",
+          symbol_native: "Nfk",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "ERN",
+          name_plural: "Eritrean nakfas"
+      },
+      "ETB": {
+          symbol: "Br",
+          name: "Ethiopian Birr",
+          symbol_native: "Br",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "ETB",
+          name_plural: "Ethiopian birrs"
+      },
+      "FJD": {
+          symbol: "FJD",
+          name: "Fijian Dollar",
+          symbol_native: "FJD",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "FJD",
+          name_plural: "Fijian dollars"
+      },
+      "GBP": {
+          symbol: "Â£",
+          name: "British Pound Sterling",
+          symbol_native: "Â£",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "GBP",
+          name_plural: "British pounds sterling"
+      },
+      "GEL": {
+          symbol: "GEL",
+          name: "Georgian Lari",
+          symbol_native: "GEL",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "GEL",
+          name_plural: "Georgian laris"
+      },
+      "GHS": {
+          symbol: "GHâ‚µ",
+          name: "Ghanaian Cedi",
+          symbol_native: "GHâ‚µ",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "GHS",
+          name_plural: "Ghanaian cedis"
+      },
+      "GNF": {
+          symbol: "FG",
+          name: "Guinean Franc",
+          symbol_native: "FG",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "GNF",
+          name_plural: "Guinean francs"
+      },
+      "GTQ": {
+          symbol: "GTQ",
+          name: "Guatemalan Quetzal",
+          symbol_native: "Q",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "GTQ",
+          name_plural: "Guatemalan quetzals"
+      },
+      "HKD": {
+          symbol: "HK$",
+          name: "Hong Kong Dollar",
+          symbol_native: "$",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "HKD",
+          name_plural: "Hong Kong dollars"
+      },
+      "HNL": {
+          symbol: "HNL",
+          name: "Honduran Lempira",
+          symbol_native: "L",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "HNL",
+          name_plural: "Honduran lempiras"
+      },
+      "HRK": {
+          symbol: "kn",
+          name: "Croatian Kuna",
+          symbol_native: "kn",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "HRK",
+          name_plural: "Croatian kunas"
+      },
+      "HUF": {
+          symbol: "Ft",
+          name: "Hungarian Forint",
+          symbol_native: "Ft",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "HUF",
+          name_plural: "Hungarian forints"
+      },
+      "IDR": {
+          symbol: "Rp",
+          name: "Indonesian Rupiah",
+          symbol_native: "Rp",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "IDR",
+          name_plural: "Indonesian rupiahs"
+      },
+      "ILS": {
+          symbol: "â‚ª",
+          name: "Israeli New Sheqel",
+          symbol_native: "â‚ª",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "ILS",
+          name_plural: "Israeli new sheqels"
+      },
+      "INR": {
+          symbol: "Rs",
+          name: "Indian Rupee",
+          symbol_native: "à¦Ÿà¦•à¦¾",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "INR",
+          name_plural: "Indian rupees"
+      },
+      "IQD": {
+          symbol: "IQD",
+          name: "Iraqi Dinar",
+          symbol_native: "Ø¯.Ø¹.â€",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "IQD",
+          name_plural: "Iraqi dinars"
+      },
+      "IRR": {
+          symbol: "IRR",
+          name: "Iranian Rial",
+          symbol_native: "ï·¼",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "IRR",
+          name_plural: "Iranian rials"
+      },
+      "ISK": {
+          symbol: "Ikr",
+          name: "Icelandic KrÃ³na",
+          symbol_native: "kr",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "ISK",
+          name_plural: "Icelandic krÃ³nur"
+      },
+      "JMD": {
+          symbol: "J$",
+          name: "Jamaican Dollar",
+          symbol_native: "$",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "JMD",
+          name_plural: "Jamaican dollars"
+      },
+      "JOD": {
+          symbol: "JD",
+          name: "Jordanian Dinar",
+          symbol_native: "Ø¯.Ø£.â€",
+          decimal_digits: 3,
+          rounding: 0,
+          code: "JOD",
+          name_plural: "Jordanian dinars"
+      },
+      "JPY": {
+          symbol: "Â¥",
+          name: "Japanese Yen",
+          symbol_native: "ï¿¥",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "JPY",
+          name_plural: "Japanese yen"
+      },
+      "KES": {
+          symbol: "Ksh",
+          name: "Kenyan Shilling",
+          symbol_native: "Ksh",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "KES",
+          name_plural: "Kenyan shillings"
+      },
+      "KHR": {
+          symbol: "KHR",
+          name: "Cambodian Riel",
+          symbol_native: "áŸ›",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "KHR",
+          name_plural: "Cambodian riels"
+      },
+      "KMF": {
+          symbol: "CF",
+          name: "Comorian Franc",
+          symbol_native: "FC",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "KMF",
+          name_plural: "Comorian francs"
+      },
+      "KRW": {
+          symbol: "â‚©",
+          name: "South Korean Won",
+          symbol_native: "â‚©",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "KRW",
+          name_plural: "South Korean won"
+      },
+      "KWD": {
+          symbol: "KD",
+          name: "Kuwaiti Dinar",
+          symbol_native: "Ø¯.Ùƒ.â€",
+          decimal_digits: 3,
+          rounding: 0,
+          code: "KWD",
+          name_plural: "Kuwaiti dinars"
+      },
+      "KZT": {
+          symbol: "KZT",
+          name: "Kazakhstani Tenge",
+          symbol_native: "Ñ‚Ò£Ð³.",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "KZT",
+          name_plural: "Kazakhstani tenges"
+      },
+      "LBP": {
+          symbol: "LBÂ£",
+          name: "Lebanese Pound",
+          symbol_native: "Ù„.Ù„.â€",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "LBP",
+          name_plural: "Lebanese pounds"
+      },
+      "LKR": {
+          symbol: "SLRs",
+          name: "Sri Lankan Rupee",
+          symbol_native: "SL Re",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "LKR",
+          name_plural: "Sri Lankan rupees"
+      },
+      "LTL": {
+          symbol: "Lt",
+          name: "Lithuanian Litas",
+          symbol_native: "Lt",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "LTL",
+          name_plural: "Lithuanian litai"
+      },
+      "LVL": {
+          symbol: "Ls",
+          name: "Latvian Lats",
+          symbol_native: "Ls",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "LVL",
+          name_plural: "Latvian lati"
+      },
+      "LYD": {
+          symbol: "LD",
+          name: "Libyan Dinar",
+          symbol_native: "Ø¯.Ù„.â€",
+          decimal_digits: 3,
+          rounding: 0,
+          code: "LYD",
+          name_plural: "Libyan dinars"
+      },
+      "MAD": {
+          symbol: "MAD",
+          name: "Moroccan Dirham",
+          symbol_native: "Ø¯.Ù….â€",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "MAD",
+          name_plural: "Moroccan dirhams"
+      },
+      "MDL": {
+          symbol: "MDL",
+          name: "Moldovan Leu",
+          symbol_native: "MDL",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "MDL",
+          name_plural: "Moldovan lei"
+      },
+      "MGA": {
+          symbol: "MGA",
+          name: "Malagasy Ariary",
+          symbol_native: "MGA",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "MGA",
+          name_plural: "Malagasy Ariaries"
+      },
+      "MKD": {
+          symbol: "MKD",
+          name: "Macedonian Denar",
+          symbol_native: "MKD",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "MKD",
+          name_plural: "Macedonian denari"
+      },
+      "MMK": {
+          symbol: "MMK",
+          name: "Myanma Kyat",
+          symbol_native: "K",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "MMK",
+          name_plural: "Myanma kyats"
+      },
+      "MOP": {
+          symbol: "MOP$",
+          name: "Macanese Pataca",
+          symbol_native: "MOP$",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "MOP",
+          name_plural: "Macanese patacas"
+      },
+      "MUR": {
+          symbol: "MURs",
+          name: "Mauritian Rupee",
+          symbol_native: "MURs",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "MUR",
+          name_plural: "Mauritian rupees"
+      },
+      "MXN": {
+          symbol: "MX$",
+          name: "Mexican Peso",
+          symbol_native: "$",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "MXN",
+          name_plural: "Mexican pesos"
+      },
+      "MYR": {
+          symbol: "RM",
+          name: "Malaysian Ringgit",
+          symbol_native: "RM",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "MYR",
+          name_plural: "Malaysian ringgits"
+      },
+      "MZN": {
+          symbol: "MTn",
+          name: "Mozambican Metical",
+          symbol_native: "MTn",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "MZN",
+          name_plural: "Mozambican meticals"
+      },
+      "NAD": {
+          symbol: "N$",
+          name: "Namibian Dollar",
+          symbol_native: "N$",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "NAD",
+          name_plural: "Namibian dollars"
+      },
+      "NGN": {
+          symbol: "â‚¦",
+          name: "Nigerian Naira",
+          symbol_native: "â‚¦",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "NGN",
+          name_plural: "Nigerian nairas"
+      },
+      "NIO": {
+          symbol: "C$",
+          name: "Nicaraguan CÃ³rdoba",
+          symbol_native: "C$",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "NIO",
+          name_plural: "Nicaraguan cÃ³rdobas"
+      },
+      "NOK": {
+          symbol: "Nkr",
+          name: "Norwegian Krone",
+          symbol_native: "kr",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "NOK",
+          name_plural: "Norwegian kroner"
+      },
+      "NPR": {
+          symbol: "NPRs",
+          name: "Nepalese Rupee",
+          symbol_native: "à¤¨à¥‡à¤°à¥‚",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "NPR",
+          name_plural: "Nepalese rupees"
+      },
+      "NZD": {
+          symbol: "NZ$",
+          name: "New Zealand Dollar",
+          symbol_native: "$",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "NZD",
+          name_plural: "New Zealand dollars"
+      },
+      "OMR": {
+          symbol: "OMR",
+          name: "Omani Rial",
+          symbol_native: "Ø±.Ø¹.â€",
+          decimal_digits: 3,
+          rounding: 0,
+          code: "OMR",
+          name_plural: "Omani rials"
+      },
+      "PAB": {
+          symbol: "B/.",
+          name: "Panamanian Balboa",
+          symbol_native: "B/.",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "PAB",
+          name_plural: "Panamanian balboas"
+      },
+      "PEN": {
+          symbol: "S/.",
+          name: "Peruvian Nuevo Sol",
+          symbol_native: "S/.",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "PEN",
+          name_plural: "Peruvian nuevos soles"
+      },
+      "PHP": {
+          symbol: "â‚±",
+          name: "Philippine Peso",
+          symbol_native: "â‚±",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "PHP",
+          name_plural: "Philippine pesos"
+      },
+      "PKR": {
+          symbol: "PKRs",
+          name: "Pakistani Rupee",
+          symbol_native: "â‚¨",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "PKR",
+          name_plural: "Pakistani rupees"
+      },
+      "PLN": {
+          symbol: "zÅ‚",
+          name: "Polish Zloty",
+          symbol_native: "zÅ‚",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "PLN",
+          name_plural: "Polish zlotys"
+      },
+      "PYG": {
+          symbol: "â‚²",
+          name: "Paraguayan Guarani",
+          symbol_native: "â‚²",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "PYG",
+          name_plural: "Paraguayan guaranis"
+      },
+      "QAR": {
+          symbol: "QR",
+          name: "Qatari Rial",
+          symbol_native: "Ø±.Ù‚.â€",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "QAR",
+          name_plural: "Qatari rials"
+      },
+      "RON": {
+          symbol: "RON",
+          name: "Romanian Leu",
+          symbol_native: "RON",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "RON",
+          name_plural: "Romanian lei"
+      },
+      "RSD": {
+          symbol: "din.",
+          name: "Serbian Dinar",
+          symbol_native: "Ð´Ð¸Ð½.",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "RSD",
+          name_plural: "Serbian dinars"
+      },
+      "RUB": {
+          symbol: "RUB",
+          name: "Russian Ruble",
+          symbol_native: "Ñ€ÑƒÐ±.",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "RUB",
+          name_plural: "Russian rubles"
+      },
+      "RWF": {
+          symbol: "RWF",
+          name: "Rwandan Franc",
+          symbol_native: "FR",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "RWF",
+          name_plural: "Rwandan francs"
+      },
+      "SAR": {
+          symbol: "SR",
+          name: "Saudi Riyal",
+          symbol_native: "Ø±.Ø³.â€",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "SAR",
+          name_plural: "Saudi riyals"
+      },
+      "SDG": {
+          symbol: "SDG",
+          name: "Sudanese Pound",
+          symbol_native: "SDG",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "SDG",
+          name_plural: "Sudanese pounds"
+      },
+      "SEK": {
+          symbol: "Skr",
+          name: "Swedish Krona",
+          symbol_native: "kr",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "SEK",
+          name_plural: "Swedish kronor"
+      },
+      "SGD": {
+          symbol: "S$",
+          name: "Singapore Dollar",
+          symbol_native: "$",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "SGD",
+          name_plural: "Singapore dollars"
+      },
+      "SOS": {
+          symbol: "Ssh",
+          name: "Somali Shilling",
+          symbol_native: "Ssh",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "SOS",
+          name_plural: "Somali shillings"
+      },
+      "SYP": {
+          symbol: "SYÂ£",
+          name: "Syrian Pound",
+          symbol_native: "Ù„.Ø³.â€",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "SYP",
+          name_plural: "Syrian pounds"
+      },
+      "THB": {
+          symbol: "à¸¿",
+          name: "Thai Baht",
+          symbol_native: "à¸¿",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "THB",
+          name_plural: "Thai baht"
+      },
+      "TND": {
+          symbol: "DT",
+          name: "Tunisian Dinar",
+          symbol_native: "Ø¯.Øª.â€",
+          decimal_digits: 3,
+          rounding: 0,
+          code: "TND",
+          name_plural: "Tunisian dinars"
+      },
+      "TOP": {
+          symbol: "T$",
+          name: "Tongan PaÊ»anga",
+          symbol_native: "T$",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "TOP",
+          name_plural: "Tongan paÊ»anga"
+      },
+      "TRY": {
+          symbol: "TL",
+          name: "Turkish Lira",
+          symbol_native: "TL",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "TRY",
+          name_plural: "Turkish Lira"
+      },
+      "TTD": {
+          symbol: "TT$",
+          name: "Trinidad and Tobago Dollar",
+          symbol_native: "$",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "TTD",
+          name_plural: "Trinidad and Tobago dollars"
+      },
+      "TWD": {
+          symbol: "NT$",
+          name: "New Taiwan Dollar",
+          symbol_native: "NT$",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "TWD",
+          name_plural: "New Taiwan dollars"
+      },
+      "TZS": {
+          symbol: "TSh",
+          name: "Tanzanian Shilling",
+          symbol_native: "TSh",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "TZS",
+          name_plural: "Tanzanian shillings"
+      },
+      "UAH": {
+          symbol: "â‚´",
+          name: "Ukrainian Hryvnia",
+          symbol_native: "â‚´",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "UAH",
+          name_plural: "Ukrainian hryvnias"
+      },
+      "UGX": {
+          symbol: "USh",
+          name: "Ugandan Shilling",
+          symbol_native: "USh",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "UGX",
+          name_plural: "Ugandan shillings"
+      },
+      "UYU": {
+          symbol: "$U",
+          name: "Uruguayan Peso",
+          symbol_native: "$",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "UYU",
+          name_plural: "Uruguayan pesos"
+      },
+      "UZS": {
+          symbol: "UZS",
+          name: "Uzbekistan Som",
+          symbol_native: "UZS",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "UZS",
+          name_plural: "Uzbekistan som"
+      },
+      "VEF": {
+          symbol: "Bs.F.",
+          name: "Venezuelan BolÃ­var",
+          symbol_native: "Bs.F.",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "VEF",
+          name_plural: "Venezuelan bolÃ­vars"
+      },
+      "VND": {
+          symbol: "â‚«",
+          name: "Vietnamese Dong",
+          symbol_native: "â‚«",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "VND",
+          name_plural: "Vietnamese dong"
+      },
+      "XAF": {
+          symbol: "FCFA",
+          name: "CFA Franc BEAC",
+          symbol_native: "FCFA",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "XAF",
+          name_plural: "CFA francs BEAC"
+      },
+      "XOF": {
+          symbol: "CFA",
+          name: "CFA Franc BCEAO",
+          symbol_native: "CFA",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "XOF",
+          name_plural: "CFA francs BCEAO"
+      },
+      "YER": {
+          symbol: "YR",
+          name: "Yemeni Rial",
+          symbol_native: "Ø±.ÙŠ.â€",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "YER",
+          name_plural: "Yemeni rials"
+      },
+      "ZAR": {
+          symbol: "R",
+          name: "South African Rand",
+          symbol_native: "R",
+          decimal_digits: 2,
+          rounding: 0,
+          code: "ZAR",
+          name_plural: "South African rand"
+      },
+      "ZMK": {
+          symbol: "ZK",
+          name: "Zambian Kwacha",
+          symbol_native: "ZK",
+          decimal_digits: 0,
+          rounding: 0,
+          code: "ZMK",
+          name_plural: "Zambian kwachas"
+      }
+  }
+
+  document.addEventListener("DOMContentLoaded", function(event) { 
+    var product_url = 'https://skip-cart-v2.herokuapp.com';
+    var cdn_url = 'https://skip-cart-v2.herokuapp.com';
+
+    $.getScript("https://cdnjs.cloudflare.com/ajax/libs/jsrender/1.0.5/jsrender.min.js").done(function(script, textStatus) {
+      $.getScript("https://cdnjs.cloudflare.com/ajax/libs/jsviews/1.0.5/jsviews.min.js").done(function(script, textStatus) {
+        var setIntervalID = setInterval(function() {
+          if ($.views) {
+            clearInterval(setIntervalID);
+            $.getScript('{{ "simplifyapps-skipcart-common.js" | asset_url }}').done(function(script, textStatus) {
+            });
+          };
+        }, 100);
+      });
+    });
+
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href= '{{ "simplifyapps-skipcart-common.css" | asset_url }}';
+    document.getElementsByTagName('head')[0].appendChild(link);
+  });
+
+  
+  {% for variant in product.variants %}
+  {% if variant.inventory_management == "shopify" %}
+  {% if variant.inventory_policy == 'deny' %}
+  SimplifyApps.SkipCart.inventory[{{variant.id}}] = {{variant.inventory_quantity}};
+  {% endif%}
+  {% endif%}
+  {% endfor %}
+  
+  {% for product in collection.products %}
+    {% for variant in product.variants %}
+      {% if variant.inventory_management == "shopify" %}
+        {% if variant.inventory_policy == 'deny' %}
+          SimplifyApps.SkipCart.inventory[{{variant.id}}] = {{variant.inventory_quantity}};
+            {% endif%}
+        {% endif%}
+    {% endfor %}
+  {% endfor %}
+</script>
+
+
+<script id="simplifyapps-skipcart-popup--cart-item-tmpl" type="text/x-jsrender">
+  <tr class='Simplify-DataTable__TableRow'>
+    <td class='Simplify-DataTable__Cell'>
+      <a href='{=:url=}' data-link="variant_id{:variant_id}"  onClick="SimplifyApps.SkipCart.Functions.handleFlippingModal(event,'{=:handle=}')">
+        <span class="Simplify-Thumbnail Simplify-Thumbnail--sizeLarge">
+          <img src='{=:image=}' alt="{=:product_title=}" class="Simplify-Thumbnail__Image"/>
+        </span>
+      </a>
+    </td>
+    <td class='Simplify-DataTable__Cell' style='white-space:normal; vertical-align: middle;'>
+      <a class='Simplify-product-title' href='{=:url=}' data-link="variant_id{:variant_id}"  onClick="SimplifyApps.SkipCart.Functions.handleFlippingModal(event,'{=:handle=}')">
+        <span class='Simplify-TextStyle--variationStrong'>{->~correctTitle(product_title)=}</span>
+      </a>
+      <p class='Simplify-Caption skipcart-product-variant'>{->~correctVariantOnDesktop(variant_title)=}</p>
+    </td>
+    <td class='Simplify-DataTable__Cell Simplify-DataTable__Cell--vertical Simplify-DataTable__Cell--wrap'>
+      <div class='Simplify-TextField Simplify-TextField--disabled skipcart-product-quantity' style='width: 4.5rem;'>
+        <input disabled class='Simplify-TextField__Input' data-link='quantity' style='margin:0'/>
+        <div class='Simplify-TextField__Spinner'>
+          <div role='button' class='Simplify-TextField__Segment spinner-increase'>
+            <div class='Simplify-TextField__SpinnerIcon'>
+              <span class='Simplify-Icon'>
+                <svg viewBox="0 0 20 20" class="Simplify-Icon__Svg" focusable="false"><path d="M15 12l-5-5-5 5z"></path></svg>
+              </span>
+            </div>
+          </div>
+          <div role='button' class='Simplify-TextField__Segment spinner-decrease'>
+            <div class='Simplify-TextField__SpinnerIcon'>
+              <span class='Simplify-Icon'>
+                <svg viewBox="0 0 20 20" class="Simplify-Icon__Svg" focusable="false" ><path d="M5 8l5 5 5-5z" fill-rule="evenodd"></path></svg>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class='Simplify-TextField__Backdrop skipcart-product-quantity__backdrop'>
+        </div>
+      </div>
+    </td>
+    <td class='Simplify-DataTable__Cell Simplify-DataTable__Cell--vertical Simplify-DataTable__Cell--numeric Simplify-product-price'>
+      {-:~formatMoney(final_line_price)=}
+    </td>
+    <td class='Simplify-DataTable__Cell Simplify-DataTable__Cell--vertical'>
+      <button class='Simplify-Modal-CloseButton item-remove' style='margin: 0'>
+        <span class='Simplify-Icon Simplify-Icon--colorInkLighter Simplify-Icon--isColored'>
+          <svg viewBox="0 0 20 20" class="Simplify-Icon__Svg" focusable="false" aria-hidden="true"><path d="M11.414 10l6.293-6.293a.999.999 0 1 0-1.414-1.414L10 8.586 3.707 2.293a.999.999 0 1 0-1.414 1.414L8.586 10l-6.293 6.293a.999.999 0 1 0 1.414 1.414L10 11.414l6.293 6.293a.997.997 0 0 0 1.414 0 .999.999 0 0 0 0-1.414L11.414 10z" fill-rule="evenodd"></path></svg>
+        </span>
+      </button>
+    </td>
+  </tr>
+</script>
+
+<script id="simplifyapps-skipcart-popup--cart-item-tmpl-mobile" type="text/x-jsrender">
+  <tr class='Simplify-DataTable__TableRow'>
+    <td class='Simplify-DataTable__Cell' style='width:6rem;'>
+      <a href='{=:url=}' data-link="variant_id{:variant_id}">
+        <span class="Simplify-Thumbnail Simplify-Thumbnail--sizeLarge">
+          <img src='{=:image=}' alt="{=:product_title=}" class="Simplify-Thumbnail__Image"/>
+        </span>
+      </a>
+    </td>
+    <td class='Simplify-DataTable__Cell Simplify-DataTable__Cell--wrap'>
+      <div class='Simplify-Stack Simplify-Stack--vertical'>
+        <div class='Simplify-Stack__Item Simplify-Stack__Item'>
+          <div class='Simplify-Stack Simplify-Stack--noWrap'>
+            <div class='Simplify-Stack__Item Simplify-Stack__Item--fill'>
+              <a class='Simplify-product-title' href='{=:url=}' data-link="variant_id{:variant_id}">
+                <span class='Simplify-TextStyle--variationStrong'>{->~correctTitle(product_title)=}</span>
+              </a>
+            </div>
+            <div class='Simplify-Stack__Item'>
+              <button class='Simplify-Modal-CloseButton item-remove' style='margin: 0'>
+                <span class='Simplify-Icon Simplify-Icon--colorInkLighter Simplify-Icon--isColored'>
+                  <svg viewBox="0 0 20 20" class="Simplify-Icon__Svg" focusable="false" aria-hidden="true"><path d="M11.414 10l6.293-6.293a.999.999 0 1 0-1.414-1.414L10 8.586 3.707 2.293a.999.999 0 1 0-1.414 1.414L8.586 10l-6.293 6.293a.999.999 0 1 0 1.414 1.414L10 11.414l6.293 6.293a.997.997 0 0 0 1.414 0 .999.999 0 0 0 0-1.414L11.414 10z" fill-rule="evenodd"></path></svg>
+                </span>
+              </button>
+            </div>
+          </div>
+          <div class='Simplify-Stack Simplify-Stack--noWrap Simplify-Stack--alignmentCenter'>
+            <div class='Simplify-Stack__Item Simplify-Stack__Item--fill'>
+              <p class='Simplify-Caption skipcart-product-variant'>{->~correctVariant(variant_title)=}</p>
+            </div>
+            <div class='Simplify-Stack__Item'>
+              <div class='Simplify-TextField Simplify-TextField--disabled skipcart-product-quantity' style='width: 4.5rem;'>
+                <input disabled class='Simplify-TextField__Input' data-link='quantity' style='margin:0'/>
+                <div class='Simplify-TextField__Spinner'>
+                  <div role='button' class='Simplify-TextField__Segment spinner-increase'>
+                    <div class='Simplify-TextField__SpinnerIcon'>
+                      <span class='Simplify-Icon'>
+                        <svg viewBox="0 0 20 20" class="Simplify-Icon__Svg" focusable="false"><path d="M15 12l-5-5-5 5z"></path></svg>
+                      </span>
+                    </div>
+                  </div>
+                  <div role='button' class='Simplify-TextField__Segment spinner-decrease'>
+                    <div class='Simplify-TextField__SpinnerIcon'>
+                      <span class='Simplify-Icon'>
+                        <svg viewBox="0 0 20 20" class="Simplify-Icon__Svg" focusable="false" ><path d="M5 8l5 5 5-5z" fill-rule="evenodd"></path></svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class='Simplify-TextField__Backdrop skipcart-product-quantity__backdrop'>
+                </div>
+              </div>
+            </div>
+            <div class='Simplify-Stack__Item Simplify-product-price'>
+              {-:~formatMoney(final_line_price)=}
+            </div>
+          </div>
+        </div>
+      </div>
+    </td>
+  </tr>
+</script>
+
+<script id="simplifyapps-skipcart-popup--cart-tmpl" type="text/x-jsrender">
+  <div class='Simplify-DataTable'>
+    <table class='Simplify-DataTable__Table'>
+      <tbody class='Simplify-DataTable-Desktop'>
+        {-for cart.items tmpl="#simplifyapps-skipcart-popup--cart-item-tmpl"/=}
+      </tbody>
+      <tbody class='Simplify-DataTable-Mobile'>
+        {-for cart.items tmpl="#simplifyapps-skipcart-popup--cart-item-tmpl-mobile"/=}
+      </tbody>
+    </table>
+  </div>
+</script>
+
+<script id='simplifyapps-skipcart-popup--other-item-tmpl' type='text/x-jsrender'>
+  <div class='Simplify-Layout__Section Simplify-Layout__Section--oneThird' style='flex: 1 1 8.125rem; text-align: center; margin: 1rem; margin-top:1rem; max-width: 13rem;'>
+    <div style='margin-bottom:20px;' class='skip-cart-product-discount'>
+      <span class='Simplify-TextStyle--variationStrong'>{-:~translateDiscountText(quantity, discount_type, discount_value)=}</span>
+    </div>
+    <div style='width:10rem;margin-left:auto;margin-right:auto;'>
+      <a href='{=:url=}' data-link="variant_id{:variant_id}" onClick="SimplifyApps.SkipCart.Functions.handleFlippingModal(event,'{=:handle=}')">
+        <span class="Simplify-Thumbnail Simplify-Thumbnail--sizeLarge" style='width:10rem;height:10rem'>
+          <img data-link="src{:image}" alt="{=:product_title=}" class="Simplify-Thumbnail__Image"/>  
+        </span>
+      </a>
+    </div>
+    <div class='skipcart-product-title'>
+      <a class='Simplify-Link Simplify-product-title' href='{=:url=}' data-link="variant_id{:variant_id}"  onClick="SimplifyApps.SkipCart.Functions.handleFlippingModal(event,'{=:handle=}')">
+        <span class='Simplify-TextStyle--variationStrong'>{->~correctTitle(product_title)=}</span>
+      </a>
+      {-if variants.length == 1 =}
+        <p class="Simplify-Caption skipcart-product-variant">{=:variant_title=}</p>
+      {=else=}
+        <div class='Simplify-Select'>
+          <select class='Simplify-Select__Input variant-select'>
+            {-for variants=}
+              <option value='{=:id=}'>{=:variant_title=}</option>
+            {=/for=}
+          </select>
+          <div class='Simplify-Select__Content skipcart-product-variant'>
+            <span class='Simplify-Select__SelectedOption' data-link='variant_title'></span>
+            <span class='Simplify-Select__Icon'>
+              <span class='Simplify-Icon'>
+                <svg viewBox="0 0 20 20" class="Simplify-Icon__Svg skipcart-product-variant__svg" focusable="false" aria-hidden="true"><path d="M13 8l-3-3-3 3h6zm-.1 4L10 14.9 7.1 12h5.8z" fill-rule="evenodd"></path></svg>
+              </span>
+            </span>
+          </div>
+          <div class='Simplify-Select__Backdrop skipcart-product-variant__backdrop'></div>
+        </div>
+      {=/if=}
+    </div>
+    <div class='skipcart-product-price'>
+      <span class='Simplify-DisplayText Simplify-DisplayText--sizeLarge Simplify-product-price' style='font-size: 1.25rem; color: indianred;'>
+        {-:~formatMoney(discounted_price)=}
+      </span>
+      {-if discount_type != 'no_discount'=}
+        <span class='Simplify-TextStyle--variationSubdued skipcart-product-original-price' style='text-decoration: line-through;'>
+          {-:~formatMoney(price)=}
+        </span>
+      {=/if=}
+    </div>
+    {-if show_quantity_selector=}
+      <div class=''>
+        <div class='Simplify-TextField Simplify-TextField--disabled skipcart-product-quantity' style='width:5rem; margin-left: auto; margin-right: auto'>
+          <input disabled class='Simplify-TextField__Input' data-link='quantity'  style='margin:0'/>
+          <div class='Simplify-TextField__Spinner'>
+            <div role='button' class='Simplify-TextField__Segment spinner-increase'>
+              <div class='Simplify-TextField__SpinnerIcon'>
+                <span class='Simplify-Icon'>
+                  <svg viewBox="0 0 20 20" class="Simplify-Icon__Svg" focusable="false"><path d="M15 12l-5-5-5 5z"></path></svg>
+                </span>
+              </div>
+            </div>
+            <div role='button' class='Simplify-TextField__Segment spinner-decrease'>
+              <div class='Simplify-TextField__SpinnerIcon'>
+                <span class='Simplify-Icon'>
+                  <svg viewBox="0 0 20 20" class="Simplify-Icon__Svg" focusable="false" ><path d="M5 8l5 5 5-5z" fill-rule="evenodd"></path></svg>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class='Simplify-TextField__Backdrop skipcart-product-quantity__backdrop'>
+          </div>
+        </div>
+      </div>
+      {=if max_quantity > 0 =}
+        <div class='skipcart-product-max-quantity'>
+          <span class='Simplify-TextStyle--variationStrong'>{=:popup_max_quantity_language=} {=:max_quantity=}</span>
+        </div>
+      {=/if=}
+    {=/if=}
+    <div class='skipcart-add-to-cart-container' style='margin-top:1rem'>
+      {-if !available=}
+        <button class='Simplify-Button Simplify-Button--primary Simplify-Button--sizeSlim Simplify-Button--fullWidth Simplify-Button--disabled'>
+          <span class='Simplify-Button__Content'>
+            {=:popup_soldout_language=}
+          </span>
+        </button>
+      {=else loading=}
+        <button class='Simplify-Button Simplify-Button--primary Simplify-Button--sizeSlim Simplify-Button--fullWidth Simplify-Button--loading Simplify-Button--disabled'>
+          <span class='Simplify-Button__Content'>
+            <span class="Simplify-Button__Spinner"><img src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAgMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTcuMjI5IDEuMTczYTkuMjUgOS4yNSAwIDEgMCAxMS42NTUgMTEuNDEyIDEuMjUgMS4yNSAwIDEgMC0yLjQtLjY5OCA2Ljc1IDYuNzUgMCAxIDEtOC41MDYtOC4zMjkgMS4yNSAxLjI1IDAgMSAwLS43NS0yLjM4NXoiIGZpbGw9IiM5MTlFQUIiLz48L3N2Zz4K" alt="" class="Simplify-Spinner Simplify-Spinner--colorInkLightest Simplify-Spinner--sizeSmall"/></span>
+            <span class='Simplify-Button__Text'>{=:add_to_cart_button_title=}</span>
+          </span>
+        </button>
+      {=else added=}
+        <button class='Simplify-Button Simplify-Button--primary Simplify-Button--sizeSlim Simplify-Button--fullWidth Simplify-Button--disabled'>
+          <span class="Simplify-Button__Icon">
+            <span class="Simplify-Icon">
+              <svg viewBox="0 0 20 20" class="Simplify-Icon__Svg" focusable="false" aria-hidden="true"><path d="M8.315 13.859l-3.182-3.417a.506.506 0 0 1 0-.684l.643-.683a.437.437 0 0 1 .642 0l2.22 2.393 4.942-5.327a.437.437 0 0 1 .643 0l.643.684a.504.504 0 0 1 0 .683l-5.91 6.35a.437.437 0 0 1-.642 0"></path></svg>
+            </span>
+          </span>
+          <span class='Simplify-Button__Content'>
+            {=:add_to_cart_button_title=}
+          </span>
+        </button>
+      {=else disabled=}
+        <button class='Simplify-Button Simplify-Button--primary Simplify-Button--sizeSlim Simplify-Button--fullWidth Simplify-Button--disabled'>
+          <span class='Simplify-Button__Content'>
+            {=:add_to_cart_button_title=}
+          </span>
+        </button>
+      {=else=}
+        <button class='Simplify-Button Simplify-Button--primary Simplify-Button--sizeSlim Simplify-Button--fullWidth  skipcart-add-to-cart-button'>
+          <span class='Simplify-Button__Content'>
+            {=:add_to_cart_button_title=}
+          </span>
+        </button>
+      {=/if=}
+    </div>
+  </div>
+</script>
+
+<script id="simplifyapps-skipcart-popup--other-tmpl" type="text/x-jsrender">
+  <div class='class="Simplify-Layout"' style='display: flex; flex-wrap: wrap; justify-content: center; align-item: flex-start;'>
+    {-for productsData tmpl="#simplifyapps-skipcart-popup--other-item-tmpl"/=}
+  </div>
+</script>
+
+<script id="simplifyapps-skipcart-popup-tmpl" type="text/x-jsrender">
+  <div class="Simplify-Backdrop"></div>
+	<div id='simplifyapps-skipcart-popup' class = 'Simplify-Modal-Dialog__Container flip-box'>
+    <div class = 'Simplify-Modal-Dialog__Container flip-box-inner'>
+      <div class='Simplify-Modal-Dialog__Modal flip-box-back'>
+      </div>
+      <div class='Simplify-Modal-Dialog__Modal flip-box-front'>
+        <div class='Simplify-Modal-Header' style='background-color: rgb(237,241,253); text-align: center;'>
+          <div class='Simplify-Modal-Header__Title'>
+            <h2 class='Simplify-DisplayText Simplify-DisplayText--sizeMedium'>
+              {=if shop_config.cart_action == 'cart_item' && !isDataFromOffer =}
+                {=:shop_config.cart_popup_title=}
+              {=else=}
+                {=:shop_config.popup_title=}
+              {=/if=}
+            </h2>
+            <div>
+              {=if shop_config.cart_action == 'cart_item' && !isDataFromOffer =}
+                {=:shop_config.cart_popup_description=}
+              {=else=}
+                {=:shop_config.popup_description=}
+              {=/if=}
+            </div>
+          </div>
+        </div>
+        <div class='Simplify-Modal__BodyWrapper'>
+          <div class='Simplify-Modal__Body Simplify-Scrollable Simplify-Scrollable--vertical'>
+            {=if shop_config.cart_action=='cart_item' && !isDataFromOffer tmpl="cartMarkup"=}
+            {=else tmpl='otherMarkup'=}
+            {=/if=}
+          </div>
+        </div>
+        {=if shop_config.cart_action=='cart_item' && !isDataFromOffer =}
+          <div class='Simplify-Modal-Footer'>
+            <div class='Simplify-DataTable__Cell--total  Simplify-DataTable__Cell--numeric' style='width:100%'>
+              {=if !shop_config.premium=}
+                <p class="Simplify-Caption" style="font-style: italic; text-align: right;">Powered by <a href="https://apps.shopify.com/skip-cart-the-fast-way-to-checkout?cartpopup-brandmark">Skip Cart</a></p>
+              {=/if=}
+              <span class='Simplify-Total' style='padding-right: 1rem;'>{=:shop_config.cart_popup_total=}: </span>
+              <span class='Simplify-Total' style='display: inline-block;'>
+                {-if cart.total_discount > 0=}
+                  <span style="text-decoration: line-through;">{->~forfmatMoney(cart.total_price)=}</span><br/>
+                  <span>-{-:~formatMoney(cart.total_discount)=}</span><br/>
+                {=/if=}
+                <span>{-:~formatMoney(cart.total_price - cart.total_discount)=}</span>
+              </span>
+            </div>
+          </div>
+        {=/if=}
+        <div class='Simplify-Modal-Footer'>
+          <div class='Simplify-Modal-Footer__FooterContent'>
+            {=if !(shop_config.cart_action=='cart_item' && !isDataFromOffer) && !shop_config.premium=}
+              <p class="Simplify-Caption" style="font-style: italic;text-align: right;margin-bottom: 5px; margin-right: 1rem;">Powered by <a href="https://apps.shopify.com/skip-cart-the-fast-way-to-checkout?upsellpopup-brandmark">Skip Cart</a></p>
+            {=/if=}
+            <div class='Simplify-Stack Simplify-Stack--alignmentCenter Simplify-Stack--noWrap'>
+              <div class='Simplify-Stack__Item  Simplify-Stack__Item--fill'>
+                {=if shop_config.show_continue_button=}
+                  <a class='Simplify-Breadcrumbs__Breadcrumb skip-cart-popup-action' onClick='SimplifyApps.SkipCart.Functions.handleContinueButton()'>
+                    <span class='Simplify-Breadcrumbs__Icon'>
+                      <span class='Simplify-Icon'>
+                        <svg viewBox="0 0 20 20" class="Simplify-Icon__Svg" focusable="false" aria-hidden="true"><path d="M12 16a.997.997 0 0 1-.707-.293l-5-5a.999.999 0 0 1 0-1.414l5-5a.999.999 0 1 1 1.414 1.414L8.414 10l4.293 4.293A.999.999 0 0 1 12 16" fill-rule="evenodd"></path></svg>
+                      </span>
+                    </span>
+                    <span class='Simplify-Breadcrumbs__Content'>
+                      {=:shop_config.continue_button_title=}
+                    </span>
+                  </a>
+                {=/if=}
+              </div>
+              <div class='Simplify-Stack__Item'>
+                {=if shop_config.show_cart_button=}
+                  <a class='Simplify-Link Simplify-Link--monochrome skip-cart-popup-action' href='/cart'>
+                    {=:shop_config.cart_button_title=}
+                  </a>
+                {=/if=}
+              </div>
+              <div class='Simplify-Stack__Item'>
+                {-if checkoutLoading=}
+                  <button class='Simplify-Button Simplify-Button--primary Simplify-Button--loading Simplify-Button--disabled' href='/checkout'>
+                    <span class='Simplify-Button__Content'>
+                      <span class="Simplify-Button__Spinner"><img src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAgMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTcuMjI5IDEuMTczYTkuMjUgOS4yNSAwIDEgMCAxMS42NTUgMTEuNDEyIDEuMjUgMS4yNSAwIDEgMC0yLjQtLjY5OCA2Ljc1IDYuNzUgMCAxIDEtOC41MDYtOC4zMjkgMS4yNSAxLjI1IDAgMSAwLS43NS0yLjM4NXoiIGZpbGw9IiM5MTlFQUIiLz48L3N2Zz4K" alt="" class="Simplify-Spinner Simplify-Spinner--colorInkLightest Simplify-Spinner--sizeSmall"/></span>
+                      <span class='Simplify-Button__Text'>{=:shop_config.checkout_button_title=}</span>
+                    </span>
+                  </button>
+                {=else=}
+                  <button class='Simplify-Button Simplify-Button--primary skipcart-checkout-button'>
+                    <span class='Simplify-Button__Content'>
+                      <span class='Simplify-Button__Text'>{=:shop_config.checkout_button_title=}</span>
+                    </span>
+                  </button>
+                {=/if=}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</script>
+
+<script id='simplifyapps-skipcart-flipping-modal-tmpl' type="text/x-jsrender">
+  <div class='Simplify-Modal-Header' style='background-color: rgb(237,241,253); text-align: center;'>
+    <div class='Simplify-Modal-Header__Title'>
+      <h2 class='Simplify-DisplayText Simplify-DisplayText--sizeMedium'>
+        {=:title=}
+      </h2>
+    </div>
+    <button class="Simplify-Modal-CloseButton" aria-label="Back">
+      <span class="Simplify-Icon Simplify-Icon--colorInkLighter Simplify-Icon--isColored">
+        <svg viewBox="0 0 20 20" class="Simplify-Icon__Svg" focusable="false" aria-hidden="true">
+          <path d="M11.414 10l6.293-6.293a.999.999 0 1 0-1.414-1.414L10 8.586 3.707 2.293a.999.999 0 1 0-1.414 1.414L8.586 10l-6.293 6.293a.999.999 0 1 0 1.414 1.414L10 11.414l6.293 6.293a.997.997 0 0 0 1.414 0 .999.999 0 0 0 0-1.414L11.414 10z" fill-rule="evenodd">
+          </path>
+        </svg>
+      </span>
+    </button>
+  </div>
+  <div class='Simplify-Modal__BodyWrapper'>
+    <div class='Simplify-Modal__Body Simplify-Scrollable Simplify-Scrollable--vertical' style='padding:1rem;'>
+      <div class="carousel_container">
+        <div class="carousel_items"> 
+          <ul>
+            {=for images=}
+              <li class='carousel_item' id='item_{=:#index=}'>
+                <img src='{=:src=}'/>
+              </li>
+            {=/for=}
+          </ul>       
+        </div>
+        <div class="nav_dots"></div>
+      </div>
+      {-if variants.length != 1 =}
+        <div class='Simplify-Select' style='width: fit-content; min-width: 200px; max-width: 400px;margin-left: auto;margin-right: auto;'>
+          <select class='Simplify-Select__Input flipping-variant-select'>
+            {-for variants=}
+              <option value='{=:id=}'>{=:title=}</option>
+            {=/for=}
+          </select>
+          <div class='Simplify-Select__Content skipcart-product-variant'>
+            <span class='Simplify-Select__SelectedOption' data-link='variant_title'></span>
+            <span class='Simplify-Select__Icon'>
+              <span class='Simplify-Icon'>
+                <svg viewBox="0 0 20 20" class="Simplify-Icon__Svg skipcart-product-variant__svg" focusable="false" aria-hidden="true"><path d="M13 8l-3-3-3 3h6zm-.1 4L10 14.9 7.1 12h5.8z" fill-rule="evenodd"></path></svg>
+              </span>
+            </span>
+          </div>
+          <div class='Simplify-Select__Backdrop skipcart-product-variant__backdrop'></div>
+        </div>
+      {=/if=}
+      <div class='skipcart-product-price' style='width: fit-content; margin-left: auto;margin-right: auto;'>
+        <span class='Simplify-DisplayText Simplify-DisplayText--sizeLarge Simplify-product-price' style='font-size: 1.25rem; color: indianred;'>
+          {-:~formatMoney(price)=}
+        </span>
+      </div>
+      <div style='width: fit-content;margin-left: auto;margin-right: auto;'>
+        {=:body_html=}
+      </div>
+    </div>
+  </div>
+</script>
+
+<script id='simplifyapps-skipcart-currency-switcher--option-tmpl' type="text/x-jsrender">
+  <li data-link="class{:default_currency == value ? 'option notranslate selected focus' : 'option notranslate'}">
+    {=if display_flag=}
+      <span class='Simplify-currency-flags Simplify-currency-flags-{=:value.toLowerCase()=}'></span>
+    {=/if=}
+    &nbsp;{-:label=}
+  </li>
+</script>
+
+<script  id="simplifyapps-skipcart-currency-switcher-tmpl" type="text/x-jsrender">
+  <div class='Simplify-currency-wrapper'>
+    <div class='Simplify-currency-select slim'>
+      <span class='current notranslate'>
+        {=if display_flag=}
+          <span data-link="class{:default_flag_class}"></span>
+        {=/if=}
+        &nbsp;{-:default_currency=}
+      </span>
+      <ul class='list'>
+        {-for currencies tmpl="#simplifyapps-skipcart-currency-switcher--option-tmpl"/=}
+      </ul>
+    </div>
+  </div>
+</script>
+
+<div id='simplifyapps-skipcart-container'></div>
+<div id='simplifyapps-currency-switcher-container'></div>

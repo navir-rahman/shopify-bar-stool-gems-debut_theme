@@ -1,0 +1,72 @@
+<section id="bv_iconSlider-{{ section.id }}" class="" data-section="{{ section.id }}" style="background-color: #FFFFFF;">
+  {%- comment -%}
+    style sheet
+  {%- endcomment -%}
+  {{ 'bv_common_css.css' | asset_url | stylesheet_tag }}
+  {%- comment -%}
+    add slider js
+  {%- endcomment -%}
+  {%- style -%}
+
+    .bv_iconSliderContainer {
+
+      border-top: 1px solid #D8D8D8;
+      border-bottom: 1px solid #D8D8D8;
+    }
+    #bv_iconSlider .carousel__viewport .carousel__track .carousel__slide {
+      padding: 0;
+    }
+  {%- endstyle -%}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"/>
+  {%- comment -%}
+    style sheet
+  {%- endcomment -%}
+  <div class="bv_iconSliderContainer" id="bv_iconSliderSection-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="bv_iconSlider" data-enable-history-state="true" data-ajax-enabled="{{ settings.enable_ajax }}" {{ block.shopify_attributes }}>
+
+
+    <div id="bv_iconSlider" class="carousel text-lg">
+      <div class="carousel__viewport px-20">
+        <figure class="carousel__slide ">
+          <p>Fantastic,
+          </p>
+        </figure>
+        <figure class="carousel__slide ">
+          <p>Fantastic,
+          </p>
+        </figure>
+        <figure class="carousel__slide ">
+          <p>Fantastic,
+          </p>
+        </figure>
+        <figure class="carousel__slide ">
+          <p>Fantastic,</p>
+        </figure>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+{%- comment -%}
+  add slider js
+{%- endcomment -%}
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+<script src="../assets/carousel.autoplay.umd.js"></script>
+
+<script>
+
+  const bv_iconSlider = new Carousel(document.querySelector('#bv_iconSlider'), {
+    Autoplay: {
+      timeout: 1000
+    },
+    infinite: true,
+    Dots: false,
+    friction: 0.88,
+    slidesPerPage: 2,
+
+    Navigation: false,
+    Dots: false
+  });
+  quoteCarousel.plugins.Autoplay.start()
+</script>

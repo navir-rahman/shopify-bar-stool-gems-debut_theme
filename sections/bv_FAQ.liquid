@@ -1,0 +1,80 @@
+<section class="bv_pageWidth" id="faq-{{ section.id }}" class="" data-section="{{ section.id }}" style="background-color: #FFFFFF;">
+  {%- comment -%}
+    style sheet
+  {%- endcomment -%}
+  {{ 'bv_faq.css' | asset_url | stylesheet_tag }}
+  {{ 'bv_common_css.css' | asset_url | stylesheet_tag }}
+  {%- comment -%}
+    style sheet
+  {%- endcomment -%}
+  <div class="faqContainer" id="faqSection-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="faq" data-enable-history-state="true" data-ajax-enabled="{{ settings.enable_ajax }}" {{ block.shopify_attributes }}>
+    <div class="faqTextContainer one_half_column">
+      <div class="faqText">
+        <h1>FAQ</h1>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non praesentium reiciendis maxime asperiores nam corporis animi perferendis voluptas debitis qui?</p>
+      </div>
+    </div>
+
+
+    <div class="faqcollapsible one_half_column" style="background-color:;">
+      <div class="product__accordion accordion quick-add-hidden">
+        <details id="Details-collapsible-row-1-template--14624136757325__main">
+          <summary onclick="bv_rotateIcon(this)" role="button" aria-expanded="false" aria-controls="ProductAccordion-collapsible-row-1-template--14624136757325__main">
+            {%- comment -%}
+              <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-caret" viewBox="0 0 10 6">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
+              </path>
+              </svg>
+            {%- endcomment -%}
+            <img id="bv_collapsableIcon" src="https://i.ibb.co/SPCCD3r/icons8-macos-maximize-30.png" alt="" height="25" width="25">
+            <div class="summary__title">
+              <h2 class="h4 accordion__title">
+                Shipping &amp; Returns
+              </h2>
+            </div>
+          </summary>
+          <div class="accordion__content rte" id="ProductAccordion-collapsible-row-1-template--14624136757325__main">
+            Our policy lasts 14 days. If 14 days have gone by since your purchase, unfortunately we cant offer you a refund or exchange.
+          </div>
+        </details>
+      </div>
+
+      <div class="product__accordion accordion quick-add-hidden">
+        <details id="Details-collapsible-row-1-template--14624136757325__main">
+          <summary onclick="bv_rotateIcon(this)" role="button" aria-expanded="false" aria-controls="ProductAccordion-collapsible-row-1-template--14624136757325__main">
+            {%- comment -%}
+              <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-caret" viewBox="0 0 10 6">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
+              </path>
+              </svg>
+            {%- endcomment -%}
+            <img id="bv_collapsableIcon" src="https://i.ibb.co/SPCCD3r/icons8-macos-maximize-30.png" alt="" height="25" width="25">
+            <div class="summary__title">
+              <h2 class="h4 accordion__title">
+                Shipping &amp; Returns
+              </h2>
+            </div>
+          </summary>
+          <div class="accordion__content rte" id="ProductAccordion-collapsible-row-1-template--14624136757325__main">
+            Our policy lasts 14 days. If 14 days have gone by since your purchase, unfortunately we cant offer you a refund or exchange.
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<script>
+  let v;
+  const bv_rotateIcon = (s) => {
+    const ariaExpanded = s.getAttribute('aria-expanded');
+    if (ariaExpanded == "false") {
+      s.firstChild.classList.add('rotate45');
+      s.setAttribute("aria-expanded", true)
+    } else {
+      s.firstChild.classList.remove('rotate45');
+      s.setAttribute("aria-expanded", false)
+    };
+  }
+</script>

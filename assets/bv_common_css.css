@@ -1,0 +1,81 @@
+
+.bv_pageWidth {
+  max-width: 1600px;
+  margin: auto;
+  padding: 7rem 0;
+}
+.bv_headingContainer {
+  max-width: 800px;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 7rem;
+}
+.bv_heading {
+  font-size: 4rem;
+  font-style: italic;
+  color: #565656;
+  margin-bottom: 0.5em;
+}
+.bv_subheading {
+  line-height: 1.4;
+  color: #8d8d8d;
+  font-size: large;
+  margin-bottom: 30px;
+}
+.bv_2ndHeading {
+  font-size: xx-large;
+  font-style: italic;
+  color: #565656;
+}
+.bv_addTocartBtn{
+  background-color: #2DC650;
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 0.5em 1.5em;
+  border-radius: 10px;
+  font-size: 24px;
+}
+
+
+/* slider css  for as recommended by */
+#quoteCarousel {
+  --carousel-button-svg-width: 36px;
+  --carousel-button-svg-height: 36px;
+
+  --carousel-button-svg-stroke-width: 1;
+}
+
+#quoteCarousel blockquote {
+  position: relative;
+}
+
+#quoteCarousel blockquote:after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 16px solid #fff;
+  border-right: 16px solid transparent;
+  position: absolute;
+  bottom: -16px;
+  left: 24px;
+
+  -webkit-filter: drop-shadow(0.2em 0.2em 0.1em rgba(0, 0, 0, 0.03))
+    drop-shadow(-0.2em 0.2em 0.1em rgba(0, 0, 0, 0.03));
+
+          filter: drop-shadow(0.2em 0.2em 0.1em rgba(0, 0, 0, 0.03))
+    drop-shadow(-0.2em 0.2em 0.1em rgba(0, 0, 0, 0.03));
+}
+
+#quoteCarousel::before,
+#quoteCarousel::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 5rem;
+  z-index: 1;
+}
+
+.carousel__button {
+  z-index: 10;
+}

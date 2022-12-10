@@ -1,0 +1,24 @@
+<script>
+var descContHtml = "";
+var bottomTextTopHtml = "";
+var collection = "";
+function executeCustomCollCode(customCollInstructions) {
+var customCollFunction = new Function (customCollInstructions);
+return(customCollFunction());
+}
+
+const xhttpColl = new XMLHttpRequest();
+  xhttpColl.onload = function() {
+    let data = this.responseText;
+    const parser = new DOMParser();
+    const dom = parser.parseFromString(data, "text/html");
+    let r = dom.querySelector('#shopify-section-collection-metadata');
+    
+    console.log(r.innerHTML);
+
+    executeCustomCollCode(r.innerHTML);
+  }
+  xhttpColl.open("GET", "{{ collection.url }}?section_id=collection-metadata", false);
+  xhttpColl.send();
+
+</script>

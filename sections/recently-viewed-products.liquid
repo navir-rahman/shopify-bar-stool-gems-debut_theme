@@ -1,0 +1,75 @@
+{% if section.settings.show_recently_viewed_products %}
+
+<div class="page-width">
+
+
+<script src="//ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js" defer="defer"></script>
+
+<div class="product-recommendations__inner">
+  
+      {%- assign max_height = 600 -%}
+      {%- assign grid_item_width = 'small--one-half medium-up--one-quarter' -%}
+
+
+<div class="recently-viewed-products" data-product-id="{{product.id}}" data-section-type="recently-viewed-products" data-limit="{{limit}}" style="display:none;"> 
+  {% if section.settings.title != blank %}
+    <div class="section-header text-center">
+            <p>{{ section.settings.title | escape }}<p>
+  </div>
+  {% endif %}  
+  <div id="recently-viewed-products" class="grid grid--uniform grid--view-items"></div>
+</div>
+</div>
+
+
+{% raw %}
+<script id="recently-viewed-product-template" type="text/x-jquery-tmpl">
+<div class="grid__item {% endraw %}{{ grid_item_width }}{% raw %}">
+<div id="product-${handle}" class="grid__item product">
+ <a href="${url}">      
+        <div class="product-grid-item__image">
+          <img src="${Shopify.Products.resizeImage(featured_image, "medium")}" />
+        </div>
+      	
+	  <div class="product-card-info">
+      	<div class="h4 grid-view-item__title product-card__title" aria-hidden="true">${title}</div>
+        <dl class="price">
+            <div class="price__regular">
+              <dd>
+                    <span class="price-item price-item--regular" data-regular-price>
+                      $${price/100}
+                    </span>
+              </dd>
+            </div>
+  		</dl>        
+	  </div>
+    </a>
+</div>
+</div>
+</script>
+{% endraw %}
+<script src="{{ 'recently-viewed.js' | asset_url }}" defer="defer"></script>
+{% endif %}
+  
+</div>
+
+{% schema %}
+  {
+    "name": "Recently Viewed Products",
+	"class": "section--recently-viewed-products",
+    "settings": [
+	  {
+		"type": "checkbox",
+		"id": "show_recently_viewed_products",
+		"label": "Show recently viewed products",
+		"default": true
+	  },
+	  {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Recently Viewed Products"
+      }
+    ]
+  }
+{% endschema %}

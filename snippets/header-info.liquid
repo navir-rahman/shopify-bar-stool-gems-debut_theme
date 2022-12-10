@@ -1,0 +1,16 @@
+{% if section.settings.contact_text != blank %}
+        <span class="site-header__text">
+          <div style="padding-top: 10px;">{{ section.settings.contact_text | escape }}</div>
+        </span>
+        {% endif %}
+        
+        {% if section.settings.phone_text != blank %}
+        <span class="site-header--spacer">
+ 		{{ section.settings.phone_text | escape }}<br>
+        </span>
+        {% endif %}
+        
+        <span class="site-header__text">
+ 		{{ section.settings.hours_text | escape }}
+        </span>
+        

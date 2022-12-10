@@ -1,0 +1,112 @@
+{%- comment -%}
+  /** Collection Sidebar **/
+{%- endcomment -%}
+<div class="collection-sidebar">
+{% for block in section.blocks %}
+<div class="filter-{{block.type | handle}}" data-title="{{block.settings.title}}">
+{% case block.type %}
+{% when 'menu' %}
+{% if linklists[block.settings.menu].links.size > 0 %}
+<h3 class="filter-block__title">{{linklists[block.settings.menu].title}}</h3>
+<div class="filter-block__content">
+<ul class="filter-block__menu-items">
+{% for link in linklists[block.settings.menu].links %}
+<li><a href="{{link.url}}">{{link.title}}</a></li>
+{% endfor %}
+</ul>
+</div>
+{% endif %}
+{% when 'vendors' %}
+{% if collection.all_vendors.size > 0 %}
+<h3 class="filter-block__title">{{block.settings.title}}</h3>
+<div class="filter-block__content">
+<ul class="filter-block__collection-vendors">
+{% for vendor in collection.all_vendors %}
+<li>{{ vendor | link_to_vendor }}</li>
+{% endfor %}
+</ul>
+</div>
+{% endif %}
+{% when 'types' %}
+{% if collection.all_types.size > 0 %}
+<h3 class="filter-block__title">{{block.settings.title}}</h3>
+<div class="filter-block__content">
+<ul class="filter-block__collection-types">
+{% for type in collection.all_types %}
+<li>{{ type | link_to_type }}</li>
+{% endfor %}
+</ul>
+</div>
+{% endif %}
+{% when 'tag-list' %}
+{% if block.settings.tags != blank %}
+{% assign all_tags = block.settings.tags | replace: ', ',',' | replace: ',',',' | replace: ' , ',',' | split: ',' %}
+{% assign current_filter_tags_string = '' %}
+
+<h3 class="filter-block__title">{{block.settings.title}}</h3>
+<div class="filter-block__content">
+<ul class="filter-block__collection-tags">
+{%- assign tag_count = 0 -%}
+{% for found_tag in all_tags %}
+{% for tag in collection.tags %}
+{% assign tag_handle = tag | handle %}
+{% assign found_tag_handle = found_tag | handle %}
+{% if tag_handle == found_tag_handle %}
+{% assign tag_url = '/collections/' | append: collection.handle %}
+
+{% if current_tags %}
+{% assign current_tag_string = '' %}
+
+{% for current_tag in current_tags %}
+{% unless current_tag == tag %}
+{% assign current_tag_handle = current_tag | handle %}
+{% assign current_tag_string = current_tag_string | append: current_tag_handle | append: '+'  %}
+{% endunless %}
+{% endfor %}
+
+{% unless current_tags contains tag %}
+{% assign current_tag_string = current_tag_string | append: tag_handle  %}
+{% else %}
+{% assign current_filter_tags_string = current_filter_tags_string | append: tag_handle | append: ',' %}
+{% endunless %}
+
+{% assign tag_url = tag_url | append: '/' | append: current_tag_string %}
+
+{% else %}
+{% assign tag_url = tag_url | append: '/' | append: tag_handle %}
+{% endif %}
+{% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
+{% assign tag_url = tag_url | append: '?sort_by=' | append: sort_by %}
+<li><a data-tag="{{ tag | handle }}" href="{{tag_url}}" class="{% if current_tags contains tag %}active{% endif %}{% if block.settings.swatch_enable %} swatch-enabled{% endif %}"{% if block.settings.swatch_enable %} style="background-color: {{tag | downcase}}; background-image:url('{{tag_handle | append: '.png' | asset_img_url: '100x'}}')"{% endif %}>{{tag}}</a></li>
+{%- assign tag_count = tag_count | plus: 1 -%}  
+{% endif %}
+{% endfor %}
+{% endfor %}
+
+{% assign current_filter_tags_array = current_filter_tags_string | split: ',' %}
+{% assign clear_filter_string = '' %}
+{% for current_tag in current_tags %}
+{% assign current_tag_handle = current_tag | handle %}
+{% unless current_filter_tags_array contains current_tag_handle %}
+{% assign clear_filter_string = clear_filter_string | append: current_tag_handle | append: '+' %}
+{% endunless %}
+{% endfor %}
+{% if current_filter_tags_string != '' %}
+<li class="filter--clear"><a href="{{'/collections/' | append: collection.handle | append: '/' | append: clear_filter_string}}">Clear</a></li>
+{% endif %}
+</ul>
+</div>
+  
+{%- if tag_count == 0 -%}
+  <style>
+    .filter-tag-list[data-title="{{block.settings.title}}"] {
+    	display: none;
+    }
+  </style>
+{%- endif -%}
+{% endif %}
+{% else %}
+{% endcase %}
+</div>
+{% endfor %}
+</div>

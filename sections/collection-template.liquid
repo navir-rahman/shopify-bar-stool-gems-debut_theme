@@ -1,0 +1,517 @@
+{% assign products_per_row = section.settings.grid | times: 1 %}
+{%- assign boost_settings = shop.metafields.bc-sf-filter.settings -%}
+{%- assign boost_in_collection_search = boost_settings | split: 'enableCollectionSearch":' | last | split: ',"' | first | strip -%}
+
+{% case products_per_row %}
+	{% when 2 %}
+		{%- assign max_height = 530 -%}
+		{%- assign grid_item_width = 'medium-up--one-half' -%}
+	{% when 3 %}
+		{%- assign max_height = 345 -%}
+		{%- assign grid_item_width = 'small--one-half medium-up--one-third' -%}
+	{% when 4 %}
+		{%- assign max_height = 250 -%}
+		{%- assign grid_item_width = 'small--one-half medium-up--one-quarter' -%}
+	{% when 5 %}
+		{%- assign max_height = 195 -%}
+		{%- assign grid_item_width = 'small--one-half medium-up--one-fifth' -%}
+{% endcase %}
+
+{% if section.settings.layout == 'grid' %}
+	{%- assign limit = section.settings.grid | times: section.settings.rows -%}
+{% else %}
+	{%- assign limit = 16 -%}
+{% endif %}
+
+{% paginate collection.products by limit %}
+
+<div data-section-id="{{ section.id }}" data-section-type="collection-template">
+	<header class="collection-header">
+		{% if section.settings.show_collection_image and collection.image %}
+			<div class="collection-hero">
+				<div class="collection-hero__image ratio-container lazyload js"
+						 data-bgset="{% include 'bgset', image: collection.image %}"
+						 data-sizes="auto"
+						 data-parent-fit="cover"
+						 style="background-image: url('{{ collection.image | img_url: '300x300' }});"></div>
+				<noscript>
+					<div class="collection-hero__image" style="background-image: url({{ collection.image | img_url: '2048x600', crop: 'top' }});"></div>
+				</noscript>
+				<div class="collection-hero__title-wrapper">
+					<h1 class="boost-pfs-filter-collection-header collection-hero__title page-width">{{ collection.title }}</h1>
+				</div>
+			</div>
+			{% if collection.description != blank %}
+				<div class="boost-pfs-filter-collection-description rte collection-description page-width">
+					{{ collection.description }}
+				</div>
+			{% endif %}
+		{% else %}
+			<div class="page-width desc-cont">
+              {%- unless paginate.current_page > 1 -%}
+				<div class="section-header text-center">
+					<h1 class="boost-pfs-filter-collection-header">
+						<span role="text">
+							{{ collection.title }}
+						</span>
+					</h1>
+					{% if collection.description != blank %}
+						<div class="boost-pfs-filter-collection-description rte">
+							{{ collection.description }}
+						</div>
+					{% endif %}
+				</div>
+			{%- endunless -%}
+          </div> 
+		{% endif %}
+
+		{% if boost_in_collection_search == 'true' %}
+			<div class="page-width boost-pfs-in-collection-search">
+				{% render 'boost-pfs-filter-skeleton', width: 4 %}
+			</div>
+		{% endif %}
+
+		<div class="filters-toolbar-wrapper">
+			<div class="page-width">
+				<div class="filters-toolbar">
+					<div class="filters-toolbar__item-wrapper">
+						{% if section.settings.sort_enable %}
+							<div class="filters-toolbar__item-child boost-pfs-filter-top-sorting">
+								{% include 'boost-pfs-filter-skeleton', width: 2 %}
+							</div>
+						{% endif %}
+					</div>
+
+					<div class="filters-toolbar__item filters-toolbar__item--count">
+						<span class="filters-toolbar__product-count boost-pfs-filter-total-product">{% include 'boost-pfs-filter-skeleton', width: 2 %}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<div class="page-width" id="Collection">
+		<div class="boost-pfs-filter-tree-mobile-button">
+			{% include 'boost-pfs-filter-skeleton', type: 'button' %}
+		</div>
+
+		<div class="boost-pfs-filter-wrapper">
+			<div class="boost-pfs-filter-tree boost-pfs-filter-tree-v">
+				{% include 'boost-pfs-filter-skeleton', type: 'filter-tree' %}
+			</div>
+			
+			<div class="boost-pfs-filter-right">
+				{% if section.settings.layout == 'grid' %}
+					<div class="boost-pfs-filter-products grid grid--uniform{% if collection.products_count > 0 %} grid--view-items{% endif %}" data-bc-sort="{{ collection.default_sort_by }}">
+						{% for product in collection.products %}
+							<div class="grid__item grid__item--{{section.id}} {{ grid_item_width }}">
+								{% include 'product-card-grid', max_height: max_height %}
+							</div>
+						{% endfor %}
+					</div>
+				{% else %}
+					<div class="boost-pfs-filter-products" data-bc-sort="{{ collection.default_sort_by }}">
+						<ul class="list-view-items">
+							{% for product in collection.products %}
+								<li href="{{ product.url | within: collection }}" class="list-view-item">
+									{% include 'product-card-list', product: product %}
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
+
+				{% endif %}
+
+				<div class="boost-pfs-filter-bottom-pagination">
+					{% if paginate.pages > 1 %}
+						{% include 'pagination-collection' %}
+					{% endif %}
+				</div>
+				<div class="boost-pfs-filter-load-more"></div>
+			</div>
+		</div>
+		
+	</div>
+</div>
+
+{% endpaginate %}
+
+<script>
+  
+	// Declare bcSfFilterConfig variable
+	var boostPFSThemeConfig = {
+		label: {
+			sale: {{ 'products.product.on_sale' | t | json }},
+			sale_price: {{ 'products.product.sale_price' | t | json }},
+			sold_out: {{ 'products.product.sold_out' | t | json }},
+			vendor: {{ 'products.product.vendor' | t |json }},
+			regular_price: {{ 'products.product.regular_price' | t | json }},
+			items_with_count_one: {{ 'collections.general.items_with_count.one' | t | json}},
+			items_with_count_other: {{ 'collections.general.items_with_count.other' | t | json }},
+			current_page: {{ 'general.pagination.current_page' | t | json }},
+		},
+		custom: {
+			products_per_page: {% if limit %} {{ limit | json }} {% else %} 24 {% endif %},
+			products_per_row: {% if products_per_row %} {{ products_per_row }} {% else %} 4 {% endif %},
+			product_grid_class: {% if grid_item_width %} 'grid__item {{ grid_item_width }}' {% else %} 'grid__item small--one-half medium-up--one-quarter' {% endif %},
+			max_height: {% if max_height %} {{ max_height | json }} {% else %} 250 {% endif %},
+			vendor_enable: {% if section.settings.show_vendor %} {{ section.settings.show_vendor | json }} {% else %} false {% endif %},
+			layout: {% if section.settings.layout %} {{ section.settings.layout | json }} {% else %} "grid" {% endif %}
+		}
+	};
+
+	var boostPFSTemplate = {
+		'soldOutClass': 'product-price--sold-out grid-view-item--sold-out',
+
+		// Grid Template
+		'vendorGridHtml': {% render 'boost-pfs-filter-html', layout: 'vendorGridHtml' %},
+		'soldOutLabelGridHtml': {% render 'boost-pfs-filter-html', layout: 'soldOutLabelGridHtml' %},
+		'productGridItemHtml': {% render 'boost-pfs-filter-html', layout: 'productGridItemHtml' %},
+		// List Template
+		'vendorSmallListHtml': {% render 'boost-pfs-filter-html', layout: 'vendorSmallListHtml' %},
+		'vendorMediumListHtml': {% render 'boost-pfs-filter-html', layout: 'vendorMediumListHtml' %},
+		'saleLabelListHtml': {% render 'boost-pfs-filter-html', layout: 'saleLabelListHtml' %},
+		'soldOutLabelListHtml': {% render 'boost-pfs-filter-html', layout: 'soldOutLabelListHtml' %},
+		'productListItemHtml':  {% render 'boost-pfs-filter-html', layout: 'productListItemHtml' %},
+			
+			// Pagination Template
+		'previousActiveHtml': {% render 'boost-pfs-filter-html', layout: 'previousActiveHtml' %},
+		'previousDisabledHtml': {% render 'boost-pfs-filter-html', layout: 'previousDisabledHtml' %},
+		'nextActiveHtml': {% render 'boost-pfs-filter-html', layout: 'nextActiveHtml' %},
+		'nextDisabledHtml': {% render 'boost-pfs-filter-html', layout: 'nextDisabledHtml' %},
+		'paginateHtml': {% render 'boost-pfs-filter-html', layout: 'paginateHtml' %},
+
+		// Sorting Template
+		'sortingHtml': {% render 'boost-pfs-filter-html', layout: 'sortingHtml' %},
+	};
+</script>
+{% schema %}
+
+{
+  "name": {
+    "da": "Kollektionssider",
+    "de": "Kategorie-Seiten",
+    "en": "Collection pages",
+    "es": "Páginas de colección",
+    "fi": "Kokoelman sivut",
+    "fr": "Pages de collections",
+    "hi": "कलेक्शन पेज",
+    "it": "Pagine delle collezioni",
+    "ja": "コレクションページ",
+    "ko": "컬렉션 페이지",
+    "ms": "Halaman koleksi",
+    "nb": "Samlingssider",
+    "nl": "Collectiepagina's",
+    "pt-BR": "Páginas de coleções",
+    "pt-PT": "Páginas de Coleções",
+    "sv": "Produktseriesidor",
+    "th": "หน้าคอลเลกชัน",
+    "zh-CN": "产品系列页面",
+    "zh-TW": "商品系列頁面"
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout",
+      "label": {
+        "da": "Layout",
+        "de": "Layout",
+        "en": "Layout",
+        "es": "Diseño",
+        "fi": "Asettelu",
+        "fr": "Mise en page",
+        "hi": "लेआउट",
+        "it": "Layout",
+        "ja": "レイアウト",
+        "ko": "레이아웃",
+        "ms": "Susun atur",
+        "nb": "Oppsett",
+        "nl": "Indeling",
+        "pt-BR": "Layout",
+        "pt-PT": "Esquema",
+        "sv": "Layout",
+        "th": "เลย์เอาต์",
+        "zh-CN": "布局",
+        "zh-TW": "版面配置"
+      },
+      "default": "grid",
+      "options": [
+        {
+          "value": "grid",
+          "label": {
+            "da": "Gitter",
+            "de": "Raster",
+            "en": "Grid",
+            "es": "Cuadrícula",
+            "fi": "Ruudukko",
+            "fr": "Grille",
+            "hi": "ग्रिड",
+            "it": "Griglia",
+            "ja": "グリッド",
+            "ko": "그리드",
+            "ms": "Grid",
+            "nb": "Rutenett",
+            "nl": "Raster",
+            "pt-BR": "Grade",
+            "pt-PT": "Grelha",
+            "sv": "Rutnät",
+            "th": "กริด",
+            "zh-CN": "网格",
+            "zh-TW": "網格"
+          }
+        },
+        {
+          "value": "list",
+          "label": {
+            "da": "Liste",
+            "de": "Liste",
+            "en": "List",
+            "es": "Lista",
+            "fi": "Luettelo",
+            "fr": "Liste",
+            "hi": "सूची",
+            "it": "Elenco",
+            "ja": "リスト",
+            "ko": "목록",
+            "ms": "Senarai",
+            "nb": "Liste",
+            "nl": "Lijst",
+            "pt-BR": "Lista",
+            "pt-PT": "Lista",
+            "sv": "Lista",
+            "th": "รายการ",
+            "zh-CN": "列表",
+            "zh-TW": "清單"
+          }
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "grid",
+      "label": {
+        "da": "Produkter pr. række (kun gitter)",
+        "de": "Produkte per Reihe (nur Raster)",
+        "en": "Products per row (grid only)",
+        "es": "Productos por fila (solo cuadrícula)",
+        "fi": "Tuotteita per rivi (vain ruudukko)",
+        "fr": "Produits par rangée (grille uniquement)",
+        "hi": "उत्पाद प्रति पंक्ति (केवल ग्रिड)",
+        "it": "Prodotti per riga (solo griglia)",
+        "ja": "行あたりの商品数（グリッドのみ）",
+        "ko": "열 별 제품 (그리드 전용)",
+        "ms": "Produk setiap baris (grid sahaja)",
+        "nb": "Produkter per rad (kun rutenett)",
+        "nl": "Producten per rij (alleen raster)",
+        "pt-BR": "Produtos por linha (somente grade)",
+        "pt-PT": "Produtos por linha (somente grelha)",
+        "sv": "Produkter per rad (endast rutnät)",
+        "th": "สินค้าต่อแถว (กริดเท่านั้น)",
+        "zh-CN": "每行产品数（仅限网格）",
+        "zh-TW": "每列產品數 (僅限網格)"
+      },
+      "default": 4,
+      "min": 2,
+      "max": 5,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "rows",
+      "label": {
+        "da": "Rækker pr. side (kun gitter)",
+        "de": "Reihen per Seite (nur Raster)",
+        "en": "Rows per page (grid only)",
+        "es": "Filas por página (solo cuadrícula)",
+        "fi": "Rivejä per sivu (vain ruudukko)",
+        "fr": "Rangées par page (grille uniquement)",
+        "hi": "प्रति पृष्ठ पंक्तियां (केवल ग्रिड)",
+        "it": "Righe per pagina (solo griglia)",
+        "ja": "ページあたりの行数（グリッドのみ）",
+        "ko": "페이지 별 열 (그리드 전용)",
+        "ms": "Baris setiap halaman (grid sahaja)",
+        "nb": "Rader per side (kun rutenett)",
+        "nl": "Rijen per pagina (alleen raster)",
+        "pt-BR": "Linhas por página (somente grade)",
+        "pt-PT": "Linhas por página (somente grelha)",
+        "sv": "Rader per sida (endast rutnät)",
+        "th": "แถวต่อหน้า (กริดเท่านั้น)",
+        "zh-CN": "每行产品数（仅限网格）",
+        "zh-TW": "每頁列數 (僅限網格)"
+      },
+      "default": 2,
+      "min": 2,
+      "max": 8,
+      "step": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_image",
+      "label": {
+        "da": "Vis kollektionsbillede",
+        "de": "Kategorie-Foto anzeigen",
+        "en": "Show collection image",
+        "es": "Mostrar imagen de la colección",
+        "fi": "Näytä kokoelman kuva",
+        "fr": "Afficher l'image de la collection",
+        "hi": "कलेक्शन इमेज दिखाएं",
+        "it": "Mostra immagine collezione",
+        "ja": "コレクションの画像を表示する",
+        "ko": "컬렉션 이미지 표시",
+        "ms": "Tunjukkan imej koleksi",
+        "nb": "Vis samlingsbilde",
+        "nl": "Collectieafbeelding weergeven",
+        "pt-BR": "Exibir imagem da coleção",
+        "pt-PT": "Mostrar imagem da coleção",
+        "sv": "Visa produktseriebilder",
+        "th": "แสดงรูปภาพคอลเลกชัน",
+        "zh-CN": "显示产品系列图片",
+        "zh-TW": "顯示商品系列圖片"
+      },
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": {
+        "da": "Vis produktleverandører",
+        "de": "Produkt-Lieferanten anzeigen",
+        "en": "Show product vendors",
+        "es": "Mostrar proveedores del producto",
+        "fi": "Näytä tuotteen myyjät",
+        "fr": "Afficher les vendeurs",
+        "hi": "उत्पाद विक्रेताओं को दिखाएं",
+        "it": "Mostra fornitori prodotto",
+        "ja": "商品の販売元を表示する",
+        "ko": "제품 공급 업체 표시",
+        "ms": "Tunjukkan vendor produk",
+        "nb": "Vis produktleverandører",
+        "nl": "Productleveranciers weergeven",
+        "pt-BR": "Exibir fornecedores do produto",
+        "pt-PT": "Mostrar fornecedores do produto",
+        "sv": "Visa produktleverantörer",
+        "th": "แสดงผู้ขายสินค้า",
+        "zh-CN": "显示产品厂商",
+        "zh-TW": "顯示產品廠商"
+      },
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "sort_enable",
+      "label": {
+        "da": "Aktivér sortering",
+        "de": "Sortieren erlauben",
+        "en": "Enable sorting",
+        "es": "Habilitar la función ordenar",
+        "fi": "Ota lajittelu käyttöön",
+        "fr": "Activer le tri",
+        "hi": "क्रमबद्ध करना सक्षम करें",
+        "it": "Permetti di ordinare",
+        "ja": "並べ替えを有効にする",
+        "ko": "정렬 사용",
+        "ms": "Dayakan penyusunan",
+        "nb": "Aktiver sortering",
+        "nl": "Sortering inschakelen",
+        "pt-BR": "Ativar classificação",
+        "pt-PT": "Ativar ordenação",
+        "sv": "Aktivera sortering",
+        "th": "เปิดใช้การจัดเรียง",
+        "zh-CN": "启用排序",
+        "zh-TW": "啟用排序"
+      },
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "tags_enable",
+      "label": {
+        "da": "Aktivér tagfiltrering",
+        "de": "Tag-Filtern erlauben",
+        "en": "Enable tag filtering",
+        "es": "Habilitar filtro de etiquetas",
+        "fi": "Ota tunnisteiden suodatus käyttöön",
+        "fr": "Activer le filtrage par balises",
+        "hi": "टैग फ़िल्टर करना सक्षम करें",
+        "it": "Attiva filtro tag",
+        "ja": "タグでの絞り込みを有効にする",
+        "ko": "태그 필터링 사용",
+        "ms": "Dayakan penapisan tag",
+        "nb": "Aktiver taggfiltrering",
+        "nl": "Filteren op tags inschakelen",
+        "pt-BR": "Ativar filtragem de tags",
+        "pt-PT": "Ativar filtragem por etiqueta",
+        "sv": "Aktivera taggfiltrering",
+        "th": "เปิดใช้การกรองแท็ก",
+        "zh-CN": "启用标签筛选",
+        "zh-TW": "啟用標籤篩選功能"
+      },
+      "default": true
+    },
+  	  {
+        "type": "header",
+        "content": "Sidebar"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sidebar",
+        "label": "Show Sidebar",
+        "default": true
+      }
+    ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Select menu"
+        }      
+      ]
+    },
+	{
+      "type": "vendors",
+      "name": "Vendor List",
+	  "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        }      
+      ]
+    },
+	{
+      "type": "types",
+      "name": "Type List",
+	  "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        }      
+      ]
+    },
+	{
+      "type": "tag-list",
+      "name": "Tag List",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+		{
+          "type": "textarea",
+          "id": "tags",
+          "label": "Tags",
+		  "info": "Enter a comma(,) separated list of tags."
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

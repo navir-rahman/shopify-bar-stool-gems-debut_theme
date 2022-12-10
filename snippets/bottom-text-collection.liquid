@@ -1,0 +1,19 @@
+<style>
+  .bottom-text {
+    margin-top: 3em;
+  }
+</style>
+
+<div class="bottom-text page-width">
+  <div class="bottom-text-top">
+  {% paginate collection.products by 4 %}
+    {%- if paginate.current_page == 1 -%}
+      {{ current_object.metafields.custom.bottom_text }}
+    {%- endif -%}
+  {% endpaginate %}
+  </div>
+  
+  <div class="bottom-text-bottom">
+    {{ current_object.metafields.custom.bottom_text_down_ }}
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<section id="whatsIncluded-{{ section.id }}" class="" data-section="{{ section.id }}" style="background-color: #FFFFFF;">
+  {%- comment -%}
+    style sheet
+  {%- endcomment -%}
+  {{ 'bv_whatsIncluded.css' | asset_url | stylesheet_tag }}
+  {%- comment -%}
+    style sheet
+  {%- endcomment -%}
+  <div class="whatsIncludedContainer" id="whatsIncludedSection-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="whatsIncluded" data-enable-history-state="true" data-ajax-enabled="{{ settings.enable_ajax }}" {{ block.shopify_attributes }}>
+    <div class="whatsIncludedTextContainer">
+      <div class="whatsIncludedText">
+        <h1>Whats Included</h1>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non praesentium reiciendis maxime asperiores nam corporis animi perferendis voluptas debitis qui?</p>
+        <ul>
+          <li>
+            <span class="whatsIncludedtickIcon">&#10004;</span>
+            Lorem ipsum dolor sit amet.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="whatsIncludedImg" style="background-color: #D8D8D8;">
+      <img src="https://i.ibb.co/JCHnTvH/Screenshot-2022-12-04-142752.png" alt="" width="950" height="726">
+    </div>
+  </div>
+
+</section>

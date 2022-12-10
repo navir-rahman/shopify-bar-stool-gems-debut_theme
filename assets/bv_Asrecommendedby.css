@@ -1,0 +1,17 @@
+.bv_Asrecommendedby{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    background-color: #F2F2F2;
+    padding: 20px;
+    max-width: 1600px;
+
+}.bv_AsrecommendedbyTitle{
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    margin: auto;
+}
+.bv_AsrecommendedbySlider{
+
+}

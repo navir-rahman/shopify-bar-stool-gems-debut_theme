@@ -1,0 +1,131 @@
+/*********************** Custom CSS for Boost Filter & Search  ************************/
+{% assign breakpointMobile = '767px' %}
+{% assign breakpointDesktop = '768px' %}
+{% assign searchBoxMobileHeight = '64px' %}
+
+/**************************** Place your custom css below  ****************************/
+/* Layout */
+.boost-pfs-filter-tree {
+  width: 20%;
+  float: left;
+}
+
+.boost-pfs-filter-right {
+  width: 80%;
+  float: right;
+}
+
+.boost-pfs-filter-right .boost-pfs-filter-products {
+  width: 100%;
+  float: right;
+  overflow: visible;
+  height: auto !important;
+}
+
+@media screen and (max-width: {{breakpointMobile}}) {
+  .boost-pfs-filter-tree {
+    display: none;
+    width: 100%;
+    float: none;
+  }
+
+  .boost-pfs-filter-right, .boost-pfs-filter-right .boost-pfs-filter-products {
+    width: auto;
+    float: none;
+  }
+
+  .boost-pfs-filter-top-display-type span {
+    display: none;
+  }
+
+  .boost-pfs-filter-top-display-type .boost-pfs-filter-display-item:nth-of-type(1) {
+    margin-left: 0;
+  }
+}
+/* Product */
+.boost-pfs-filter-products .has-bc-quickview {
+  overflow: hidden;
+}
+
+.boost-pfs-filter-products .list-view-items {
+  margin-left: 30px;
+}
+
+.product-card--list .list-view-item__link {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.boost-pfs-filter-products .grid-view-item {
+  position: relative;
+}
+
+.boost-pfs-filter-products .full-width-link {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9;
+}
+
+.boost-pfs-filter-products .price--on-sale .price__sale {
+  display: block;
+}
+
+.boost-pfs-filter-products .price__sale {
+  display: none;
+  color: #557b97;
+}
+
+.boost-pfs-filter-products .price__regular {
+  color: #69727b;
+}
+
+/* Search */
+.boost-pfs-search-suggestion-header {
+  font-size: 13px;
+}
+
+.boost-pfs-search-suggestion-header-view-all a, .boost-pfs-search-suggestion-item a {
+  font-size: 14px;
+}
+
+.template-search .filters-toolbar-wrapper {
+  margin-top: 55px;
+}
+
+#SearchInput {
+  display: none !important;
+}
+
+.predictive-search {
+  display: none;
+}
+
+/*.js-drawer-open-top .drawer--top, .js-drawer-open .drawer-page-content::after {opacity: 0;}*/
+/* Version 3.1 */
+/**** Custom Search result toolbar ****/
+.boost-pfs-search-result-toolbar-wrap {
+  border-bottom: 1px solid #ededed;
+  margin-bottom: -1px;
+}
+
+.boost-pfs-search-result-toolbar {
+  margin: 0 auto;
+  border: none;
+}
+
+.filters-toolbar__item-child:first-child {
+  line-height: 42px;
+}
+
+.page-container {
+	-ms-transform: initial;
+	-webkit-transform: initial;
+	transform: initial;
+}
+.boost-pfs-action-list-enabled .boost-pfs-addtocart-btn {
+    background: rgba(10,78,101,1)!important;
+}

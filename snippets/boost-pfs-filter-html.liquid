@@ -1,0 +1,124 @@
+{%- capture boost_pfs_layout -%}
+{%- case layout -%}
+
+{%- when 'productGridItemHtml' -%}
+{% raw %}
+	<div class="grid__item {{itemGridWidthClass}}"> 
+		<div class="grid-view-item {{itemSoldOutClass}} product-card"> 
+			<a class="grid-view-item__link grid-view-item__image-container full-width-link" href="{{itemUrl}}"> 
+					<span class="visually-hidden">{{itemTitle}}</span> 
+			</a> 
+			{{imageStyle}} 
+			{{itemImages}} 
+			<div class="h4 grid-view-item__title product-card__title">{{itemTitle}}</div> 
+			{{itemReviews}}
+			{{itemPrice}} 
+		</div> 
+	</div>
+{% endraw %}
+
+{%- when 'productListItemHtml' -%}
+{% raw %}
+	<li href="{{itemUrl}}" class="list-view-item"> 
+		<div class="product-card product-card--list">
+			<a class="full-width-link" href="{{itemUrl}}">
+				<span class="visually-hidden">{{itemTitle}}</span>
+			</a> 
+			<div class="list-view-item__link"> 
+				<div class="list-view-item__image-column"> 
+					<div class="list-view-item__image-wrapper"> 
+						<img class="list-view-item__image" src="{{itemThumbUrl}}" alt="{{itemTitle}}"> 
+					</div> 
+				</div> 
+				<div class="list-view-item__title-column"> 
+					<div class="list-view-item__title">{{itemTitle}}</div> 
+					{{itemReviews}}
+					{{itemSaleLabel}} 
+					{{itemMediumVendor}} 
+					{{itemSoldOutLabel}} 
+				</div> 
+				{{itemSmallVendor}} 
+				<div class="list-view-item__price-column">{{itemPrice}}</div> 
+			</div> 
+		</div> 
+	</li>
+{% endraw %}
+
+{%- when 'vendorGridHtml' -%}
+<div class="grid-view-item__vendor">[[itemVendorLabel]]</div>
+
+{%- when 'soldOutLabelGridHtml' -%}
+<span class="product-price__sold-out">
+	{{ 'products.product.sold_out' | t }}
+</span>
+
+{%- when 'vendorSmallListHtml' -%}
+<div class="list-view-item__vendor-column small--hide">
+	<div class="list-view-item__vendor">[[itemVendorLabel]]</div>
+</div>
+
+{%- when 'vendorMediumListHtml' -%}
+<div class="list-view-item__vendor medium-up--hide">[[itemVendorLabel]]</div>
+
+{%- when 'saleLabelListHtml' -%}
+<div class="list-view-item__on-sale"> {{ 'products.product.on_sale' | t }} </div>
+
+{%- when 'soldOutLabelListHtml' -%}
+<div class="list-view-item__sold-out">{{ 'products.product.sold_out' | t }}</div>
+
+{%- when 'previousActiveHtml' -%}
+<li>
+	<a href="[[itemUrl]]" class="btn btn--tertiary btn--narrow">
+		<svg aria-hidden="true" focusable="false" role="presentation" class="icon icon--wide icon-arrow-left" viewBox="0 0 20 8"><path d="M4.814 7.555C3.95 6.61 3.2 5.893 2.568 5.4 1.937 4.91 1.341 4.544.781 4.303v-.44a9.933 9.933 0 0 0 1.875-1.196c.606-.485 1.328-1.196 2.168-2.134h.752c-.612 1.309-1.253 2.315-1.924 3.018H19.23v.986H3.652c.495.632.84 1.1 1.036 1.406.195.306.485.843.869 1.612h-.743z" fill="#000" fill-rule="evenodd"></path></svg>
+		<span class="icon__fallback-text">Previous</span>
+	</a>
+</li>
+
+{%- when 'previousDisabledHtml' -%}
+<li>
+	<div class="btn btn--tertiary btn--narrow btn--disabled">
+		<svg aria-hidden="true" focusable="false" role="presentation" class="icon icon--wide icon-arrow-left" viewBox="0 0 20 8"><path d="M4.814 7.555C3.95 6.61 3.2 5.893 2.568 5.4 1.937 4.91 1.341 4.544.781 4.303v-.44a9.933 9.933 0 0 0 1.875-1.196c.606-.485 1.328-1.196 2.168-2.134h.752c-.612 1.309-1.253 2.315-1.924 3.018H19.23v.986H3.652c.495.632.84 1.1 1.036 1.406.195.306.485.843.869 1.612h-.743z" fill="#000" fill-rule="evenodd"></path></svg>
+		<span class="icon__fallback-text">Previous</span>
+	</div>
+</li>
+{%- when 'nextActiveHtml' -%}
+<li>
+	<a href="[[itemUrl]]" class="btn btn--tertiary btn--narrow">
+		<svg aria-hidden="true" focusable="false" role="presentation" class="icon icon--wide icon-arrow-right" viewBox="0 0 20 8"><path d="M15.186.445c.865.944 1.614 1.662 2.246 2.154.631.491 1.227.857 1.787 1.098v.44a9.933 9.933 0 0 0-1.875 1.196c-.606.485-1.328 1.196-2.168 2.134h-.752c.612-1.309 1.253-2.315 1.924-3.018H.77v-.986h15.577c-.495-.632-.84-1.1-1.035-1.406-.196-.306-.486-.843-.87-1.612h.743z" fill="#000" fill-rule="evenodd"></path></svg>
+		<span class="icon__fallback-text">Next</span>
+	</a>
+</li>
+
+{%- when 'nextDisabledHtml' -%}
+<li>
+	<div class="btn btn--tertiary btn--narrow btn--disabled">
+		<svg aria-hidden="true" focusable="false" role="presentation" class="icon icon--wide icon-arrow-right" viewBox="0 0 20 8"><path d="M15.186.445c.865.944 1.614 1.662 2.246 2.154.631.491 1.227.857 1.787 1.098v.44a9.933 9.933 0 0 0-1.875 1.196c-.606.485-1.328 1.196-2.168 2.134h-.752c.612-1.309 1.253-2.315 1.924-3.018H.77v-.986h15.577c-.495-.632-.84-1.1-1.035-1.406-.196-.306-.486-.843-.87-1.612h.743z" fill="#000" fill-rule="evenodd"></path></svg>
+		<span class="icon__fallback-text">Next</span>
+	</div>
+</li>
+
+{%- when 'paginateHtml' -%}
+<ul class="list--inline pagination clearfix">
+	[[previous]]
+	<li class="pagination__text">[[pageItems]]</li>
+	[[next]]
+</ul>
+
+{%- when 'sortingHtml' -%}
+<label for="boost-pfs-filter-top-sorting-select" class="filters-toolbar__label select-label"> 
+	{%- assign temp = 'collections.sorting.title' | t  -%} 
+	{%- unless temp contains 'translation missing'  -%} 
+	{{ temp }} 
+	{%- else -%} 
+	Sorting 
+	{%- endunless -%} 
+</label>
+<div class="filters-toolbar__input-wrapper select-group">
+	<select id="boost-pfs-filter-top-sorting-select" class="boost-pfs-filter-top-sorting-select filters-toolbar__input">[[sortingItems]]</select>
+	<svg aria-hidden="true" focusable="false" role="presentation" class="icon icon--wide icon-chevron-down" viewBox="0 0 498.98 284.49"><defs><style>.cls-1{fill:#231f20}</style></defs><path class="cls-1" d="M80.93 271.76A35 35 0 0 1 140.68 247l189.74 189.75L520.16 247a35 35 0 1 1 49.5 49.5L355.17 511a35 35 0 0 1-49.5 0L91.18 296.5a34.89 34.89 0 0 1-10.25-24.74z" transform="translate(-80.93 -236.76)"/></svg>
+</div>
+{%- endcase -%}
+
+{%-  endcapture -%}
+{%- assign str = '}}' -%}
+{{- boost_pfs_layout | json | replace: '[[', '{{' | replace: ']]', str -}}

@@ -1,0 +1,102 @@
+{%- capture tabs %}
+  {%- capture content %}<p>We like to keep things simple and offer <strong>Free Shipping</strong> to most locations in Canada. Orders are despatched from our supplier warehouses in Toronto and Montreal. There is a delivery area surcharge applied to deliveries to the Yukon, Northwest Territories, and Nunavut. Please <a title="Contact Us" href="https://barstoolgems.ca/pages/contact-us">Contact Us</a>&nbsp;for details. Note, we do not deliver to PO Box addresses.</p>
+<h3><strong>Order Confirmation</strong></h3>
+<p>As soon as you place your order, you will receive an order confirmation e-mail.&nbsp; This means that we have received your order in our system and pre-authorized your credit card for the purchase. We automatically reach out to our suppliers to confirm that&nbsp;the items ordered are&nbsp;in stock and available for immediate shipment. If your item is on backorder or unavailable, we will void the pre-authorization and reach out to you via email. If your item(s) is available for immediate shipment (within 5 business days), we will process the charges and submit the order for shipment.&nbsp;</p>
+<h3><strong>Order Shipment</strong></h3>
+<p>We will send you tracking information within 24 hours of your order leaving the warehouse to the e-mail address you provided with your order.&nbsp; If you do not receive tracking information from us within 6 business days of your order, feel free to follow up with us at sales@barstoolgems.com. You will need to inspect and sign for the delivery.</p>{% endcapture -%}
+  72467^^FREE Shipping^^{{ content | replace: '~', '&#126;' | replace: '^', '&#94;' }}^^0||||^^^^1^^0^^~~
+  {%- capture content %}<p>We want all customers to be completely satisfied with their purchase. We understand that sometimes there are reasons why orders need to be returned.&nbsp;</p>
+<p>All orders cancelled 48 hours after placing your order are subject to a $25 administration fee, whether or not your order has shipped. If your order has already shipped, you (the buyer) will also be responsible for arranging the return shipping, the return shipping charges and a restocking fee of $150. Your return must be received back at our warehouse within 30 days from the date of delivery.</p>
+<p>Full details of our <a title="Read our Return Policy" href="https://barstoolgems.ca/pages/returns-exchanges">Return Policy </a></p>{% endcapture -%}
+  73186^^Returns & Exchanges^^{{ content | replace: '~', '&#126;' | replace: '^', '&#94;' }}^^0||||^^^^^^0^^~~
+  {%- capture content %}<p>We work hard to ensure that we offer the best experience and value so that&nbsp;you can feel confident placing your order with Bar Stool Gems.&nbsp;</p>
+<p>If you find another online store that offers a lower price on an identical product within a 30 day window&nbsp;of your purchase date, please&nbsp;<a title="Contact Us" href="https://barstoolgems.ca/pages/contact-us">Contact Us</a> to request a Price Match refund. We will ask you to send a link to the same product on our website, and the other store's website. We will validate the links and process a Price Match partial credit accordingly. Full details here: <a title="Read More " href="https://barstoolgems.ca/pages/price-match">Read More</a></p>{% endcapture -%}
+  72806^^Price Match Guarantee^^{{ content | replace: '~', '&#126;' | replace: '^', '&#94;' }}^^0||||^^^^1^^0^^~~
+  {%- capture content %}<p>We are passionate about providing excellent service and our reputation matters. Take a look at these reviews from satisfied customers:</p>
+<p><em><strong>"The customer support team was so responsive, helpful." </strong></em>J., Toronto</p>
+<p><strong><em>I have to say your customer service is amazing. Thank you for your quick reply.&rdquo;</em></strong> C., Calgary</p>
+<p><em><strong>&ldquo;Thank you&nbsp;for the update. I very much appreciate your company's responsiveness and attention to the issue.&nbsp; Even sending it out with FedEx is extremely generous when you guys could have sent it out by Canada post. I appreciate you going the extra mile.&nbsp; You guys have definitely earned a loyal customer. I will come to you guys first next time!&rdquo;</strong></em> A., Montreal</p>{% endcapture -%}
+  77732^^Reviews^^{{ content | replace: '~', '&#126;' | replace: '^', '&#94;' }}^^0||||^^^^^^0^^~~
+{%- endcapture -%}
+{%- assign tabs_array = tabs | strip | split: '~~' -%}
+{%- assign p_id_str = product.id | downcase -%}
+<!-- begin station shared tab data -->
+{%- for item in tabs_array -%}
+  {%- assign tab = item | split: '^^' -%}
+  {%- assign hndl = tab[1] | replace: '&amp;', '' | handleize -%}
+  {%- capture tab_output -%}
+    <div id="station-tabs-data-{{ tab[0] }}" class="station-tabs-data-item" style="display:none;" data-position="{{ tab[5] | default: -1 }}">
+      <a id="st-link-{{ hndl }}" class="station-tabs-link" href="#{{ hndl }}"><span>{{ tab[1] }}</span></a>
+      <div id="st-{{ hndl }}" class="station-tabs-content">
+        <div class="station-tabs-content-inner">{{ tab[2] }}</div>
+      </div>
+    </div>
+  {%- endcapture -%}
+  {%- assign asn = tab[3] | split: '|' -%}
+  {%- assign p_ids = asn[0] | split: ',' -%}
+  {%- assign e_ids = tab[4] | split: ',' -%}
+  {%- unless tabs_order contains tab[0] %}{% continue %}{% endunless -%}
+  {%- if e_ids contains p_id_str %}{% continue %}{% endif -%}
+  {%- if tab[7] != blank%}
+    {%- assign t_lcl = tab[7] | downcase -%}
+    {%- assign s_lcl = request.locale.iso_code | downcase -%}
+    {%- if t_lcl != s_lcl %}{% continue %}{% endif -%}
+  {%- endif -%}
+  {%- if asn[0] == '0' or asn[1] == '0' -%} 
+    {{ tab_output }}{% continue -%}
+  {%- endif -%}
+  {%- assign col_ids = asn[1] | split: ',' -%}
+  {%- assign tags = asn[2] | split: ',' -%}
+  {%- assign tps = asn[3] | split: ',' -%}
+  {%- assign vndr = asn[4] | split: ',' -%}
+  {%- if tab[6] == '1' %}{% assign all = true %}{% else %}{% assign all = false %}{% endif -%}
+  {%- if asn[0] != blank -%}
+    {%- assign all = false -%}
+    {%- if p_ids contains p_id_str -%}
+      {{ tab_output }}{% continue -%}
+    {%- endif -%}
+  {%- endif -%}
+  {%- if tps.size > 1 or vndr.size > 1 %}{% assign all = false %}{% endif -%}
+  {%- assign cncl = false -%}
+  {%- if col_ids.size > 0 -%}
+    {%- assign cols = product.collections | map: 'id' | downcase -%}
+    {%- for c in col_ids -%}
+      {%- if all -%}
+        {%- unless cols contains c %}
+          {%- assign cncl = true %}{% break -%}
+        {%- endunless -%}
+      {%- elsif cols contains c -%}
+        {{ tab_output }}{% assign cncl = true %}{% break -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if cncl %}{% continue %}{% endif -%}
+  {%- endif -%}
+  {%- if tags.size > 0 -%}
+    {%- for t in tags -%}
+      {%- if all -%}
+        {%- unless product.tags contains t -%}
+          {%- assign cncl = true %}{% break -%}
+        {%- endunless -%}
+      {%- elsif product.tags contains t %}
+        {{ tab_output }}{% assign cncl = true %}{% break -%}
+      {%- endif - %}
+    {%- endfor -%}
+    {%- if cncl %}{% continue %}{% endif -%}
+  {%- endif -%}
+  {%- if tps.size > 0 -%}
+    {%- if all and tps[0] != product.type -%}
+      {%- continue -%}
+    {%- elsif all == false and tps contains product.type %}
+      {{ tab_output }}{% continue -%}
+    {%- endif -%}
+  {%- endif -%}
+  {%- if vndr.size > 0 -%}
+    {%- if all and vndr[0] != product.vendor -%}
+      {%- continue -%}
+    {%- elsif all == false and vndr contains product.vendor -%}
+      {{ tab_output }}{% continue -%}
+    {%- endif -%}
+  {%- endif -%}
+  {%- if all %}{{ tab_output }}{% endif -%}
+{%- endfor -%}
+<!-- end station shared tab data --> 

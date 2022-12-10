@@ -1,0 +1,36 @@
+{% if section.settings.show_title %}
+  <h2 class="small--text-center h1 rich-text__heading--medium">{{ section.settings.card_title }}</h2>
+{% endif %}
+
+<div id="fomo-portal-container">
+</div>
+<script src="https://load.fomo.com/shopify/sections/portal.js?client_id=TyxZDoScPQfJ98lI1Rl-1g" async,,,dddd></script>
+
+<style>
+</style>
+
+{% schema %}
+  {
+    "name": "Fomo Portal",
+    "settings": [
+      {
+         "type": "checkbox",
+         "id": "show_title",
+         "default": true,
+         "label": "Show card title"
+      },
+      {
+        "type": "text",
+        "id": "card_title",
+        "label": "Title",
+        "default": "What's Happening"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Fomo Portal",
+        "category": "Fomo — Social Proof Marketing"
+      }
+    ]
+  }
+{% endschema %}

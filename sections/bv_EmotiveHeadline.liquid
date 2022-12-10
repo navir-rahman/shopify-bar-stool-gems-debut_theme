@@ -1,0 +1,26 @@
+<section id="EmotiveHeadline-{{ section.id }}" class="" data-section="{{ section.id }}" style="background-color: #FFFFFF;">
+  {%- comment -%}
+    style sheet
+  {%- endcomment -%}
+  {{ 'bv_common_css.css' | asset_url | stylesheet_tag }}
+  {{ 'bv_EmotiveHeadline_css.css' | asset_url | stylesheet_tag }}
+  {%- comment -%}
+    style sheet
+  {%- endcomment -%}
+  <div class="EmotiveHeadlineContainer" id="EmotiveHeadlineSection-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="EmotiveHeadline" data-enable-history-state="true" data-ajax-enabled="{{ settings.enable_ajax }}" {{ block.shopify_attributes }}>
+    <div class="bv_headingContainer">
+      {%- comment -%}
+        add rating here
+      {%- endcomment -%}
+
+      <h1 class="bv_heading">Emotive headline goes here</h1>
+      <p class="bv_subheading">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam omnis, provident officia, ipsam a dignissimos, odio minus quis unde laboriosam eveniet? Provident rerum expedita qui perspiciatis libero praesentium labore quia.</p>
+
+      <button class="bv_addTocartBtn">Add to cart</button>
+      <div class="EmotiveHeadlineImg">
+
+        <img src="https://i.ibb.co/YNm9FKZ/checkoutimagejpg.jpg" height="" width="900" loading="lazy" alt="">
+      </div>
+    </div>
+  </div>
+</section>
