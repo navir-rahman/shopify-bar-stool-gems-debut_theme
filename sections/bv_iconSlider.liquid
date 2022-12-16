@@ -31,8 +31,10 @@
         {% for block in section.blocks %}
 
           <figure class="carousel__slide " style="width:25%">
-            {% if block.settings.bv_AsrecommendedbyIcon %}
-              //
+            {% if block.settings.bv_AsrecommendedbyIcon != blank %}
+              <p>
+                {{ block.settings.bv_AsrecommendedbyIcon }}
+              </p>
             {% else %}
               <p style="width: 50px;">
                 <svg
@@ -63,24 +65,23 @@
 {%- comment -%}
 add slider js
 {%- endcomment -%}<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
-{{ 'carousel.autoplay.umd.js' | asset_url | script_tag }}
-
+<script src="{{ 'carousel.autoplay.umd.js' | asset_url }}"></script>
 
 <script defer="defer">
 
   const bv_iconSlider = new Carousel(document.querySelector('#bv_iconSlider'), {
   Autoplay: {
-            timeout: 1000
-          },
-          infinite: true,
-          Dots: false,
-          friction: 0.88,
-          slidesPerPage: 4,
-      
-          Navigation: false,
-          Dots: false
-        });
-        bv_iconSlider.plugins.Autoplay.start()</script>
+                    timeout: 1000
+                  },
+                  infinite: true,
+                  Dots: false,
+                  friction: 0.88,
+                  slidesPerPage: 4,
+              
+                  Navigation: false,
+                  Dots: false
+                });
+                bv_iconSlider.plugins.Autoplay.start()</script>
 
 
 {% schema %}
@@ -99,7 +100,7 @@ add slider js
             "default": " bv_iconSlider",
             "label": "Add bv_iconSlider Title"
           }, {
-            "type": "richtext",
+            "type": "html",
             "id": "bv_AsrecommendedbyIcon",
             "label": "Add bv_iconSlider Image icon"
           }

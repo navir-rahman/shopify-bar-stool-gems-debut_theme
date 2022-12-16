@@ -1,4 +1,4 @@
-<section id="features-{{ section.id }}"class=""data-section="{{ section.id }}"style="background-color: #f2f2f2;">{%- comment -%}
+<section id="features-{{ section.id }}"class=""data-section="{{ section.id }}"style="background-color: {{ section.settings.bv_featureBgColor }}">{%- comment -%}
   style sheet
   {%- endcomment -%}{{ 'bv_features.css' | asset_url | stylesheet_tag }}
 
@@ -67,7 +67,7 @@
 
 {% schema %}
   {
-    "name": "bv_features",
+    "name": "Benefits",
     "tag": "section",
     "class": "section",
     "blocks": [
@@ -113,11 +113,15 @@
         "type": "image_picker",
         "id": "whatsIncludedImg",
         "label": "Add Button Text"
+      }, {
+        "type": "color",
+        "id": "bv_featureBgColor",
+        "label": "Add container background color"
       }
     ],
     "presets": [
       {
-        "name": "features",
+        "name": "Benefits",
         "settings": {},
         "blocks": [
           {

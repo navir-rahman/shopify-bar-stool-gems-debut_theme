@@ -12,18 +12,19 @@
     data-section-id="{{ section.id }}"
     data-section-type="Asrecommendedby"
     data-enable-history-state="true"
-    data-ajax-enabled="{{ settings.enable_ajax }}"
-    >
+    data-ajax-enabled="{{ settings.enable_ajax }}">
     <div class="bv_Asrecommendedby">
       <div class="bv_AsrecommendedbyTitle">
-        <h4>As recommended by</h4>
+        <h4 style="width: max-content;">
+          {{ section.settings.bv_AsrecommendedbyText_heading }}
+        </h4>
       </div>
       <div class="bv_AsrecommendedbySlider">
         <div id="bv_AsrecommendedbyCarousel" class="carousel text-lg">
           <div class="carousel__viewport px-20">
 
             {% for block in section.blocks %}
-              <figure class="carousel__slide ">
+              <figure class="carousel__slide " style="width: 20%;">
                 {% if block.settings.bv_AsrecommendedbyIcon %}
                   <img
                     srcset="{{ block.settings.bv_AsrecommendedbyIcon | image_url: width: block.settings.image_width }}, {{ block.settings.bv_AsrecommendedbyIcon | image_url: width: image_size_2x }} 2x"
@@ -35,11 +36,6 @@
                     style="max-width: min(100%, {{ block.settings.image_width }}px);">
                 {% else %}
                   <img src="https://i.ibb.co/xf7tB5N/Screenshot-2022-12-05-213717.png" alt="">
-                {% endif %}
-                {% if block.settings.bv_Transformation__title %}
-                  <p>
-                    {{ block.settings.bv_Transformation__title }}
-                  </p>
                 {% endif %}
               </figure>
             {% endfor %}
@@ -60,38 +56,38 @@ add slider js
 <script defer="defer">
   const bv_AsrecommendedbyCarousel = new Carousel(document.querySelector('#bv_AsrecommendedbyCarousel'), {
   Autoplay: {
-          timeout: 1000
-        },
-        infinite: true,
-        Dots: false,
-        friction: 0.88,
-        slidesPerPage: 1,
-    
-        Navigation: false,
-        Dots: false
-      });
-      bv_AsrecommendedbyCarousel.plugins.Autoplay.start()</script>
+                timeout: 1000
+              },
+              infinite: true,
+              Dots: false,
+              friction: 0.88,
+              slidesPerPage: 1,
+          
+              Navigation: false,
+              Dots: false
+            });
+            bv_AsrecommendedbyCarousel.plugins.Autoplay.start()</script>
 
 
 {% schema %}
   {
-    "name": "Transformation",
+    "name": "bv_Asrecommendedby",
     "tag": "section",
     "class": "section",
     "blocks": [
       {
-        "type": "Transformation",
-        "name": "Transformation",
+        "type": "bv_Asrecommendedby",
+        "name": "bv_Asrecommendedby",
         "settings": [
           {
             "type": "text",
-            "id": "bv_Transformation__title",
-            "default": " Transformation",
-            "label": "Add Transformation Title"
+            "id": "bv_bv_Asrecommendedby__title",
+            "default": " bv_Asrecommendedby",
+            "label": "Add bv_Asrecommendedby Title"
           }, {
             "type": "image_picker",
             "id": "bv_AsrecommendedbyIcon",
-            "label": "Add Transformation Image icon"
+            "label": "Add bv_Asrecommendedby Image icon"
           }
         ]
       }
@@ -99,24 +95,14 @@ add slider js
     "settings": [
       {
         "type": "text",
-        "id": "bv_TransformationText_heading",
-        "default": "Transformation headline goes here",
-        "label": "Add Transformation Heading"
+        "id": "bv_AsrecommendedbyText_heading",
+        "default": "As recommended by headline goes here",
+        "label": "Add bv_Asrecommendedby Heading"
       }
     ],
     "presets": [
       {
-        "name": "Transformation",
-        "settings": {},
-        "blocks": [
-          {
-            "type": "Transformation"
-          }, {
-            "type": "Transformation"
-          }, {
-            "type": "Transformation"
-          }
-        ]
+        "name": "As recommended by"
       }
     ],
     "templates": ["article", "index", "page", "product"]
