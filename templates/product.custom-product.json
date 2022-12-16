@@ -1,0 +1,10 @@
+{
+    "sections": {
+      "main": {
+        "type": "bv_Custome_product"
+      }
+    },
+    "order": [
+      "main"
+    ]
+  }
