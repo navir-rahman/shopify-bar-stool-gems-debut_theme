@@ -44,12 +44,6 @@
           "type": "bv_shippping_data",
           "settings": {
           }
-        },
-        "a0e6deb9-bfd7-419b-bcef-c69224158595": {
-          "type": "bv_tab",
-          "settings": {
-            "show_dynamic_checkout": true
-          }
         }
       },
       "block_order": [
@@ -59,8 +53,7 @@
         "24a0b06f-a8af-4bc4-81c8-d533bbcfd5de",
         "1862586e-7d48-48f5-bc18-6346e9b5ae93",
         "9eceb89b-f2c3-4007-b43d-a7ccb19768d7",
-        "aa7bc28d-3517-432d-aec8-b538bb14769c",
-        "a0e6deb9-bfd7-419b-bcef-c69224158595"
+        "aa7bc28d-3517-432d-aec8-b538bb14769c"
       ],
       "settings": {
         "image_size": "medium",
