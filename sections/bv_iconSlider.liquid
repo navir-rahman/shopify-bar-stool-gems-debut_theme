@@ -1,12 +1,9 @@
-<section id="bv_iconSlider-{{ section.id }}" class="" data-section="{{ section.id }}" style="background-color: #FFFFFF;">
+<section id="bv_iconSlider-{{ section.id }}"class=""data-section="{{ section.id }}"style="background-color: #FFFFFF;">{%- comment -%}
+  style sheet
+  {%- endcomment -%}{{ 'bv_common_css.css' | asset_url | stylesheet_tag }}
   {%- comment -%}
-    style sheet
-  {%- endcomment -%}
-  {{ 'bv_common_css.css' | asset_url | stylesheet_tag }}
-  {%- comment -%}
-    add slider js
-  {%- endcomment -%}
-  {%- style -%}
+  add slider js
+  {%- endcomment -%}{%- style -%}
 
     .bv_iconSliderContainer {
 
@@ -17,30 +14,45 @@
       padding: 0;
     }
   {%- endstyle -%}
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"/>
-  {%- comment -%}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />{%- comment -%}
     style sheet
-  {%- endcomment -%}
-  <div class="bv_iconSliderContainer" id="bv_iconSliderSection-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="bv_iconSlider" data-enable-history-state="true" data-ajax-enabled="{{ settings.enable_ajax }}" {{ block.shopify_attributes }}>
+    {%- endcomment -%}<div
+    class="bv_iconSliderContainer"
+    id="bv_iconSliderSection-{{ section.id }}"
+    data-section-id="{{ section.id }}"
+    data-section-type="bv_iconSlider"
+    data-enable-history-state="true"
+    data-ajax-enabled="{{ settings.enable_ajax }}"
+    {{ block.shopify_attributes }}>
 
 
     <div id="bv_iconSlider" class="carousel text-lg">
       <div class="carousel__viewport px-20">
-        <figure class="carousel__slide ">
-          <p>Fantastic,
-          </p>
-        </figure>
-        <figure class="carousel__slide ">
-          <p>Fantastic,
-          </p>
-        </figure>
-        <figure class="carousel__slide ">
-          <p>Fantastic,
-          </p>
-        </figure>
-        <figure class="carousel__slide ">
-          <p>Fantastic,</p>
-        </figure>
+        {% for block in section.blocks %}
+
+          <figure class="carousel__slide " style="width:25%">
+            {% if block.settings.bv_AsrecommendedbyIcon %}
+              //
+            {% else %}
+              <p style="width: 50px;">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
+                </svg>
+              </p>
+            {% endif %}
+          </figure>
+        {% endfor %}
+
+
       </div>
     </div>
 
@@ -49,24 +61,69 @@
 </section>
 
 {%- comment -%}
-  add slider js
-{%- endcomment -%}
-<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
-<script src="../assets/carousel.autoplay.umd.js"></script>
+add slider js
+{%- endcomment -%}<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+{{ 'carousel.autoplay.umd.js' | asset_url | script_tag }}
 
-<script>
+
+<script defer="defer">
 
   const bv_iconSlider = new Carousel(document.querySelector('#bv_iconSlider'), {
-    Autoplay: {
-      timeout: 1000
-    },
-    infinite: true,
-    Dots: false,
-    friction: 0.88,
-    slidesPerPage: 2,
+  Autoplay: {
+          timeout: 1000
+        },
+        infinite: true,
+        Dots: false,
+        friction: 0.88,
+        slidesPerPage: 4,
+    
+        Navigation: false,
+        Dots: false
+      });
+      bv_iconSlider.plugins.Autoplay.start()</script>
 
-    Navigation: false,
-    Dots: false
-  });
-  quoteCarousel.plugins.Autoplay.start()
-</script>
+
+{% schema %}
+  {
+    "name": "bv_iconSlider",
+    "tag": "section",
+    "class": "section",
+    "blocks": [
+      {
+        "type": "bv_iconSlider",
+        "name": "bv_iconSlider",
+        "settings": [
+          {
+            "type": "text",
+            "id": "bv_bv_iconSlider__title",
+            "default": " bv_iconSlider",
+            "label": "Add bv_iconSlider Title"
+          }, {
+            "type": "richtext",
+            "id": "bv_AsrecommendedbyIcon",
+            "label": "Add bv_iconSlider Image icon"
+          }
+        ]
+      }
+    ],
+    "settings": [
+      {}
+    ],
+    "presets": [
+      {
+        "name": "bv_iconSlider",
+        "settings": {},
+        "blocks": [
+          {
+            "type": "bv_iconSlider"
+          }, {
+            "type": "bv_iconSlider"
+          }, {
+            "type": "bv_iconSlider"
+          }
+        ]
+      }
+    ],
+    "templates": ["article", "index", "page", "product"]
+  }
+{% endschema %}

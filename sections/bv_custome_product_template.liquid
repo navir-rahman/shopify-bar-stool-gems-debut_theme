@@ -1,0 +1,63 @@
+<section id="CustomeProduct-{{ section.id }}" class="page-width section-{{ section.id }}-padding" data-section="{{ section.id }}">
+  {{ 'bv_custome_product_template.css' | asset_url | stylesheet_tag }}
+  <div class="beardcrumb"></div>
+
+  <div class="bv_customeProductContainer" style="display: flex;">
+    <div class="Product_midea" style="width: 50%;">
+
+      <div id="bv_product_carousel" class="carousel w-10/12 max-w-5xl mx-auto">
+        {% for media in product.media %}
+          <div class="carousel__slide" data-src="{{ media | img_url:'1024x' }}" data-fancybox="gallery"  data-auto-size="false">
+            {% render 'bv_custome_media', media: media %}
+          </div>
+        {% endfor %}
+      </div>
+
+      <div id="bv_product_carouselThumb" class="carousel max-w-xl mx-auto">
+        {% for media in product.media %}
+          <div class="carousel__slide">
+            {{ media | image_url: width: '100', height: '100' | image_tag }}
+          </div>
+        {% endfor %}
+      </div>
+
+
+    </div>
+    <div class="Product_discription">
+      discription
+    </div>
+
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+<script>
+  // Initialise Carousel
+  const bv_product_carousel = new Carousel(document.querySelector("#bv_product_carousel"), {Dots: false});
+
+// Thumbnails
+  const bv_product_carouselThumb = new Carousel(document.querySelector("#bv_product_carouselThumb"), {
+    Sync: {
+      target: bv_product_carousel,
+      friction: 0
+    },
+    Dots: false,
+    Navigation: false,
+    center: true,
+    slidesPerPage: 1,
+    infinite: false
+
+  });
+
+// Customize Fancybox
+  Fancybox.bind('[data-fancybox="gallery"]', {
+    Carousel: {
+      on: {
+        change: (that) => {
+          bv_product_carousel.slideTo(bv_product_carousel.findPageForSlide(that.page), {friction: 0});
+        }
+      }
+    }
+  });
+</script>

@@ -1,26 +1,165 @@
-<section id="whatsIncluded-{{ section.id }}" class="" data-section="{{ section.id }}" style="background-color: #FFFFFF;">
+<section id="whatsIncluded-{{ section.id }}"class=""data-section="{{ section.id }}"style="background-color: #FFFFFF;">
   {%- comment -%}
-    style sheet
-  {%- endcomment -%}
-  {{ 'bv_whatsIncluded.css' | asset_url | stylesheet_tag }}
+  style sheet
+  {%- endcomment -%}{% style %}
+    .whatsIncludedContainer {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+    }
+    .whatsIncludedTextContainer,
+    .whatsIncludedImg {
+      width: 49.9%;
+    }
+    .whatsIncludedText {
+      max-width: 600px;
+      margin: auto;
+
+    }
+    .whatsIncludedText h2 {
+      font-size: 3rem;
+      font-style: italic;
+      color: #565656;
+    }
+    .whatsIncludedText p {
+      line-height: 1.4;
+      color: #8d8d8d;
+      font-size: large;
+      margin-bottom: 30px;
+    }
+    .whatsIncludedText ul {
+      line-height: 1.3;
+      color: #8d8d8d;
+      font-size: large;
+    }
+    .whatsIncludedtickIcon {
+      color: #fff;
+      background-color: #8d8d8d;
+      padding: 3px;
+      font-size: 14px;
+      border-radius: 50%;
+    }
+
+    .whatsIncludedImg img {}
+    /* Larger than tablet */
+    @media(max-width: 750px) {
+      .whatsIncludedContainer {
+        flex-direction: column-reverse;
+      }
+      .whatsIncludedTextContainer,
+      .whatsIncludedImg {
+        width: 99.9%;
+      }
+
+    }
+  {% endstyle %}
   {%- comment -%}
-    style sheet
+  style sheet
   {%- endcomment -%}
-  <div class="whatsIncludedContainer" id="whatsIncludedSection-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="whatsIncluded" data-enable-history-state="true" data-ajax-enabled="{{ settings.enable_ajax }}" {{ block.shopify_attributes }}>
+  <div
+    class="whatsIncludedContainer"
+    id="whatsIncludedSection-{{ section.id }}"
+    data-section-id="{{ section.id }}"
+    data-section-type="whatsIncluded"
+    data-enable-history-state="true"
+    data-ajax-enabled="{{ settings.enable_ajax }}"
+    {{ block.shopify_attributes }}>
     <div class="whatsIncludedTextContainer">
       <div class="whatsIncludedText">
-        <h1>Whats Included</h1>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non praesentium reiciendis maxime asperiores nam corporis animi perferendis voluptas debitis qui?</p>
+        <h2>{{ section.settings.whatsIncludedTextHeading }}</h2>
+        <p>{{ section.settings.Whats_Includedcontent }}</p>
         <ul>
-          <li>
-            <span class="whatsIncludedtickIcon">&#10004;</span>
-            Lorem ipsum dolor sit amet.</li>
+          {% for block in section.blocks %}
+            <li>
+              <span class="whatsIncludedtickIcon">&#10004;</span>
+              {{ section.settings.bv_accordion__title }}
+            </li>
+          {% endfor %}
         </ul>
       </div>
     </div>
     <div class="whatsIncludedImg" style="background-color: #D8D8D8;">
-      <img src="https://i.ibb.co/JCHnTvH/Screenshot-2022-12-04-142752.png" alt="" width="950" height="726">
+      {% if section.settings.whatsIncludedImg %}
+          <img
+          srcset="{{ block.settings.whatsIncludedImg | image_url: width: block.settings.image_width }}, {{ block.settings.whatsIncludedImg | image_url: width: image_size_2x }} 2x"
+          src="{{ block.settings.whatsIncludedImg | image_url: width: 2400 }}"
+          alt="{{ block.settings.whatsIncludedImg.alt | escape }}"
+          loading="lazy"
+          width="{{ block.settings.whatsIncludedImg.width }}"
+          height="{{ block.settings.whatsIncludedImg.height }}"
+          style="max-width: min(100%, {{ block.settings.image_width }}px);">
+      {% else %}
+        <img
+          src="https://i.ibb.co/JCHnTvH/Screenshot-2022-12-04-142752.png"
+          height=""
+          width="900"
+          loading="lazy"
+          alt="">
+      {% endif %}
     </div>
   </div>
 
 </section>
+
+
+
+{% schema %}
+  {
+    "name": "Whats_Included",
+    "tag": "section",
+    "class": "section",
+    "blocks": [
+      {
+        "type": "Whats_Included",
+        "name": "Whats_Included",
+        "settings": [
+          {
+            "type": "text",
+            "id": "bv_accordion__title",
+            "default": " Whats Included content",
+            "label": "Add FAQ Title"
+          }, {
+            "type": "richtext",
+            "id": "bv_accordion_contet",
+            "default": "<P> Whats Included content</P>",
+            "label": "Add FAQ Content"
+          }
+        ]
+      }
+    ],
+    "settings": [
+      {
+        "type": "text",
+        "id": "whatsIncludedTextHeading",
+        "default": "Whats Included",
+        "label": "Add Headline"
+      }, {
+        "type": "richtext",
+        "id": "Whats_Includedcontent",
+        "default": "<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam omnis, provident officia, ipsam a dignissimos, odio minus quis unde laboriosam eveniet? Provident </p>",
+        "label": "Add Sub Headline"
+      }, {
+        "type": "image_picker",
+        "id": "whatsIncludedImg",
+        "label": "Add Button Text"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Whats_Included",
+        "settings": {},
+        "blocks": [
+          {
+            "type": "Whats_Included"
+          }, {
+            "type": "Whats_Included"
+          }, {
+            "type": "Whats_Included"
+          }
+        ]
+      }
+    ],
+    "templates": ["article", "index", "page", "product"]
+  }
+{% endschema %}

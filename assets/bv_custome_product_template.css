@@ -1,0 +1,55 @@
+
+/* carousel  */
+#bv_product_carousel {
+  width: fit-content;
+  margin: 0 auto 1rem auto;
+
+  --carousel-button-color: #170724;
+  --carousel-button-bg: #fff;
+  --carousel-button-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%),
+    0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
+
+  --carousel-button-svg-width: 20px;
+  --carousel-button-svg-height: 20px;
+  --carousel-button-svg-stroke-width: 2.5;
+}
+
+#bv_product_carousel .carousel__slide {
+  width: 100%;
+  padding: 0;
+}
+
+#bv_product_carousel .carousel__button.is-prev {
+  left: -1.5rem;
+}
+
+#bv_product_carousel .carousel__button.is-next {
+  right: -1.5rem;
+}
+
+#bv_product_carousel .carousel__button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px #A78BFA;
+}
+
+#bv_product_carouselThumb .carousel__slide {
+  opacity: 0.5;
+  padding: 0;
+  margin: 0.25rem;
+  width: 96px;
+  height: auto;
+}
+
+#bv_product_carouselThumb .carousel__slide img {
+  width: 100%;
+
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+#bv_product_carouselThumb .carousel__slide.is-nav-selected {
+  opacity: 1;
+}
+.has-image[data-image-fit=cover]  .fancybox__image {
+  object-fit: contain !important;
+}

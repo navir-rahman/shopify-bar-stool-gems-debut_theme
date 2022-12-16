@@ -1,16 +1,15 @@
 .one_half_column {
   width: 49%;
 }
+.product__accordion{
+  margin-bottom: 20px;
+}
 .rotate45{
     transform: rotate(45deg);
     transition: all ease;
 }
 .faqContainer {
   display: flex;
-}
-.faqTextContainer {
-}
-.faqcollapsible {
 }
 .whatsIncludedContainer {
   display: flex;
@@ -22,9 +21,9 @@
   max-width: 500px;
   margin: auto;
 
-}
-.faqText h1 {
-  font-size: 4rem;
+} 
+.faqText h2 {
+  font-size: 3rem;
   font-style: italic;
   color: #565656;
   margin-bottom: 1em;
@@ -40,7 +39,9 @@
   color: #8d8d8d;
   font-size: large;
 }
-
+.bv_collapsibleDetails{
+  margin-bottom: 10px;
+}
 .faqcollapsible {
   padding-left: 2rem;
 }
@@ -50,6 +51,7 @@
   position: relative;
   line-height: 1;
   padding: 1.5rem 0;
+  background-color: #D9D9D9;
 }
 
 .accordion__content {
@@ -62,6 +64,9 @@
   display: flex;
   flex: 1;
 }
+.accordion__title{
+  margin: 0;
+}
 summary .icon-caret {
   position: absolute;
   height: 0.6rem;
@@ -69,5 +74,18 @@ summary .icon-caret {
   top: calc(50% - 0.2rem);
 }
 /* Larger than tablet */
-@media (min-width: 750px) {
+@media (max-width: 750px) {
+  .accordion summary {
+    display: flex;
+    position: relative;
+    line-height: 1;
+    padding: 0.5rem 0;
+    background-color: #D9D9D9;
+}
+.faqContainer {
+  flex-direction: column;
+}
+.faqTextContainer, .faqcollapsible{
+  width: 99.9%;
+}
 }

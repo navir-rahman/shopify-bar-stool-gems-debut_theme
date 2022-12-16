@@ -1,0 +1,156 @@
+.ColorGreen{
+    color: green;
+}
+.ColorGray{
+    color: #8D8D8D;
+}
+.details_width{
+    max-width: 500px;
+}
+.bv_product__title{
+    font-size: 2.5em;
+}
+.bv_price{
+    margin-bottom: 20px;
+}
+.bv_bulletensIcon svg{
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    display: grid;
+
+}
+
+.bv_shippping_data ul li, .bv_bulletens ul li{
+    display: flex;
+    margin-bottom: 5px;
+    font-size:medium;
+}
+.bv_securePaymentIcon{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    
+}
+
+.bv_securePaymentIconIMg{
+    margin-right: 20px;
+}
+.bv_securePaymentIcon p{
+    font-style: italic;
+}
+
+/* bv_shippping_data */
+.bv_shippping_data{
+    background-color: #E4E4E4;
+    color: #8D8D8D;
+    padding: 1em;
+    margin-right: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+/* tab  */
+.bv_tab{
+margin-bottom: 20px;
+}
+/* Component Needs */
+
+.pc-tab > input, .pc-tab div > div {
+  display: none;
+}
+#tab1:checked ~ div .tab1, #tab2:checked ~ div .tab2, #tab3:checked ~ div .tab3 {
+  display: block;
+}
+#tab1:checked ~ nav .tab1, #tab2:checked ~ nav .tab2, #tab3:checked ~ nav .tab3 {
+  color: red;
+}
+/* Visual Styles */
+
+.pc-tab {
+  width: 100%;
+  max-width: 700px;
+  
+}
+.pc-tab ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.pc-tab ul li label {
+  
+  float: left;
+  padding: 15px 25px;
+  border: 1px solid #ddd;
+  border-bottom: 0;
+  background: #eeeeee;
+  color: #444;
+}
+.pc-tab ul li label:hover {
+  background: #dddddd;
+}
+.pc-tab ul li label:active {
+  background: #ffffff;
+}
+.pc-tab ul li:not(:last-child) label {
+  border-right-width: 0;
+}
+.pc-tab div {
+  font-family: "Droid Serif";
+  clear: both;
+}
+.pc-tab div div {
+  padding: 20px;
+  width: 100%;
+  border: 1px solid #ddd;
+  background: #fff;
+  line-height: 1.5em;
+  letter-spacing: 0.3px;
+  color: #444;
+}
+.pc-tab div div h2 {
+  margin: 0;
+  
+  letter-spacing: 1px;
+  color: #34495e;
+}
+#tab1:checked ~ nav .tab1 label, #tab2:checked ~ nav .tab2 label, #tab3:checked ~ nav .tab3 label {
+  background: white;
+  color: #111;
+  position: relative;
+}
+#tab1:checked ~ nav .tab1 label:after, #tab2:checked ~ nav .tab2 label:after, #tab3:checked ~ nav .tab3 label:after {
+  content: '';
+  display: block;
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  background: #ffffff;
+  left: 0;
+  bottom: -1px;
+}
+footer {
+  margin-top: 50px;
+  font-size: 14px;
+  color: #CCC;
+  text-align: center;
+}
+footer a {
+  color: #AAA;
+  text-decoration: none;
+}
+
+
+/* Larger than tablet */
+@media (max-width: 750px) {
+  .bv_tab{
+    display: none;
+  }
+}
+/* Larger than tablet */
+@media (min-width: 750px) {
+  .bv_in_Product_collapsible{
+    display: none;
+  }
+}
