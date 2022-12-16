@@ -1,10 +1,12 @@
 {
-    "sections": {
-      "main": {
-        "type": "bv_Custome_product"
+  "sections": {
+    "main": {
+      "type": "bv_Custome_product",
+      "settings": {
       }
-    },
-    "order": [
-      "main"
-    ]
-  }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
