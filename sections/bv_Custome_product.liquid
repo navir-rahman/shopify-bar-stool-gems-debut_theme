@@ -498,46 +498,60 @@
                 <div {{ block.shopify_attributes }}>
                 <div class="bv_tab">
                   <div class="pc-tab">
+                    {%  if block.settings.tab1label %}
                     <input
                       checked="checked"
                       id="tab1"
                       type="radio"
                       name="pct" />
+                    {% endif %}
+                      {%  if block.settings.tab2label %}  
                     <input
                       id="tab2"
                       type="radio"
                       name="pct" />
+                    {% endif %}
+                      {%  if block.settings.tab2label %}  
                     <input
                       id="tab3"
                       type="radio"
                       name="pct" />
+                    {% endif %}
                     <nav>
                       <ul>
+                      {%  if block.settings.tab1label %}
                         <li class="tab1">
-                          <label for="tab1">First Tab</label>
+                          <label for="tab1">{{ block.settings.tab1label }}</label>
                         </li>
+                      {% endif %} 
+                      {%  if block.settings.tab2label %}  
                         <li class="tab2">
-                          <label for="tab2">Second Tab</label>
+                          <label for="tab2">{{ block.settings.tab2label }}</label>
                         </li>
+                      {% endif %}
+                      {%  if block.settings.tab3label %}  
                         <li class="tab3">
-                          <label for="tab3">Third Tab</label>
+                          <label for="tab3">{{ block.settings.tab3label }}</label>
                         </li>
+                      {% endif %}
                       </ul>
                     </nav>
                     <div>
+                      {%  if block.settings.tab1content %}
                       <div class="tab1">
-                        <h2>First</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus itaque quidem minus nostrum, voluptatem accusamus aspernatur quia harum ratione, officia laudantium inventore autem doloribus atque labore numquam non. Hic, animi.</p>
+                       {{ block.settings.tab1content }}
                       </div>
+                    {% endif %}
+                      {%  if block.settings.tab2content %}
                       <div class="tab2">
-                        <h2>Second</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum nesciunt ipsum dolore error repellendus officiis aliquid a, vitae reprehenderit, accusantium vero, ad. Obcaecati numquam sapiente cupiditate. Praesentium eaque, quae error!</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis, maiores.lorem3 lorem400</p>
+                        {{ block.settings.tab2content }}
                       </div>
+                    {% endif %}
+                      {%  if block.settings.tab3content %}
                       <div class="tab3">
-                        <h2>Third</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio, nobis culpa rem, vitae earum aliquid.</p>
+                        {{ block.settings.tab3content }}
                       </div>
+                    {% endif %}
                     </div>
                   </div>
 
@@ -549,37 +563,85 @@
                   <div class="" style="">
 
 
-                    <div class="product__accordion accordion quick-add-hidden">
+                    <div class="product__accordion accordion quick-add-hidden" style="margin: 20px 0;background-color: #E6E6E6; padding-bottom:3px">
                       <details id="Details-collapsible-row-1-template--14624136757325__main">
-                        <summary onclick="bv_rotateIcon(this)"
+                        <summary 
+                        style="padding: 10px;"
                           role="button"
                           aria-expanded="false"
                           aria-controls="ProductAccordion-collapsible-row-1-template--14624136757325__main">
-                          {%- comment -%}
-                          <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-caret" viewBox="0 0 10 6">
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
-                          </path>
-                          </svg>
-                          {%- endcomment -%}
-                          <img
-                            id="bv_collapsableIcon"
-                            src="https://i.ibb.co/SPCCD3r/icons8-macos-maximize-30.png"
-                            alt=""
-                            height="20"
-                            width="20">
+                            
                           <div class="summary__title">
                             <h2 class="accordion__title">
-                              Shipping &amp; Returns
+                              {{ block.settings.tab1label }}
                             </h2>
                           </div>
+
                         </summary>
-                        <div class="accordion__content rte" id="ProductAccordion-collapsible-row-1-template--14624136757325__main">
-                          Our policy lasts 14 days. If 14 days have gone by since your purchase, unfortunately we cant offer you a refund or exchange.
+                        <div style="background-color: #fff; padding:10px;" class="accordion__content rte" id="ProductAccordion-collapsible-row-1-template--14624136757325__main">
+                          {{ block.settings.tab1content }}
                         </div>
                       </details>
                     </div>
+
+                    <div class="product__accordion accordion quick-add-hidden" style="margin: 20px 0;background-color: #E6E6E6; padding-bottom:3px">
+                      <details id="Details-collapsible-row-1-template--14624136757325__main">
+                        <summary 
+                        style="padding: 10px;"
+                          role="button"
+                          aria-expanded="false"
+                          aria-controls="ProductAccordion-collapsible-row-1-template--14624136757325__main">
+                            
+                          <div class="summary__title">
+                            <h2 class="accordion__title">
+                              {{ block.settings.tab2label }}
+                            </h2>
+                          </div>
+
+                        </summary>
+                        <div style="background-color: #fff; padding:10px;" class="accordion__content rte" id="ProductAccordion-collapsible-row-1-template--14624136757325__main">
+                          {{ block.settings.tab2content }}
+                        </div>
+                      </details>
+                    </div>
+
+                    <div class="product__accordion accordion quick-add-hidden" style="margin: 20px 0;background-color: #E6E6E6; padding-bottom:3px">
+                      <details id="Details-collapsible-row-1-template--14624136757325__main">
+                        <summary 
+                        style="padding: 10px;"
+                          role="button"
+                          aria-expanded="false"
+                          aria-controls="ProductAccordion-collapsible-row-1-template--14624136757325__main">
+                            
+                          <div class="summary__title">
+                            <h2 class="accordion__title">
+                              {{ block.settings.tab3label }}
+                            </h2>
+                          </div>
+
+                        </summary>
+                        <div style="background-color: #fff; padding:10px;" class="accordion__content rte" id="ProductAccordion-collapsible-row-1-template--14624136757325__main">
+                          {{ block.settings.tab3content }}
+                        </div>
+                      </details>
+                    </div>
+
+
+
                   </div>
                 </div>
+                <script>
+                  const bv_rotateIcon = (s) => {
+                    const ariaExpanded = s.getAttribute('aria-expanded');
+                    if (ariaExpanded == "false") {
+                      s.firstChild.classList.add('rotate45');
+                      s.setAttribute("aria-expanded", true)
+                    } else {
+                      s.firstChild.classList.remove('rotate45');
+                      s.setAttribute("aria-expanded", false)
+                    };
+                  }
+                </script>
               </div>
             {%- endcase -%}
           {%- endfor -%}
@@ -613,6 +675,7 @@
             data-src="{{ img_url }}"
             data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
             data-sizes="auto"
+            loading="lazy"
             alt="Why Buy From {{ shop.name | escape }}"
             style="max-width: {{ section.settings.product_page_max_width }}%; padding-top:10px;">
         {% endif %}
@@ -853,15 +916,50 @@
         "limit": 1
       }, {
         "type": "bv_tab",
-        "name": "bv_tab",
+        "name": "Product Tab",
         "limit": 1,
         "settings": [
           {
-            "type": "checkbox",
-            "id": "show_dynamic_checkout",
-            "default": true,
-            "label": "bv_tab",
-            "info": "bv_tab"
+            "type": "text",
+            "id": "tab1label",
+            "default": "First Tab",
+            "label": "Tab 1 label",
+            "info": "Add Tab 1 label"
+          },
+          {
+            "type": "richtext",
+            "id": "tab1content",
+            "default": "<p>First Tab</p>",
+            "label": "Tab 1 content",
+            "info": "Add Tab 1 content"
+          },
+          {
+            "type": "text",
+            "id": "tab2label",
+            "default": "Sceond Tab",
+            "label": "Tab 2 label",
+            "info": "Add Tab 2 label"
+          },
+          {
+            "type": "richtext",
+            "id": "tab2content",
+            "default": "<p>Sceond Tab</p>",
+            "label": "Tab 2 content",
+            "info": "Add Tab 2 content"
+          },
+          {
+            "type": "text",
+            "id": "tab3label",
+            "default": "Third Tab",
+            "label": "Tab 3 label",
+            "info": "Add Tab 3 label"
+          },
+          {
+            "type": "richtext",
+            "id": "tab3content",
+            "default": "<p>Third Tab</p>",
+            "label": "Tab 3 content",
+            "info": "Add Tab 3 content"
           }
         ]
       }
@@ -1209,17 +1307,6 @@
         "label": "Enable Product Reviews",
         "info": "Install the free Shopify [Product Reviews](https:\/\/apps.shopify.com\/product-reviews) app to add product reviews."
       }
-    ],
-    "presets": [
-      {
-        "name": "custome product",
-        "settings": {},
-        "blocks": [
-          {
-          }
-        ]
-      }
-    ],
-    "templates": ["product"]
+    ]
   }
 {% endschema %}
