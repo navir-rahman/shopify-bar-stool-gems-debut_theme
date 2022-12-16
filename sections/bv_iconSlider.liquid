@@ -70,17 +70,17 @@ add slider js
 
   const bv_iconSlider = new Carousel(document.querySelector('#bv_iconSlider'), {
   Autoplay: {
-          timeout: 1000
-        },
-        infinite: true,
-        Dots: false,
-        friction: 0.88,
-        slidesPerPage: 4,
-    
-        Navigation: false,
-        Dots: false
-      });
-      bv_iconSlider.plugins.Autoplay.start()</script>
+            timeout: 1000
+          },
+          infinite: true,
+          Dots: false,
+          friction: 0.88,
+          slidesPerPage: 4,
+      
+          Navigation: false,
+          Dots: false
+        });
+        bv_iconSlider.plugins.Autoplay.start()</script>
 
 
 {% schema %}
@@ -106,22 +106,9 @@ add slider js
         ]
       }
     ],
-    "settings": [
-      {}
-    ],
     "presets": [
       {
-        "name": "bv_iconSlider",
-        "settings": {},
-        "blocks": [
-          {
-            "type": "bv_iconSlider"
-          }, {
-            "type": "bv_iconSlider"
-          }, {
-            "type": "bv_iconSlider"
-          }
-        ]
+        "name": "bv_iconSlider"
       }
     ],
     "templates": ["article", "index", "page", "product"]
