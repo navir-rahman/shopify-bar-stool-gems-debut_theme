@@ -3,7 +3,7 @@
   {%- assign compare_at_price = variant.compare_at_price -%}
   {%- assign price = variant.price -%}
   {%- assign available = variant.available -%}
-{% else %} 
+{% else %}
   {%- assign compare_at_price = 1999 -%}
   {%- assign price = 1999 -%}
   {%- assign available = true -%}
@@ -23,9 +23,9 @@
       </dd>
     </div>
   {% endif %}
-  
-  
-    <div class="price__sale">
+
+
+  <div class="price__sale">
     <dt>
       <span class="visually-hidden visually-hidden--inline">{{ 'products.product.sale_price' | t }}</span>
     </dt>
@@ -35,7 +35,7 @@
       </span>
     </dd>
   </div>
-  
+
 
   <div class="price__regular">
     <dt>
@@ -47,7 +47,12 @@
           <s class="price-item price-item--regular" data-regular-price>
             {{ compare_at_price | money }}
           </s>
-      <span class="price-item price-item--sale" data-compare-percent>You save {{ compare_at_price | minus: price | times: 100.0 | divided_by: compare_at_price | round }}%</span>
+          {% if settings.bv_price_compare_percent %}
+            <span class="price-item price-item--sale" data-compare-percent>You save {{ compare_at_price | minus: price | times: 100.0 | divided_by: compare_at_price | round }}%</span>
+          {% else %}
+            <span class="price-item price-item--sale" data-compare-percent>You save {{ compare_at_price | minus: price | money }}</span>
+          {% endif %}
+
         {% else %}
           <span class="price-item price-item--regular" data-regular-price>
             {{ money_price }}
@@ -60,14 +65,15 @@
       {% endif %}
     </dd>
   </div>
-  
+
   <div class="price__unit">
     <dt>
       <span class="visually-hidden visually-hidden--inline">{{ 'products.product.unit_price_label' | t }}</span>
     </dt>
     <dd class="price-unit-price">
       {%- capture unit_price_separator -%}
-        <span aria-hidden="true">/</span><span class="visually-hidden">{{ 'general.accessibility.unit_price_separator' | t }}&nbsp;</span>
+        <span aria-hidden="true">/</span>
+        <span class="visually-hidden">{{ 'general.accessibility.unit_price_separator' | t }}&nbsp;</span>
       {%- endcapture -%}
       {%- capture unit_price_base_unit -%}
         <span data-unit-price-base-unit>
@@ -80,7 +86,8 @@
         </span>
       {%- endcapture -%}
 
-      <span data-unit-price>{{ variant.unit_price | money }}</span>{{- unit_price_separator -}}{{- unit_price_base_unit -}}
+      <span data-unit-price>{{ variant.unit_price | money }}</span>
+      {{- unit_price_separator -}}{{- unit_price_base_unit -}}
     </dd>
   </div>
 </dl>

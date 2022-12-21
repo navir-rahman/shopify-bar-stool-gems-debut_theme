@@ -2,13 +2,11 @@
 .bv_pageWidth {
   max-width: 1600px;
   margin: auto;
-  padding: 7rem 0;
 }
 .bv_headingContainer {
   max-width: 800px;
   text-align: center;
   margin: auto;
-  margin-bottom: 7rem;
 }
 .bv_heading {
   font-size: 3rem;
@@ -91,15 +89,14 @@
 .one_half_column {
   width: 49%;
 }
-.product__accordion{
-  margin-bottom: 20px;
-}
+
 .rotate45{
     transform: rotate(45deg);
     transition: all ease;
 }
 .faqContainer {
   display: flex;
+  align-items: center;
 }
 .whatsIncludedContainer {
   display: flex;
@@ -116,7 +113,6 @@
   font-size: 3rem;
   font-style: italic;
   color: #565656;
-  margin-bottom: 1em;
 }
 .faqText p {
   line-height: 1.4;
@@ -135,9 +131,7 @@
 .faqcollapsible {
   padding-left: 2rem;
 }
-.product__accordion {
-  margin: 20px 0;
-}
+
 .accordion summary {
   display: flex;
   position: relative;

@@ -145,7 +145,7 @@
               {%- when '@app' -%}
               {% render block %}
               {%- when 'title' -%}
-              <h1 class="bv_product__title" {{ block.shopify_attributes }}>{{ product.title }}</h1>
+              <h1 class="bv_product__title" style="font-size: {{- block.settings.bv_Title_font_size -}}px;" {{ block.shopify_attributes }}>{{ product.title }}</h1>
               {%- when 'text' -%}
               <h3 {{ block.shopify_attributes }}>{{ block.settings.text }}
               </h3>
@@ -466,7 +466,12 @@
 
               {% comment %} bv_list data  {% endcomment %}
               {%- when 'bv_list_data' -%}
-                <div class="bv_list_container" {{ block.shopify_attributes }} style="background-color: {{ block.settings.bv_List_icon_bg_color }}; padding: {{- block.settings.bv_List_icon_bv_padding -}}px 10px; border-radius: {{- block.settings.bv_List_icon_border_radius -}}px;display: flex;">
+                <div class="bv_list_container" {{ block.shopify_attributes }} style="background-color: {{ block.settings.bv_List_icon_bg_color }}; padding: {{- block.settings.bv_List_icon_bv_padding -}}px 10px; 
+                border-top-left-radius: {{- block.settings.bv_List_icon_border_top_radius -}}px;
+                border-top-right-radius: {{- block.settings.bv_List_icon_border_top_radius -}}px;
+                border-bottom-left-radius: {{- block.settings.bv_List_icon_border_bottom_radius -}}px;
+                border-bottom-right-radius: {{- block.settings.bv_List_icon_border_bottom_radius -}}px;
+                display: flex;">
                   <span class="bv_shippping_dataIcon bv_bulletensIcon" style="color: {{ block.settings.bv_List_icon_color  }};">
                     {% if block.settings.bv_List_icon_svgIcon != blank %}
                     {{ block.settings.bv_List_icon_svgIcon }}
@@ -565,8 +570,8 @@
                   <div class="" style="">
 
 
-                    <div class="product__accordion accordion quick-add-hidden" style="margin: 20px 0;background-color: #E6E6E6; padding-bottom:3px">
-                      <details id="Details-collapsible-row-1-template--14624136757325__main">
+                    <div class="product__accordion accordion quick-add-hidden" style="margin: {{- block.settings.bvtab_margin -}}px 0;background-color: #E6E6E6; padding-bottom:{{- block.settings.bvtab_padding -}}px">
+                      <details id="Details-collapsible-row-1-template--14624136757325__main" open>
                         <summary 
                         style="padding: 10px;"
                           role="button"
@@ -586,7 +591,7 @@
                       </details>
                     </div>
 
-                    <div class="product__accordion accordion quick-add-hidden" style="margin: 20px 0;background-color: #E6E6E6; padding-bottom:3px">
+                    <div class="product__accordion accordion quick-add-hidden" style="margin: {{- block.settings.bvtab_margin -}}px 0;background-color: #E6E6E6; padding-bottom:{{- block.settings.bvtab_padding -}}px">
                       <details id="Details-collapsible-row-1-template--14624136757325__main">
                         <summary 
                         style="padding: 10px;"
@@ -607,7 +612,7 @@
                       </details>
                     </div>
 
-                    <div class="product__accordion accordion quick-add-hidden" style="margin: 20px 0;background-color: #E6E6E6; padding-bottom:3px">
+                    <div class="product__accordion accordion quick-add-hidden" style="margin: {{- block.settings.bvtab_margin -}}px 0;background-color: #E6E6E6; padding-bottom:{{- block.settings.bvtab_padding -}}px">
                       <details id="Details-collapsible-row-1-template--14624136757325__main">
                         <summary 
                         style="padding: 10px;"
@@ -704,12 +709,59 @@
     </div>
   </div>
 
+    
+  <script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": {{ product.title | json }},
+    "url": {{ request.origin | append: product.url | json }},
+    {% if seo_media -%}
+      "image": [
+        {{ seo_media | image_url: width: seo_media.preview_image.width | prepend: "https:" | json }}
+      ],
+    {%- endif %}
+    "description": {{ product.description | strip_html | json }},
+    {% if product.selected_or_first_available_variant.sku != blank -%}
+      "sku": {{ product.selected_or_first_available_variant.sku | json }},
+    {%- endif %}
+    "brand": {
+      "@type": "Brand",
+      "name": {{ product.vendor | json }}
+    },
+    "offers": [
+      {%- for variant in product.variants -%}
+        {
+          "@type" : "Offer",
+          {%- if variant.sku != blank -%}
+            "sku": {{ variant.sku | json }},
+          {%- endif -%}
+          {%- if variant.barcode.size == 12 -%}
+            "gtin12": {{ variant.barcode }},
+          {%- endif -%}
+          {%- if variant.barcode.size == 13 -%}
+            "gtin13": {{ variant.barcode }},
+          {%- endif -%}
+          {%- if variant.barcode.size == 14 -%}
+            "gtin14": {{ variant.barcode }},
+          {%- endif -%}
+          "availability" : "http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}",
+          "price" : {{ variant.price | divided_by: 100.00 | json }},
+          "priceCurrency" : {{ cart.currency.iso_code | json }},
+          "url" : {{ request.origin | append: variant.url | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ]
+  }
+</script>
+
 </section>
 {% unless product == empty %}
   <script type="application/json" id="ProductJson-{{ section.id }}">
     {{ product | json }}
   </script>
 {% endunless %}
+
 
 
 
@@ -757,8 +809,21 @@
       {
         "type": "title",
         "name": "title",
-        "limit": 1
+        "limit": 1,
+        "settings": [
+              {
+                "type": "range",
+                "id": "bv_Title_font_size",
+                "default": 28,
+                "label": "set font size",
+                "max": 100,
+                "min": 0,
+                "step": 1,
+                "unit": "px"
+              }
+        	]
       },
+      
       {
         "type": "price",
         "name": "price",
@@ -908,9 +973,19 @@
           },
           {
             "type": "range",
-            "id": "bv_List_icon_border_radius",
-            "label": "Add border radius ",
-            "info": "set border radius",
+            "id": "bv_List_icon_border_top_radius",
+            "label": "Add top border radius ",
+            "info": "set top border radius",
+            "default": 10,
+            "max": 30,
+            "min": 0,
+            "step": 1
+          },
+          {
+            "type": "range",
+            "id": "bv_List_icon_border_bottom_radius",
+            "label": "Add bottom border radius ",
+            "info": "set bottom border radius",
             "default": 10,
             "max": 30,
             "min": 0,
@@ -977,6 +1052,26 @@
             "default": "<p>Third Tab</p>",
             "label": "Tab 3 content",
             "info": "Add Tab 3 content"
+          }, 
+          {
+            "type": "range",
+            "id": "bvtab_margin",
+            "default": 10,
+            "label": "Add margin",
+            "max": 100,
+            "min": 0,
+            "step": 1,
+            "unit": "px"
+          }, 
+          {
+            "type": "range",
+            "id": "bvtab_padding",
+            "default": 10,
+            "label": "add padding",
+            "max": 100,
+            "min": 0,
+            "step": 1,
+            "unit": "px"
           }
         ]
       }
@@ -1324,11 +1419,6 @@
         "label": "Enable Product Reviews",
         "info": "Install the free Shopify [Product Reviews](https:\/\/apps.shopify.com\/product-reviews) app to add product reviews."
       }
-<<<<<<< HEAD
     ]
-=======
-    ],
-    "templates": ["product"]
->>>>>>> 4ac9952c130da17d3b0fb1ecd9b30105f6a4367c
   }
 {% endschema %}

@@ -24,27 +24,31 @@
       add rating here
       {%- endcomment -%}
 
-      <h2 class="bv_heading">{{ section.settings.bv_heading }}</h2>
+      <h2 class="bv_heading"  style="font-size: {{- section.settings.bv_Title_font_size -}}px;">
+        {{ section.settings.bv_heading }}
+      </h2>
       <p class="bv_subheading">{{ section.settings.bv_subheading }}</p>
+      {% if section.settings.bv_addTocartBtnText != blank %}
 
-      <a href="{{ section.settings.bv_addTocartBtnurl }}">
-        <button class="bv_addTocartBtn">{{ section.settings.bv_addTocartBtnText }}</button>
-      </a>
+        <a href="{{ section.settings.bv_addTocartBtnurl }}">
+          <button class="bv_addTocartBtn">{{ section.settings.bv_addTocartBtnText }}</button>
+        </a>
+      {% endif %}
       <div class="EmotiveHeadlineImg">
-       {% if section.settings.EmotiveHeadlineImg %}
-          <img 
-          src="{{ section.settings.EmotiveHeadlineImg | image_url: '900x' }}"
-          height=""
-          width="900"
-          loading="lazy"
-          alt="">
+        {% if section.settings.EmotiveHeadlineImg != blank %}
+          <img
+            src="{{ section.settings.EmotiveHeadlineImg | image_url: '900x' }}"
+            height=""
+            width="900"
+            loading="lazy"
+            alt="">
         {% else %}
           <img
-          src="https://i.ibb.co/YNm9FKZ/checkoutimagejpg.jpg"
-          height=""
-          width="900"
-          loading="lazy"
-          alt="">
+            src="https://i.ibb.co/YNm9FKZ/checkoutimagejpg.jpg"
+            height=""
+            width="900"
+            loading="lazy"
+            alt="">
         {% endif %}
       </div>
     </div>
@@ -65,6 +69,16 @@
         "label": "Add Emotive headline"
       },
       {
+        "type": "range",
+        "id": "bv_Title_font_size",
+        "default": 18,
+        "label": "set font size",
+        "max": 100,
+        "min": 0,
+        "step": 1,
+        "unit": "px"
+      },
+      {
         "type": "richtext",
         "id": "bv_subheading",
         "default": "<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam omnis, provident officia, ipsam a dignissimos, odio minus quis unde laboriosam eveniet? Provident </p>",
@@ -75,8 +89,7 @@
         "id": "bv_addTocartBtnText",
         "default": "Add to cart",
         "label": "Add Emotive Button Text"
-      },
-      {
+      }, {
         "type": "url",
         "id": "bv_addTocartBtnurl",
         "label": "Add Emotive Button link"

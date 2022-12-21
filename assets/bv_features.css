@@ -1,13 +1,11 @@
 .featuresContainer {
-  padding: 7rem 20px;
 }
 .featureHeadingContainer {
   max-width: 800px;
   text-align: center;
   margin: auto;
-  margin-bottom: 7rem;
 }
-.featureHeadingContainer h1 {
+.featureHeadingContainer h2 {
   font-size: 4rem;
   font-style: italic;
   color: #565656;
@@ -39,10 +37,10 @@
 }
 
 .featurePaddingLeft {
-  padding-left: 10%;
+  padding: 20px 10% 20px 20px;
 }
 .featurePaddingRight {
-  padding-right: 10%;
+  padding: 20px 20px 20px 10%;
 }
 
 

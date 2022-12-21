@@ -76,7 +76,9 @@
     {{ block.shopify_attributes }}>
     <div class="whatsIncludedTextContainer">
       <div class="whatsIncludedText">
-        <h2>{{ section.settings.whatsIncludedTextHeading }}</h2>
+        <h2 style="font-size: {{- section.settings.bv_Title_font_size -}}px;">
+          {{ section.settings.whatsIncludedTextHeading }}
+        </h2>
         <p class="whatsIncludedTextP">{{ section.settings.Whats_Includedcontent }}</p>
         <ul>
           {% for block in section.blocks %}
@@ -141,6 +143,15 @@
         "id": "whatsIncludedTextHeading",
         "default": "Whats Included",
         "label": "Add Headline"
+      }, {
+        "type": "range",
+        "id": "bv_Title_font_size",
+        "default": 18,
+        "label": "set font size",
+        "max": 100,
+        "min": 0,
+        "step": 1,
+        "unit": "px"
       }, {
         "type": "richtext",
         "id": "Whats_Includedcontent",

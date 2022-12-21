@@ -1,0 +1,41 @@
+<span
+  style="padding-top:{{- section.settings.bv_padding -}}px ;display: block;margin-top: {{- section.settings.bv_margin -}}px ;"
+  id="Space-{{ section.id }}"
+  data-section="{{ section.id }}"></span>
+
+
+{% schema %}
+  {
+    "name": "Space",
+    "tag": "div",
+    "class": "Space",
+    "settings": [
+      {
+        "type": "range",
+        "id": "bv_margin",
+        "default": 0,
+        "label": "Add margin",
+        "max": 100,
+        "min": 0,
+        "step": 1,
+        "unit": "px"
+      }, {
+        "type": "range",
+        "id": "bv_padding",
+        "default": 0,
+        "label": "add padding",
+        "max": 100,
+        "min": 0,
+        "step": 1,
+        "unit": "px"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Space",
+        "settings": {}
+      }
+    ],
+    "templates": ["article", "index", "page", "product"]
+  }
+{% endschema %}

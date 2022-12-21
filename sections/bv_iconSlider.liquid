@@ -30,9 +30,9 @@
       <div class="carousel__viewport px-20">
         {% for block in section.blocks %}
 
-          <figure class="carousel__slide " style="width:25%">
+          <figure class="carousel__slide " style="width:20%">
             {% if block.settings.bv_AsrecommendedbyIcon != blank %}
-              <p>
+              <p style="width: 50px;">
                 {{ block.settings.bv_AsrecommendedbyIcon }}
               </p>
             {% else %}
@@ -68,20 +68,26 @@ add slider js
 <script src="{{ 'carousel.autoplay.umd.js' | asset_url }}"></script>
 
 <script defer="defer">
-
   const bv_iconSlider = new Carousel(document.querySelector('#bv_iconSlider'), {
   Autoplay: {
-                    timeout: 1000
-                  },
-                  infinite: true,
-                  Dots: false,
-                  friction: 0.88,
-                  slidesPerPage: 4,
-              
-                  Navigation: false,
-                  Dots: false
-                });
-                bv_iconSlider.plugins.Autoplay.start()</script>
+              timeout: 1000
+            },
+            infinite: true,
+            Dots: false,
+            friction: 0.88,
+            slidesPerPage: 1,
+            Navigation: false,
+            Dots: false
+          });
+      
+        document.addEventListener('DOMContentLoaded', function () {
+            bv_iconSlider.plugins.Autoplay.start() 
+        })
+        
+        //variant options
+        document.addEventListener("shopify:section:load", function (event) {
+            bv_iconSlider.plugins.Autoplay.start() 
+        });</script>
 
 
 {% schema %}

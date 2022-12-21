@@ -43,7 +43,9 @@
     data-enable-history-state="true"
     data-ajax-enabled="{{ settings.enable_ajax }}">
     <div class="bv_headingContainer">
-      <h2 class="bv_heading">{{ section.settings.bv_TransformationText_heading }}</h2>
+      <h2 class="bv_heading" style="font-size: {{- section.settings.bv_Title_font_size -}}px;">
+        {{ section.settings.bv_TransformationText_heading }}
+      </h2>
       <p class="bv_subheading">
         {{ section.settings.bv_TransformationText_content }}
       </p>
@@ -65,7 +67,7 @@
           {% else %}
             <img src="https://i.ibb.co/xf7tB5N/Screenshot-2022-12-05-213717.png" alt="">
           {% endif %}
-          <h2 class="bv_2ndHeading">
+          <h2 class="bv_2ndHeading" style="font-size: {{- block.settings.bv_sub_Title_font_size -}}px;">
             {{ block.settings.bv_Transformation__title }}
           </h2>
           <p>
@@ -98,6 +100,15 @@
             "default": " Transformation",
             "label": "Add Transformation Title"
           }, {
+            "type": "range",
+            "id": "bv_sub_Title_font_size",
+            "default": 24,
+            "label": "set font size",
+            "max": 100,
+            "min": 0,
+            "step": 1,
+            "unit": "px"
+          }, {
             "type": "richtext",
             "id": "bv_Transformation_contet",
             "default": "<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio ad facere sapiente dolorum nobis, numquam quisquam explicabo eius, repudiandae, laudantium ipsum corporis nisi repellat eveniet?</p>",
@@ -116,6 +127,15 @@
         "id": "bv_TransformationText_heading",
         "default": "Transformation headline goes here",
         "label": "Add Transformation Heading"
+      }, {
+        "type": "range",
+        "id": "bv_Title_font_size",
+        "default": 24,
+        "label": "set font size",
+        "max": 100,
+        "min": 0,
+        "step": 1,
+        "unit": "px"
       }, {
         "type": "richtext",
         "id": "bv_TransformationText_content",

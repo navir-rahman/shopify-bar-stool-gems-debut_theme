@@ -12,9 +12,9 @@
     data-enable-history-state="true"
     data-ajax-enabled="{{ settings.enable_ajax }}">
     <div class="featureHeadingContainer">
-      <h1>
+      <h2 style="font-size: {{- section.settings.bv_Title_font_size -}}px;">
         {{ section.settings.featureHeading }}
-      </h1>
+      </h2>
       {{ section.settings.feature_sub_Heading }}
     </div>
     {% for block in section.blocks %}
@@ -47,8 +47,8 @@
         {% endif %}
 
 
-        <div class="bv_feature_text featurePaddingLeft">
-          <h2>
+        <div class="bv_feature_text   {% if block.settings.bv_feature_containerFlip %}featurePaddingRight {% else %}featurePaddingLeft{% endif %} ">
+          <h2 style="font-size: {{- block.settings.bv_sub_Title_font_size -}}px;">
             {{ block.settings.bv_feature_texttitle }}
           </h2>
           <p>
@@ -58,7 +58,7 @@
         </div>
       </div>
 
-      <span style="padding: 40px;display:block;"></span>
+      <span style="padding-top:  {{- block.settings.bvBenefits_padding -}}px; margin-top: {{- block.settings.bvBenefits_margin -}}px;display:block;"></span>
     {% endfor %}
 
   </div>
@@ -72,20 +72,32 @@
     "class": "section",
     "blocks": [
       {
-        "type": "bv_features",
-        "name": "bv_features",
+        "type": "Benefits",
+        "name": "Benefits",
         "settings": [
           {
             "type": "text",
             "id": "bv_feature_texttitle",
-            "default": " FEATURES",
-            "label": "Add FEATURES Title"
-          }, {
+            "default": " Benefits",
+            "label": "Add Benefits Title"
+          },
+          {
+            "type": "range",
+            "id": "bv_sub_Title_font_size",
+            "default": 24,
+            "label": "set font size",
+            "max": 100,
+            "min": 0,
+            "step": 1,
+            "unit": "px"
+          },
+          {
             "type": "richtext",
             "id": "bv_feature_textcontent",
             "default": "<P>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, molestiae? </P>",
-            "label": "Add FEATURES Content"
-          }, {
+            "label": "Add Benefits Content"
+          },
+          {
             "type": "checkbox",
             "id": "bv_feature_containerFlip",
             "default": false,
@@ -94,6 +106,24 @@
             "type": "image_picker",
             "id": "bv_feature_img",
             "label": "Add Button Text"
+          }, {
+            "type": "range",
+            "id": "bvBenefits_margin",
+            "default": 0,
+            "label": "Add margin",
+            "max": 100,
+            "min": 0,
+            "step": 1,
+            "unit": "px"
+          }, {
+            "type": "range",
+            "id": "bvBenefits_padding",
+            "default": 0,
+            "label": "add padding",
+            "max": 100,
+            "min": 0,
+            "step": 1,
+            "unit": "px"
           }
         ]
       }
@@ -104,12 +134,24 @@
         "id": "featureHeading",
         "default": "Heading ",
         "label": "Add Headline"
-      }, {
+      },
+      {
+        "type": "range",
+        "id": "bv_Title_font_size",
+        "default": 24,
+        "label": "set font size",
+        "max": 100,
+        "min": 0,
+        "step": 1,
+        "unit": "px"
+      },
+      {
         "type": "richtext",
         "id": "feature_sub_Heading",
         "default": "<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam omnis, provident officia, ipsam a dignissimos, odio minus quis unde laboriosam eveniet? Provident </p>",
         "label": "Add Sub Headline"
-      }, {
+      },
+      {
         "type": "image_picker",
         "id": "whatsIncludedImg",
         "label": "Add Button Text"
@@ -125,9 +167,9 @@
         "settings": {},
         "blocks": [
           {
-            "type": "bv_features"
+            "type": "Benefits"
           }, {
-            "type": "bv_features"
+            "type": "Benefits"
           }
         ]
       }

@@ -18,7 +18,7 @@
       {{ block.shopify_attributes }}>
       <div class="faqTextContainer one_half_column">
         <div class="faqText">
-          <h2>{{ section.settings.bv_faqText_heading }}</h2>
+          <h2 style="margin-bottom:{{- section.settings.bvFAQ_Title_margin -}}px; font-size: {{- section.settings.bvFAQ_fontsize -}}px">{{ section.settings.bv_faqText_heading }}</h2>
           <p>{{ section.settings.bv_faqText_content }}</p>
         </div>
       </div>
@@ -28,8 +28,8 @@
         {% for block in section.blocks %}
           <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
 
-            <div class="product__accordion accordion quick-add-hidden" style="margin: 20px 0;background-color: #E6E6E6; padding-bottom:3px">
-              <details id="Details-collapsible-row-1-template--14624136757325__main">
+            <div class="product__accordion accordion quick-add-hidden" style="margin: {{- block.settings.bvFAQ_margin -}}px 0;background-color: #E6E6E6; padding-bottom:{{- block.settings.bvFAQ_padding -}}px">
+              <details id="Details-collapsible-row-1-template--14624136757325__main" {% if block.settings.bv_accordion_open %} open {% endif %}>
                 <summary
                   style="padding: 10px;"
                   role="button"
@@ -118,19 +118,46 @@
         "name": "FAQ",
         "settings": [
           {
+            "type": "checkbox",
+            "id": "bv_accordion_open",
+            "default": false,
+            "label": "Keep accordion open"
+          },
+          {
             "type": "text",
             "id": "bv_accordion__title",
             "default": " FAQ content",
             "label": "Add FAQ Title"
-          }, {
+          },
+          {
             "type": "richtext",
             "id": "bv_accordion_contet",
             "default": "<P> FAQ content</P>",
             "label": "Add FAQ Content"
-          }, {
+          },
+          {
             "type": "image_picker",
             "id": "bv_collapsableIcon",
             "label": "Add FAQ Image icon"
+          },
+          {
+            "type": "range",
+            "id": "bvFAQ_margin",
+            "default": 10,
+            "label": "Add margin",
+            "max": 100,
+            "min": 0,
+            "step": 1,
+            "unit": "px"
+          }, {
+            "type": "range",
+            "id": "bvFAQ_padding",
+            "default": 0,
+            "label": "add padding",
+            "max": 100,
+            "min": 0,
+            "step": 1,
+            "unit": "px"
           }
         ]
       }
@@ -142,10 +169,28 @@
         "default": "FAQ headline goes here",
         "label": "Add FAQ Heading"
       }, {
+        "type": "range",
+        "id": "bvFAQ_fontsize",
+        "default": 24,
+        "label": "Set Font size",
+        "max": 100,
+        "min": 0,
+        "step": 1,
+        "unit": "px"
+      }, {
         "type": "richtext",
         "id": "bv_faqText_content",
         "default": "<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam omnis, provident officia, ipsam a dignissimos, odio minus quis unde laboriosam eveniet? Provident </p>",
         "label": "Add Sub Heading"
+      }, {
+        "type": "range",
+        "id": "bvFAQ_Title_margin",
+        "default": 20,
+        "label": "add margin bottom",
+        "max": 100,
+        "min": 0,
+        "step": 1,
+        "unit": "px"
       }
     ],
     "presets": [

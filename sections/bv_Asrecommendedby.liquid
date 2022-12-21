@@ -15,7 +15,7 @@
     data-ajax-enabled="{{ settings.enable_ajax }}">
     <div class="bv_Asrecommendedby">
       <div class="bv_AsrecommendedbyTitle">
-        <h4 style="width: max-content;">
+        <h4 style="width: max-content; font-size:{{- section.settings.bv_Asrecommended_font_size -}}px">
           {{ section.settings.bv_AsrecommendedbyText_heading }}
         </h4>
       </div>
@@ -53,20 +53,28 @@ add slider js
 {{ 'carousel.autoplay.umd.js' | asset_url | script_tag }}
 
 
+
 <script defer="defer">
   const bv_AsrecommendedbyCarousel = new Carousel(document.querySelector('#bv_AsrecommendedbyCarousel'), {
   Autoplay: {
-                timeout: 1000
-              },
-              infinite: true,
-              Dots: false,
-              friction: 0.88,
-              slidesPerPage: 1,
+                                          timeout: 1000
+                                        },
+                                        infinite: true,
+                                        Dots: false,
+                                        friction: 0.88,
+                                        slidesPerPage: 1,
+                                    
+                                        Navigation: false,
+                                        Dots: false
+                                      });
           
-              Navigation: false,
-              Dots: false
-            });
-            bv_AsrecommendedbyCarousel.plugins.Autoplay.start()</script>
+            document.addEventListener('DOMContentLoaded', function () {
+               bv_AsrecommendedbyCarousel.plugins.Autoplay.start();
+                        })
+            document.addEventListener("shopify:section:load", function (event) {
+               bv_AsrecommendedbyCarousel.plugins.Autoplay.start();
+                      });</script>
+
 
 
 {% schema %}
@@ -98,6 +106,15 @@ add slider js
         "id": "bv_AsrecommendedbyText_heading",
         "default": "As recommended by headline goes here",
         "label": "Add bv_Asrecommendedby Heading"
+      }, {
+        "type": "range",
+        "id": "bv_Asrecommended_font_size",
+        "default": 24,
+        "label": "set font size",
+        "max": 100,
+        "min": 0,
+        "step": 1,
+        "unit": "px"
       }
     ],
     "presets": [
