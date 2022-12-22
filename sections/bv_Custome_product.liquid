@@ -142,6 +142,10 @@
         <div class="product-single__meta">
           {%- for block in section.blocks -%}
             {%- case block.type -%}
+              {%- when 'space' -%}
+                <span {{ block.shopify_attributes }}
+                  style="padding-top:{{- block.settings.bv_padding -}}px ;display: block;margin-top: {{- block.settings.bv_margin -}}px ;"
+                  ></span>
               {%- when '@app' -%}
               {% render block %}
               {%- when 'title' -%}
@@ -284,7 +288,7 @@
 
 
                 {% capture "form_classes" -%}
-                  product-form product-form-{{ section.id }}{% unless section.settings.show_variant_labels %}
+                  product-form paddingTopO product-form-{{ section.id }}{% unless section.settings.show_variant_labels %}
                     product-form--hide-variant-labels{% endunless %}
                   {% if section.settings.enable_payment_button and product.has_only_default_variant %}
                     product-form--payment-button-no-variants{% endif %}
@@ -850,15 +854,15 @@
   
           if (selectedVariant.inventory_management !== null) {
             if (selectedVariant.inventory_quantity >= 21) {
-              $stock.innerHTML = selectedVariant.inventory_quantity + ` <img width="150" src="https://i.ibb.co/54rqJ0T/14-01-1633x250-Conversion-Wise-Ltd-LAT-74404.png" alt="" srcset=""> `;
+              $stock.innerHTML = ` <img width="150" src="https://i.ibb.co/54rqJ0T/14-01-1633x250-Conversion-Wise-Ltd-LAT-74404.png" alt="" srcset=""> `;
             } else if (selectedVariant.inventory_quantity >= 11 && selectedVariant.inventory_quantity <= 20) {
-              $stock.innerHTML = selectedVariant.inventory_quantity + ` <img width="150" src="https://i.ibb.co/1rdQLgy/13-01-1633x250-Conversion-Wise-Ltd-LAT-74404.png" alt="" srcset=""> `;
+              $stock.innerHTML = ` <img width="150" src="https://i.ibb.co/1rdQLgy/13-01-1633x250-Conversion-Wise-Ltd-LAT-74404.png" alt="" srcset=""> `;
             } else if (selectedVariant.inventory_quantity > 0 && selectedVariant.inventory_quantity <= 10) {
-              $stock.innerHTML = selectedVariant.inventory_quantity + ` <img width="150" src="https://i.ibb.co/c85rYDk/12-01-1633x250-Conversion-Wise-Ltd-LAT-74404.png" alt="" srcset=""> `;
+              $stock.innerHTML =  ` <img width="150" src="https://i.ibb.co/c85rYDk/12-01-1633x250-Conversion-Wise-Ltd-LAT-74404.png" alt="" srcset=""> `;
             } else if (selectedVariant.inventory_quantity <= 0 && selectedVariant.inventory_policy == 'continue') {
-              $stock.innerHTML = selectedVariant.inventory_quantity + ` <img width="150" src="https://i.ibb.co/c85rYDk/12-01-1633x250-Conversion-Wise-Ltd-LAT-74404.png" alt="" srcset=""> `;
+              $stock.innerHTML = ` <img width="150" src="https://i.ibb.co/c85rYDk/12-01-1633x250-Conversion-Wise-Ltd-LAT-74404.png" alt="" srcset=""> `;
             } else {
-              $stock.innerHTML = selectedVariant.inventory_quantity +  ` Sold Out`;
+              $stock.innerHTML =  ` Sold Out`;
             }
           }
          /* if (selectedVariant.inventory_management !== null) {
@@ -938,6 +942,32 @@
     "blocks": [
       {
         "type": "@app"
+      },
+      {
+        "type": "space",
+        "name": "Space",
+        "settings": [
+            {
+        "type": "range",
+        "id": "bv_margin",
+        "default": 0,
+        "label": "Add margin",
+        "max": 100,
+        "min": 0,
+        "step": 1,
+        "unit": "px"
+      }, 
+      {
+        "type": "range",
+        "id": "bv_padding",
+        "default": 0,
+        "label": "add padding",
+        "max": 100,
+        "min": 0,
+        "step": 1,
+        "unit": "px"
+          }
+        ]
       },
       {
         "type": "text",

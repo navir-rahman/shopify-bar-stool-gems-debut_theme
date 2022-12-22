@@ -1,3 +1,6 @@
+.paddingTopO{
+  padding-top: 0!important;
+}
 .ColorGreen{
     color: green;
 }
@@ -9,9 +12,6 @@
 }
 .bv_product__title{
     font-size: 2.5em;
-}
-.bv_price{
-    margin-bottom: 20px;
 }
 .bv_bulletensIcon svg{
     width: 25px;
