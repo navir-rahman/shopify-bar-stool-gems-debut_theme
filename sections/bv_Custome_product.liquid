@@ -142,6 +142,11 @@
         <div class="product-single__meta">
           {%- for block in section.blocks -%}
             {%- case block.type -%}
+              {%- when 'space' -%}
+                <span
+                  style="padding-top:{{- section.settings.bv_padding -}}px ;display: block;margin-top: {{- section.settings.bv_margin -}}px ;"
+                  id="Space-{{ section.id }}"
+                  data-section="{{ section.id }}"></span>
               {%- when '@app' -%}
               {% render block %}
               {%- when 'title' -%}
@@ -938,6 +943,32 @@
     "blocks": [
       {
         "type": "@app"
+      },
+      {
+        "type": "space",
+        "name": "Space",
+        "settings": [
+            {
+        "type": "range",
+        "id": "bv_margin",
+        "default": 0,
+        "label": "Add margin",
+        "max": 100,
+        "min": 0,
+        "step": 1,
+        "unit": "px"
+      }, 
+      {
+        "type": "range",
+        "id": "bv_padding",
+        "default": 0,
+        "label": "add padding",
+        "max": 100,
+        "min": 0,
+        "step": 1,
+        "unit": "px"
+          }
+        ]
       },
       {
         "type": "text",
