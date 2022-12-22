@@ -42,7 +42,7 @@
     data-section-type="Transformation"
     data-enable-history-state="true"
     data-ajax-enabled="{{ settings.enable_ajax }}">
-    <div class="bv_headingContainer">
+    <div class="bv_headingContainer" style="margin-bottom: {{- section.settings.bv_Transformation_container_padding -}}px;">
       <h2 class="bv_heading" style="font-size: {{- section.settings.bv_Title_font_size -}}px;">
         {{ section.settings.bv_TransformationText_heading }}
       </h2>
@@ -141,6 +141,15 @@
         "id": "bv_TransformationText_content",
         "default": "<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam omnis, provident officia, ipsam a dignissimos, odio minus quis unde laboriosam eveniet? Provident </p>",
         "label": "Add Sub Heading"
+      }, {
+        "type": "range",
+        "id": "bv_Transformation_container_padding",
+        "default": 24,
+        "label": "set bottom margin",
+        "max": 200,
+        "min": 0,
+        "step": 2,
+        "unit": "px"
       }
     ],
     "presets": [

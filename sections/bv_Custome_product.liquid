@@ -199,7 +199,7 @@
                 {%- endif -%}
 
                 {% comment %} stock  {% endcomment %}
-                <div class="variant-info">
+                 <div class="variant-info">
                   <div id="stock-info">
                     <p>
                       <strong>Availability</strong>:
@@ -231,7 +231,7 @@
                     <div id="shipping-text">
                       <p>{{ section.settings.shipping_text }}</p>
                     </div>
-                  {% endif %}
+                  {% endif %} 
                 </div>
 
               </div>
@@ -755,6 +755,8 @@
   }
 </script>
 
+
+
 </section>
 {% unless product == empty %}
   <script type="application/json" id="ProductJson-{{ section.id }}">
@@ -762,7 +764,150 @@
   </script>
 {% endunless %}
 
+{% comment %}
+  product script
+{% endcomment %}
 
+<script>
+  // Override default values of shop.strings for each template.
+// Alternate product templates can change values of
+// add to cart button, sold out, and unavailable states here.
+  theme.productStrings = {
+    addToCart: {{ 'products.product.add_to_cart' | t | json }},
+    soldOut: {{ 'products.product.sold_out' | t | json }},
+    unavailable: {{ 'products.product.unavailable' | t | json }}
+  }
+</script>
+
+<script type="text/javascript">
+  var __product = (function() {
+  var product = {{ product | json }};
+  var variants = [];
+      var selected_variant;{% for variant in product.variants %}var variant = {{ variant | json }};
+    variant.inventory_policy = '{{ variant.inventory_policy }}';
+    variant.inventory_quantity = '{{ variant.inventory_quantity }}';
+    variants.push(variant);{% if variant.id == product.selected_or_first_available_variant.id %}selected_variant = variant;{% endif %}
+  {% endfor %}product.variants = variants;
+  product.selected_variant = selected_variant;
+  
+      product.updateETA = function(variant) {
+        var $variantInfo = document.querySelector('.variant-info');
+        var isVariantUndefined = variant == undefined;
+        if (isVariantUndefined) {
+          $variantInfo.classList.add('hide');
+          return;
+        }
+        $variantInfo.classList.remove('hide');
+  
+        var $eta = document.querySelector('#eta-text');
+        var selectedVariant = _.filter(variants, function(v) {
+          return v.id == variant.id;
+        });
+  
+        if (selectedVariant.length && $eta !== null) {
+          selectedVariant = selectedVariant[0];
+  
+          var showETA = selectedVariant.inventory_management == 'shopify' && selectedVariant.inventory_quantity > 0;
+  
+  // console.log(selectedVariant, showETA);
+  
+          $eta.classList[
+            showETA
+              ? 'remove'
+              : 'add'
+          ]('hide');
+  
+  // update product selected_variant
+          product.selected_variant = selectedVariant;
+        }
+      };
+  
+      product.updateVariantStockInfo = function(variant) {
+        var $variantInfo = document.querySelector('.variant-info');
+        var isVariantUndefined = variant == undefined;
+        if (isVariantUndefined) {
+          $variantInfo.classList.add('hide');
+          return;
+        }
+        $variantInfo.classList.remove('hide');
+  
+        var $stockInfo = document.querySelector('#stock-info');
+        var $stock = document.querySelector('#stock-info span');
+        var selectedVariant = _.filter(variants, function(v) {
+          return v.id == variant.id;
+        });
+  
+        if (selectedVariant.length && $stockInfo !== null) {
+          selectedVariant = selectedVariant[0];
+          console.log(selectedVariant);
+  
+          var isShopifyVariant = selectedVariant.inventory_management !== null;
+          $stockInfo.classList[
+            isShopifyVariant
+              ? 'remove'
+              : 'add'
+          ]('hide');
+  
+          if (selectedVariant.inventory_management !== null) {
+            if (selectedVariant.inventory_quantity >= 21) {
+              $stock.innerHTML = selectedVariant.inventory_quantity + ` <img width="150" src="https://i.ibb.co/54rqJ0T/14-01-1633x250-Conversion-Wise-Ltd-LAT-74404.png" alt="" srcset=""> `;
+            } else if (selectedVariant.inventory_quantity >= 11 && selectedVariant.inventory_quantity <= 20) {
+              $stock.innerHTML = selectedVariant.inventory_quantity + ` <img width="150" src="https://i.ibb.co/1rdQLgy/13-01-1633x250-Conversion-Wise-Ltd-LAT-74404.png" alt="" srcset=""> `;
+            } else if (selectedVariant.inventory_quantity > 0 && selectedVariant.inventory_quantity <= 10) {
+              $stock.innerHTML = selectedVariant.inventory_quantity + ` <img width="150" src="https://i.ibb.co/c85rYDk/12-01-1633x250-Conversion-Wise-Ltd-LAT-74404.png" alt="" srcset=""> `;
+            } else if (selectedVariant.inventory_quantity <= 0 && selectedVariant.inventory_policy == 'continue') {
+              $stock.innerHTML = selectedVariant.inventory_quantity + ` <img width="150" src="https://i.ibb.co/c85rYDk/12-01-1633x250-Conversion-Wise-Ltd-LAT-74404.png" alt="" srcset=""> `;
+            } else {
+              $stock.innerHTML = selectedVariant.inventory_quantity +  ` Sold Out`;
+            }
+          }
+         /* if (selectedVariant.inventory_management !== null) {
+            if (selectedVariant.inventory_quantity >= 10) {
+              $stock.innerHTML = 'Plenty in stock';
+            } else if (selectedVariant.inventory_quantity > 0 && selectedVariant.inventory_quantity < 10) {
+              $stock.innerHTML = selectedVariant.inventory_quantity + ' in stock';
+            } else if (selectedVariant.inventory_quantity <= 0 && selectedVariant.inventory_policy == 'continue') {
+              $stock.innerHTML = 'Sold out - pre-order now and contact us for shipping timeline';
+            } else {
+              $stock.innerHTML = 'Sold out';
+            }
+          }*/
+        }
+      };
+  
+      product.updateVariantDiscount = function(variant) {
+        var $discount = document.querySelector('[data-compare-percent]');
+        if ($discount == null) {
+          return;
+        }
+  
+        var selectedVariant = _.filter(variants, function(v) {
+          return v.id == variant.id;
+        });
+  
+        if (selectedVariant.length) {
+          selectedVariant = selectedVariant[0];
+  
+          var percent = Math.round(((selectedVariant.compare_at_price - selectedVariant.price) * 100) / selectedVariant.compare_at_price);
+          $discount.innerText = 'You save ' + percent + '%';
+        }
+      };
+  
+  
+      return product;
+    })();
+  
+    (function() {
+  
+  // On Page load
+      window.addEventListener('DOMContentLoaded', function(e) {
+  
+  // console.log(e);
+        __product.updateETA(__product.selected_variant);
+        __product.updateVariantStockInfo(__product.selected_variant);
+        __product.updateVariantDiscount(__product.selected_variant);
+      });
+    })();</script>
 
 
 {% schema %}

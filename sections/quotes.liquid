@@ -6,7 +6,7 @@
   {% endif %}
 
   {% if section.blocks.size > 0 %}
-    <div class="quotes-wrapper">
+    <div class="quotes-wrapper" style="padding: 20px;">
       <div class="quotes-slider" id="Quotes-{{ section.id }}" data-count="{{ section.blocks.size }}">
         {% for block in section.blocks %}
           <div class="quotes-slide--{{ block.id }}" {{ block.shopify_attributes }}>

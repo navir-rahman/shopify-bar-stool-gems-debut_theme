@@ -4895,7 +4895,7 @@ theme.Quotes = (function() {
     };
     var defaults = {
         accessibility: true,
-        arrows: false,
+        arrows: true,
         dots: true,
         autoplay: false,
         touchThreshold: 20,

@@ -11,7 +11,7 @@
     data-section-type="features"
     data-enable-history-state="true"
     data-ajax-enabled="{{ settings.enable_ajax }}">
-    <div class="featureHeadingContainer">
+    <div class="featureHeadingContainer" style="margin-bottom: {{- section.settings.bv_Title_container_padding -}}px;">
       <h2 style="font-size: {{- section.settings.bv_Title_font_size -}}px;">
         {{ section.settings.featureHeading }}
       </h2>
@@ -159,6 +159,15 @@
         "type": "color",
         "id": "bv_featureBgColor",
         "label": "Add container background color"
+      },{
+        "type": "range",
+        "id": "bv_Title_container_padding",
+        "default": 24,
+        "label": "set bottom margin",
+        "max": 200,
+        "min": 0,
+        "step": 2,
+        "unit": "px"
       }
     ],
     "presets": [
