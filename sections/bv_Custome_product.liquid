@@ -143,9 +143,16 @@
           {%- for block in section.blocks -%}
             {%- case block.type -%}
               {%- when 'space' -%}
+<<<<<<< HEAD
                 <span {{ block.shopify_attributes }}
                   style="padding-top:{{- block.settings.bv_padding -}}px ;display: block;margin-top: {{- block.settings.bv_margin -}}px ;"
                   ></span>
+=======
+                <span
+                  style="padding-top:{{- section.settings.bv_padding -}}px ;display: block;margin-top: {{- section.settings.bv_margin -}}px ;"
+                  id="Space-{{ section.id }}"
+                  data-section="{{ section.id }}"></span>
+>>>>>>> 35c1323415ac7c173782a6c02ec7f0bbf78aa9e0
               {%- when '@app' -%}
               {% render block %}
               {%- when 'title' -%}
