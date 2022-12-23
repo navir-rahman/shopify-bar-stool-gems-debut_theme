@@ -43,7 +43,7 @@
     data-enable-history-state="true"
     data-ajax-enabled="{{ settings.enable_ajax }}">
     <div class="bv_headingContainer" style="margin-bottom: {{- section.settings.bv_Transformation_container_padding -}}px;">
-      <h2 class="bv_heading" style="font-size: {{- section.settings.bv_Title_font_size -}}px;">
+      <h2 class="bv_heading" style="font-size: {{- section.settings.bv_Title_font_size -}}px;margin-bottom: {{- section.settings.bv_Title_marginBottom -}}px;">
         {{ section.settings.bv_TransformationText_heading }}
       </h2>
       <p class="bv_subheading">
@@ -127,7 +127,8 @@
         "id": "bv_TransformationText_heading",
         "default": "Transformation headline goes here",
         "label": "Add Transformation Heading"
-      }, {
+      },
+      {
         "type": "range",
         "id": "bv_Title_font_size",
         "default": 24,
@@ -136,7 +137,18 @@
         "min": 0,
         "step": 1,
         "unit": "px"
-      }, {
+      },
+      {
+        "type": "range",
+        "id": "bv_Title_marginBottom",
+        "default": 0,
+        "label": "Title bottom margin",
+        "max": 100,
+        "min": 0,
+        "step": 1,
+        "unit": "px"
+      },
+      {
         "type": "richtext",
         "id": "bv_TransformationText_content",
         "default": "<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam omnis, provident officia, ipsam a dignissimos, odio minus quis unde laboriosam eveniet? Provident </p>",

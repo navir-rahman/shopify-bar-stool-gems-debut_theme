@@ -1,6 +1,48 @@
-<section id="bv_iconSlider-{{ section.id }}"class=""data-section="{{ section.id }}"style="background-color: #FFFFFF;">{%- comment -%}
+<section id="bv_iconSlider-{{ section.id }}"class=""data-section="{{ section.id }}"style="background-color: #FFFFFF;">
+  {%- comment -%}
   style sheet
-  {%- endcomment -%}{{ 'bv_Asrecommendedby.css' | asset_url | stylesheet_tag }}
+  {%- endcomment -%}{% style %}
+    .bv_AsrecommendedbyContainer {
+      background-color: #F2F2F2;
+    }
+    .bv_Asrecommendedby {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      background-color: #F2F2F2;
+      padding: 20px;
+      max-width: 1600px;
+      margin: auto;
+
+    }
+    .bv_AsrecommendedbyTitle {
+      width: -webkit-fit-content;
+      width: -moz-fit-content;
+      width: fit-content;
+      margin: auto;
+    }
+    .bv_AsrecommendedbyTitle h4 {
+      width: max-content;
+    }
+    .figure_css {
+      width: {{- block.settings.bv_figure_width -}}
+      %;
+    }
+    /* Larger than tablet */
+    @media(max-width: 750px) {
+      .bv_Asrecommendedby {
+        flex-direction: column;
+      }
+      .bv_AsrecommendedbyTitle h4 {
+        width: auto;
+        text-align: center;
+      }
+      .figure_css {
+        width: {{- block.settings.bv_mobile_figure_width -}}
+        %;
+      }
+    }
+  {% endstyle %}
   {{ 'bv_common_css.css' | asset_url | stylesheet_tag }}
   {%- comment -%}
   add slider js
@@ -15,7 +57,7 @@
     data-ajax-enabled="{{ settings.enable_ajax }}">
     <div class="bv_Asrecommendedby">
       <div class="bv_AsrecommendedbyTitle">
-        <h4 style="width: max-content; font-size:{{- section.settings.bv_Asrecommended_font_size -}}px">
+        <h4 style="font-size:{{- section.settings.bv_Asrecommended_font_size -}}px">
           {{ section.settings.bv_AsrecommendedbyText_heading }}
         </h4>
       </div>
@@ -24,8 +66,13 @@
           <div class="carousel__viewport px-20">
 
             {% for block in section.blocks %}
-              <figure class="carousel__slide " style="width: 20%;">
-                {% if block.settings.bv_AsrecommendedbyIcon %}
+              <figure class="carousel__slide figure_css" {{ block.shopify_attributes }}>
+                {% if block.settings.bv_AsrecommendedbyIconhtml != blank %}
+                  <p style="width: 50px;">
+                    {{ block.settings.bv_AsrecommendedbyIconhtml }}
+                  </p>
+                {% elsif block.settings.bv_AsrecommendedbyIcon != blank %}
+
                   <img
                     srcset="{{ block.settings.bv_AsrecommendedbyIcon | image_url: width: block.settings.image_width }}, {{ block.settings.bv_AsrecommendedbyIcon | image_url: width: image_size_2x }} 2x"
                     src="{{ block.settings.bv_AsrecommendedbyIcon | image_url: width: 50 }}"
@@ -36,6 +83,7 @@
                     style="max-width: min(100%, {{ block.settings.image_width }}px);">
                 {% else %}
                   <img src="https://i.ibb.co/xf7tB5N/Screenshot-2022-12-05-213717.png" alt="">
+
                 {% endif %}
               </figure>
             {% endfor %}
@@ -57,45 +105,61 @@ add slider js
 <script defer="defer">
   const bv_AsrecommendedbyCarousel = new Carousel(document.querySelector('#bv_AsrecommendedbyCarousel'), {
   Autoplay: {
-                                          timeout: 1000
-                                        },
-                                        infinite: true,
-                                        Dots: false,
-                                        friction: 0.88,
-                                        slidesPerPage: 1,
-                                    
-                                        Navigation: false,
-                                        Dots: false
-                                      });
-          
-            document.addEventListener('DOMContentLoaded', function () {
-               bv_AsrecommendedbyCarousel.plugins.Autoplay.start();
-                        })
-            document.addEventListener("shopify:section:load", function (event) {
-               bv_AsrecommendedbyCarousel.plugins.Autoplay.start();
-                      });</script>
+          timeout: 1000
+        },
+        infinite: true,
+        Dots: false,
+        friction: 0.88,
+        slidesPerPage: 1,
+    
+        Navigation: false,
+        Dots: false
+      });
+                          
+      document.addEventListener('DOMContentLoaded', function () {
+          bv_AsrecommendedbyCarousel.plugins.Autoplay.start();
+                  })
+      document.addEventListener("shopify:section:load", function (event) {
+          bv_AsrecommendedbyCarousel.plugins.Autoplay.start();
+                });</script>
 
 
 
 {% schema %}
   {
-    "name": "bv_Asrecommendedby",
+    "name": "As recommended by",
     "tag": "section",
     "class": "section",
     "blocks": [
       {
         "type": "bv_Asrecommendedby",
-        "name": "bv_Asrecommendedby",
+        "name": "Icon",
         "settings": [
           {
-            "type": "text",
-            "id": "bv_bv_Asrecommendedby__title",
-            "default": " bv_Asrecommendedby",
-            "label": "Add bv_Asrecommendedby Title"
+            "type": "html",
+            "id": "bv_AsrecommendedbyIconhtml",
+            "label": "Add bv_iconSlider Image icon",
+            "info": "add your svg here"
           }, {
             "type": "image_picker",
             "id": "bv_AsrecommendedbyIcon",
             "label": "Add bv_Asrecommendedby Image icon"
+          }, {
+            "type": "range",
+            "id": "bv_figure_width",
+            "default": 20,
+            "label": "set image container width",
+            "max": 100,
+            "min": 0,
+            "step": 1
+          }, {
+            "type": "range",
+            "id": "bv_mobile_figure_width",
+            "default": 100,
+            "label": "set image container width for mobile",
+            "max": 100,
+            "min": 0,
+            "step": 1
           }
         ]
       }
@@ -104,7 +168,7 @@ add slider js
       {
         "type": "text",
         "id": "bv_AsrecommendedbyText_heading",
-        "default": "As recommended by headline goes here",
+        "default": "As recommended by",
         "label": "Add bv_Asrecommendedby Heading"
       }, {
         "type": "range",
@@ -119,7 +183,14 @@ add slider js
     ],
     "presets": [
       {
-        "name": "As recommended by"
+        "name": "As recommended by",
+        "blocks": [
+          {
+            "type": "bv_Asrecommendedby"
+          }, {
+            "type": "bv_Asrecommendedby"
+          }
+        ]
       }
     ],
     "templates": ["article", "index", "page", "product"]

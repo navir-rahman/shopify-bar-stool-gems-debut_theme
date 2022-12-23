@@ -30,7 +30,7 @@
       <div class="carousel__viewport px-20">
         {% for block in section.blocks %}
 
-          <figure class="carousel__slide " style="width:20%">
+          <figure class="carousel__slide " style="width: {{- block.settings.bv_icon_figure_width -}}%;"  {{ block.shopify_attributes }}>
             {% if block.settings.bv_AsrecommendedbyIcon != blank %}
               <p style="width: 50px;">
                 {{ block.settings.bv_AsrecommendedbyIcon }}
@@ -109,6 +109,14 @@ add slider js
             "type": "html",
             "id": "bv_AsrecommendedbyIcon",
             "label": "Add bv_iconSlider Image icon"
+          }, {
+            "type": "range",
+            "id": "bv_icon_figure_width",
+            "default": 20,
+            "label": "set image container width",
+            "max": 100,
+            "min": 0,
+            "step": 1
           }
         ]
       }

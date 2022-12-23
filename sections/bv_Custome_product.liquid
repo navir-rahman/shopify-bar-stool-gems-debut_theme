@@ -143,16 +143,9 @@
           {%- for block in section.blocks -%}
             {%- case block.type -%}
               {%- when 'space' -%}
-<<<<<<< HEAD
                 <span {{ block.shopify_attributes }}
                   style="padding-top:{{- block.settings.bv_padding -}}px ;display: block;margin-top: {{- block.settings.bv_margin -}}px ;"
                   ></span>
-=======
-                <span
-                  style="padding-top:{{- section.settings.bv_padding -}}px ;display: block;margin-top: {{- section.settings.bv_margin -}}px ;"
-                  id="Space-{{ section.id }}"
-                  data-section="{{ section.id }}"></span>
->>>>>>> 35c1323415ac7c173782a6c02ec7f0bbf78aa9e0
               {%- when '@app' -%}
               {% render block %}
               {%- when 'title' -%}
@@ -213,7 +206,7 @@
                  <div class="variant-info">
                   <div id="stock-info">
                     <p>
-                      <strong>Availability</strong>:
+                      {% comment %} <strong>Availability</strong>: {% endcomment %}
                       <span></span>
                     </p>
                   </div>
@@ -291,7 +284,7 @@
               form
               {%- endcomment -%}
               {%- when 'form' -%}
-              <div {{ block.shopify_attributes }}>
+              <div id="addToCartForm" {{ block.shopify_attributes }}>
 
 
                 {% capture "form_classes" -%}
@@ -477,6 +470,9 @@
 
               {% comment %} bv_list data  {% endcomment %}
               {%- when 'bv_list_data' -%}
+{% if block.settings.bv_addTocartBtnurl != blank %}
+  <a href="{{ block.settings.bv_addTocartBtnurl }}">
+{% endif %}
                 <div class="bv_list_container" {{ block.shopify_attributes }} style="background-color: {{ block.settings.bv_List_icon_bg_color }}; padding: {{- block.settings.bv_List_icon_bv_padding -}}px 10px; 
                 border-top-left-radius: {{- block.settings.bv_List_icon_border_top_radius -}}px;
                 border-top-right-radius: {{- block.settings.bv_List_icon_border_top_radius -}}px;
@@ -503,6 +499,9 @@
                     {{ block.settings.bv_List_icon_text }}
                   </p>
                 </div>
+{% if block.settings.bv_addTocartBtnurl != blank %}
+</a>
+{% endif %}
               {%- comment -%}
               Dynamic content – product review (pulls from Judge.me. Not every product has a review
               {%- endcomment -%}
@@ -1129,11 +1128,11 @@
             "info": "pest your svg here"
           },
           {
-            "type": "text",
+            "type": "richtext",
             "id": "bv_List_icon_text",
             "label": "Add List text ",
             "info": "Add your text here",
-            "default": "Lorem ipsum dolor sit, amet"
+            "default": "<p>Lorem ipsum dolor sit, amet</p>"
           },
           {
             "type": "color",
@@ -1182,6 +1181,11 @@
             "max": 30,
             "min": 0,
             "step": 1
+          },
+          {
+            "type": "url",
+            "id": "bv_addTocartBtnurl",
+            "label": "Add List link"
           }
         ]
       }, {

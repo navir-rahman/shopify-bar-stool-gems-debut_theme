@@ -2,7 +2,14 @@
   style sheet
   {%- endcomment -%}{{ 'bv_common_css.css' | asset_url | stylesheet_tag }}
   {% style %}
+    .bv_addTocartBtn {
 
+      border: 1px solid #fff;
+
+      padding: 0.5em 1.5em;
+      border-radius: 10px;
+
+    }
     .EmotiveHeadlineImg {
       max-width: 350px;
       margin: 1em auto;
@@ -17,88 +24,177 @@
     data-section-id="{{ section.id }}"
     data-section-type="EmotiveHeadline"
     data-enable-history-state="true"
-    data-ajax-enabled="{{ settings.enable_ajax }}"
-    {{ block.shopify_attributes }}>
+    data-ajax-enabled="{{ settings.enable_ajax }}">
     <div class="bv_headingContainer">
       {%- comment -%}
       add rating here
       {%- endcomment -%}
 
-      <h2 class="bv_heading"  style="font-size: {{- section.settings.bv_Title_font_size -}}px;">
-        {{ section.settings.bv_heading }}
-      </h2>
-      <p class="bv_subheading">{{ section.settings.bv_subheading }}</p>
-      {% if section.settings.bv_addTocartBtnText != blank %}
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'space' -%}
+          <span {{ block.shopify_attributes }}style="padding-top:{{- block.settings.bv_padding -}}px ;display: block;margin-top: {{- block.settings.bv_margin -}}px ;"></span>
+          {%- when '@app' -%}
+          {% render block %}
 
-        <a href="{{ section.settings.bv_addTocartBtnurl }}">
-          <button class="bv_addTocartBtn">{{ section.settings.bv_addTocartBtnText }}</button>
-        </a>
-      {% endif %}
-      <div class="EmotiveHeadlineImg">
-        {% if section.settings.EmotiveHeadlineImg != blank %}
-          <img
-            src="{{ section.settings.EmotiveHeadlineImg | image_url: '900x' }}"
-            height=""
-            width="900"
-            loading="lazy"
-            alt="">
-        {% else %}
-          <img
-            src="https://i.ibb.co/YNm9FKZ/checkoutimagejpg.jpg"
-            height=""
-            width="900"
-            loading="lazy"
-            alt="">
-        {% endif %}
-      </div>
+          {%- when 'title' -%}
+          {% comment %} title  {% endcomment %}
+          <h2
+            class="bv_heading"
+            style="font-size: {{- block.settings.bv_Title_font_size -}}px;"
+            {{ block.shopify_attributes }}>
+            {{ block.settings.bv_heading }}
+          </h2>
+
+          {%- when 'subtitle' -%}
+          {% comment %} subtitle {% endcomment %}
+          <p class="bv_subheading" {{ block.shopify_attributes }}>{{ block.settings.bv_subheading }}</p>
+
+          {%- when 'Button' -%}
+          {% comment %} button  {% endcomment %}
+          {% if block.settings.bv_addTocartBtnText != blank %}
+            <a href="{{ block.settings.bv_addTocartBtnurl }}" {{ block.shopify_attributes }}>
+              <button class="bv_addTocartBtn" style="background-color: {{ block.settings.buttonbackgroundcolor }};
+                                color: {{ block.settings.buttonfontcolor }};
+                                font-size: {{- block.settings.buttonfontsize -}}px;
+                                ">{{ block.settings.bv_addTocartBtnText }}</button>
+            </a>
+          {% endif %}
+
+          {%- when 'Image' -%}
+          {% comment %} headline image  {% endcomment %}
+          <div class="EmotiveHeadlineImg" {{ block.shopify_attributes }}>
+            {% if block.settings.EmotiveHeadlineImg != blank %}
+              <img
+                src="{{ block.settings.EmotiveHeadlineImg | image_url: width: 2400 }}"
+                height=""
+                width="900"
+                loading="lazy"
+                alt="">
+            {% else %}
+              <img
+                src="https://i.ibb.co/YNm9FKZ/checkoutimagejpg.jpg"
+                height=""
+                width="900"
+                loading="lazy"
+                alt="">
+            {% endif %}
+          </div>
+        {%- endcase -%}
+      {%- endfor -%}
+
     </div>
   </div>
 </section>
-
 
 {% schema %}
   {
     "name": "EmotiveHeadline",
     "tag": "section",
     "class": "section",
-    "settings": [
+    "blocks": [
       {
-        "type": "text",
-        "id": "bv_heading",
-        "default": "Emotive headline goes here",
-        "label": "Add Emotive headline"
+        "type": "@app"
       },
       {
-        "type": "range",
-        "id": "bv_Title_font_size",
-        "default": 18,
-        "label": "set font size",
-        "max": 100,
-        "min": 0,
-        "step": 1,
-        "unit": "px"
+        "type": "space",
+        "name": "Space",
+        "settings": [
+          {
+            "type": "range",
+            "id": "bv_margin",
+            "default": 0,
+            "label": "Add margin",
+            "max": 100,
+            "min": 0,
+            "step": 1,
+            "unit": "px"
+          }
+        ]
       },
       {
-        "type": "richtext",
-        "id": "bv_subheading",
-        "default": "<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam omnis, provident officia, ipsam a dignissimos, odio minus quis unde laboriosam eveniet? Provident </p>",
-        "label": "Add Emotive Sub Headline"
+        "type": "title",
+        "name": "title",
+        "settings": [
+          {
+            "type": "text",
+            "id": "bv_heading",
+            "default": "Emotive headline goes here",
+            "label": "Add Emotive headline"
+          }, {
+            "type": "range",
+            "id": "bv_Title_font_size",
+            "default": 18,
+            "label": "set font size",
+            "max": 100,
+            "min": 0,
+            "step": 1,
+            "unit": "px"
+          }
+        ]
       },
       {
-        "type": "text",
-        "id": "bv_addTocartBtnText",
-        "default": "Add to cart",
-        "label": "Add Emotive Button Text"
+        "type": "subtitle",
+        "name": "subtitle",
+        "settings": [
+          {
+            "type": "richtext",
+            "id": "bv_subheading",
+            "default": "<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam omnis, provident officia, ipsam a dignissimos, odio minus quis unde laboriosam eveniet? Provident </p>",
+            "label": "Add Emotive Sub Headline"
+          }
+        ]
       }, {
-        "type": "url",
-        "id": "bv_addTocartBtnurl",
-        "label": "Add Emotive Button link"
+        "type": "Button",
+        "name": "Button",
+        "settings": [
+          {
+            "type": "text",
+            "id": "bv_addTocartBtnText",
+            "default": "Add to cart",
+            "label": "Add Emotive Button Text"
+          },
+          {
+            "type": "url",
+            "id": "bv_addTocartBtnurl",
+            "label": "Add Emotive Button link",
+            "info": "type #addToCartForm to link to the product selection area"
+          },
+          {
+            "type": "range",
+            "id": "buttonfontsize",
+            "default": 18,
+            "label": "set font size",
+            "max": 100,
+            "min": 0,
+            "step": 1,
+            "unit": "px"
+          },
+          {
+            "type": "color",
+            "id": "buttonbackgroundcolor",
+            "label": "button background color",
+            "default": "#2DC650"
+          }, {
+            "type": "color",
+            "id": "buttonfontcolor",
+            "label": "button font color",
+            "default": " #fff"
+          }
+        ]
       }, {
-        "type": "image_picker",
-        "id": "EmotiveHeadlineImg",
-        "label": "Add Emotive Image here"
+        "type": "Image",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "EmotiveHeadlineImg",
+            "label": "Add Emotive Image here"
+          }
+        ]
       }
     ],
+    "settings": [],
     "presets": [
       {
         "name": "EmotiveHeadline",
