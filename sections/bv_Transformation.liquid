@@ -19,7 +19,7 @@
       font-family: arial;
     }
     .card h2 {
-      margin: 30px auto;
+      /* margin: 30px auto; */
 
     }
 
@@ -57,13 +57,14 @@
         <div class="card" {{ block.shopify_attributes }}>
           {% if block.settings.bv_transformationIcon %}
             <img
-              srcset="{{ block.settings.bv_transformationIcon | image_url: width: block.settings.image_width }}, {{ block.settings.bv_transformationIcon | image_url: width: image_size_2x }} 2x"
+              srcset="{{ block.settings.bv_transformationIcon | image_url: width: block.settings.image_width }}, {{ block.settings.bv_transformationIcon | image_url: width: image_size2x }} 2x"
               src="{{ block.settings.bv_transformationIcon | image_url: width: 2400 }}"
               alt="{{ block.settings.bv_transformationIcon.alt | escape }}"
               loading="lazy"
               width="{{ block.settings.bv_transformationIcon.width }}"
               height="{{ block.settings.bv_transformationIcon.height }}"
-              style="max-width: min(100%, {{ block.settings.image_width }}px);">
+              style="max-width: min(100%, {{ block.settings.bv_bv_transformationIcon_size }}px);
+                                                     height:{{ block.settings.bv_bv_transformationIcon_sizeheight }}px;">
           {% else %}
             <img src="https://i.ibb.co/xf7tB5N/Screenshot-2022-12-05-213717.png" alt="">
           {% endif %}
@@ -95,11 +96,12 @@
         "name": "Transformation",
         "settings": [
           {
-            "type": "text",
+            "type": "richtext",
             "id": "bv_Transformation__title",
-            "default": " Transformation",
+            "default": "<p>Transformation</p>",
             "label": "Add Transformation Title"
-          }, {
+          },
+          {
             "type": "range",
             "id": "bv_sub_Title_font_size",
             "default": 24,
@@ -108,24 +110,44 @@
             "min": 0,
             "step": 1,
             "unit": "px"
-          }, {
+          },
+          {
             "type": "richtext",
             "id": "bv_Transformation_contet",
             "default": "<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio ad facere sapiente dolorum nobis, numquam quisquam explicabo eius, repudiandae, laudantium ipsum corporis nisi repellat eveniet?</p>",
             "label": "Transformation content"
-          }, {
+          },
+          {
             "type": "image_picker",
             "id": "bv_transformationIcon",
             "label": "Add Transformation Image icon"
+          }, {
+            "type": "range",
+            "id": "bv_bv_transformationIcon_size",
+            "default": 50,
+            "label": "set image size",
+            "max": 200,
+            "min": 0,
+            "step": 2,
+            "unit": "px"
+          }, {
+            "type": "range",
+            "id": "bv_bv_transformationIcon_sizeheight",
+            "default": 50,
+            "label": "set image Height",
+            "max": 200,
+            "min": 0,
+            "step": 2,
+            "unit": "px"
           }
         ]
       }
     ],
     "settings": [
       {
-        "type": "text",
+        "type": "richtext",
         "id": "bv_TransformationText_heading",
-        "default": "Transformation headline goes here",
+        "default": "<p>Transformation headline goes here</p>",
         "label": "Add Transformation Heading"
       },
       {

@@ -10,7 +10,6 @@
 }
 .bv_heading {
   font-size: 3rem;
-  font-style: italic;
   color: #565656;
   margin-bottom: 0.5em;
 }
@@ -22,7 +21,7 @@
 }
 .bv_2ndHeading {
   font-size: xx-large;
-  font-style: italic;
+
   color: #565656;
 }
 
@@ -103,7 +102,6 @@
 } 
 .faqText h2 {
   font-size: 3rem;
-  font-style: italic;
   color: #565656;
 }
 .faqText p {

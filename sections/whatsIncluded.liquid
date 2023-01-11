@@ -102,7 +102,7 @@
           loading="lazy"
           width="{{ block.settings.whatsIncludedImg.width }}"
           height="{{ block.settings.whatsIncludedImg.height }}"
-          style="max-width: min(100%, {{ block.settings.image_width }}px);">
+          style="max-width: min(100%, {{ block.settings.whatsIncludedImg_Size }}px);">
       {% else %}
         <img
           src="https://i.ibb.co/JCHnTvH/Screenshot-2022-12-04-142752.png"
@@ -139,9 +139,9 @@
     ],
     "settings": [
       {
-        "type": "text",
+        "type": "richtext",
         "id": "whatsIncludedTextHeading",
-        "default": "Whats Included",
+        "default": "<p> Whats Included </p>",
         "label": "Add Headline"
       }, {
         "type": "range",
@@ -160,7 +160,16 @@
       }, {
         "type": "image_picker",
         "id": "whatsIncludedImg",
-        "label": "Add Button Text"
+        "label": "Add image"
+      },{
+        "type": "range",
+        "id": "whatsIncludedImg_Size",
+        "default": 18,
+        "label": "set image size",
+        "max": 100,
+        "min": 0,
+        "step": 1,
+        "unit": "px"
       }
     ],
     "presets": [

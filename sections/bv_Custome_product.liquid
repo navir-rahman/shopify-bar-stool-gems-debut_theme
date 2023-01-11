@@ -361,7 +361,7 @@
                         <button
                           type="submit"
                           name="add"
-                          {% unless current_variant.available %}aria-disabled="true"{% endunless %}aria-label="{% unless current_variant.available %}{{ 'products.product.sold_out' | t }}{% else %}{{ 'products.product.add_to_cart' | t }}{% endunless %}"class="btn product-form__cart-submit{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}"data-add-to-cart>
+                          {% unless current_variant.available %}aria-disabled="true"{% endunless %}aria-label="{% unless current_variant.available %}{{ 'products.product.sold_out' | t }}{% else %}{{ 'products.product.add_to_cart' | t }}{% endunless %}" style="font-size: 14px;" class="btn product-form__cart-submit{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}"data-add-to-cart>
                           <span data-add-to-cart-text>
                             {% unless current_variant.available %}
                               {{ 'products.product.sold_out' | t }}
@@ -980,9 +980,9 @@
         "name": "text",
         "settings": [
           {
-            "type": "text",
+            "type": "richtext",
             "id": "text",
-            "default": "Short intro sentence",
+            "default": "<p>Short intro sentence</p>",
             "label": "settings.text.label"
           }
         ]
@@ -1042,7 +1042,7 @@
             "info": "Add your image file here"
           },
           {
-            "type": "text",
+            "type": "richtext",
             "id": "bv_securePaymentText",
             "label": "Add secure Payment Icon ",
             "info": "Add your image file here"
@@ -1054,38 +1054,38 @@
         "limit": 1,
         "settings": [
           {
-            "type": "text",
+            "type": "richtext",
             "id": "bv_bulletens1",
-            "label": "Add secure Payment Icon ",
-            "default":  "Lorem ipsum dolor sit amet.",
+            "label": "Bullets 1",
+            "default":  "<p> Lorem ipsum dolor sit amet. </p>",
             "info": "Add your image file here"
           },
           {
-            "type": "text",
+            "type": "richtext",
             "id": "bv_bulletens2",
-            "label": "Add secure Payment Icon ",
-            "default":  "Lorem ipsum dolor sit amet.",
+            "label": "Bullets 2",
+            "default":  "<p> Lorem ipsum dolor sit amet. </p>",
             "info": "Add your image file here"
           },
           {
-            "type": "text",
+            "type": "richtext",
             "id": "bv_bulletens3",
-            "label": "Add secure Payment Icon ",
-            "default":  "Lorem ipsum dolor sit amet.",
+            "label": "Bullets 3",
+            "default":  "<p> Lorem ipsum dolor sit amet. </p>",
             "info": "Add your image file here"
           },
           {
-            "type": "text",
+            "type": "richtext",
             "id": "bv_bulletens4",
-            "label": "Add secure Payment Icon ",
-            "default":  "Lorem ipsum dolor sit amet.",
+            "label": "Bullets 4",
+            "default":  "<p> Lorem ipsum dolor sit amet. </p>",
             "info": "Add your image file here"
           },
           {
-            "type": "text",
+            "type": "richtext",
             "id": "bv_bulletens5",
-            "label": "Add secure Payment Icon ",
-            "default":  "Lorem ipsum dolor sit amet.",
+            "label": "Bullets 5",
+            "default":  "<p> Lorem ipsum dolor sit amet. </p>",
             "info": "Add your image file here"
           }
         ]
@@ -1095,24 +1095,24 @@
         "limit": 1,
         "settings": [
           {
-            "type": "text",
+            "type": "richtext",
             "id": "bv_shippping_data1",
             "label": "Add shippping Bulleten",
-            "default":  "Lorem ipsum dolor sit amet.",
+            "default":  "<p> Lorem ipsum dolor sit amet. </p>",
             "info": "Add your shippping Bulleten here"
           },
           {
-            "type": "text",
+            "type": "richtext",
             "id": "bv_shippping_data2",
             "label": "Add shippping Bulleten",
-            "default":  "Lorem ipsum dolor sit amet.",
+            "default":  "<p> Lorem ipsum dolor sit amet. </p>",
             "info": "Add your shippping Bulleten here"
           },
           {
-            "type": "text",
+            "type": "richtext",
             "id": "bv_shippping_data3",
             "label": "Add shippping Bulleten",
-            "default":  "Lorem ipsum dolor sit amet.",
+            "default":  "<p> Lorem ipsum dolor sit amet. </p>",
             "info": "Add your shippping Bulleten here"
           }
         ]
@@ -1132,7 +1132,7 @@
             "id": "bv_List_icon_text",
             "label": "Add List text ",
             "info": "Add your text here",
-            "default": "<p>Lorem ipsum dolor sit, amet</p>"
+            "default": "<p> Lorem ipsum dolor sit, amet </p>"
           },
           {
             "type": "color",
@@ -1198,23 +1198,23 @@
         "limit": 1,
         "settings": [
           {
-            "type": "text",
+            "type": "richtext",
             "id": "tab1label",
-            "default": "First Tab",
+            "default": "<p>First Tab</p>",
             "label": "Tab 1 label",
             "info": "Add Tab 1 label"
           },
           {
             "type": "richtext",
             "id": "tab1content",
-            "default": "<p>First Tab</p>",
+            "default": "<p>First Tab content</p>",
             "label": "Tab 1 content",
             "info": "Add Tab 1 content"
           },
           {
-            "type": "text",
+            "type": "richtext",
             "id": "tab2label",
-            "default": "Sceond Tab",
+            "default": "<p>Sceond Tab</p>",
             "label": "Tab 2 label",
             "info": "Add Tab 2 label"
           },
@@ -1226,9 +1226,9 @@
             "info": "Add Tab 2 content"
           },
           {
-            "type": "text",
+            "type": "richtext",
             "id": "tab3label",
-            "default": "Third Tab",
+            "default": "<p>Third Tab</p>",
             "label": "Tab 3 label",
             "info": "Add Tab 3 label"
           },
