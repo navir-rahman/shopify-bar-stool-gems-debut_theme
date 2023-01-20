@@ -15,6 +15,13 @@
             "bv_Title_font_size": 28
           }
         },
+        "9eceb89b-f2c3-4007-b43d-a7ccb19768d7": {
+          "type": "bv_securePaymentIcon",
+          "settings": {
+            "bv_securePaymentIcon": "shopify:\/\/shop_images\/Screenshot_2023-01-20_211043_0ab87be9-77a0-409f-9f9e-acc4f2dd7feb.png",
+            "bv_securePaymentText": ""
+          }
+        },
         "91c8c5dd-8379-4de6-885f-a79b89485eb7": {
           "type": "price",
           "settings": {
@@ -35,12 +42,6 @@
             "bv_bulletens5": "<p>Lorem ipsum dolor sit amet.<\/p>"
           }
         },
-        "9eceb89b-f2c3-4007-b43d-a7ccb19768d7": {
-          "type": "bv_securePaymentIcon",
-          "settings": {
-            "bv_securePaymentText": ""
-          }
-        },
         "6dbead50-d482-4a75-8948-fba1d0486d59": {
           "type": "bv_tab",
           "settings": {
@@ -58,10 +59,10 @@
       "block_order": [
         "aee8d198-06ff-445b-b658-f0762739095c",
         "f317da0d-a45c-4897-9c1c-941e259cf5bd",
+        "9eceb89b-f2c3-4007-b43d-a7ccb19768d7",
         "91c8c5dd-8379-4de6-885f-a79b89485eb7",
         "1862586e-7d48-48f5-bc18-6346e9b5ae93",
         "24a0b06f-a8af-4bc4-81c8-d533bbcfd5de",
-        "9eceb89b-f2c3-4007-b43d-a7ccb19768d7",
         "6dbead50-d482-4a75-8948-fba1d0486d59"
       ],
       "settings": {
