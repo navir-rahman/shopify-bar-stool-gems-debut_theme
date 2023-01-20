@@ -3,12 +3,6 @@
     "main": {
       "type": "bv_Custome_product",
       "blocks": {
-        "aee8d198-06ff-445b-b658-f0762739095c": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Short intro sentence<\/p>"
-          }
-        },
         "f317da0d-a45c-4897-9c1c-941e259cf5bd": {
           "type": "title",
           "settings": {
@@ -25,6 +19,12 @@
         "91c8c5dd-8379-4de6-885f-a79b89485eb7": {
           "type": "price",
           "settings": {
+          }
+        },
+        "aee8d198-06ff-445b-b658-f0762739095c": {
+          "type": "text",
+          "settings": {
+            "text": "<p>shipping in 14 days<\/p>"
           }
         },
         "1862586e-7d48-48f5-bc18-6346e9b5ae93": {
@@ -57,10 +57,10 @@
         }
       },
       "block_order": [
-        "aee8d198-06ff-445b-b658-f0762739095c",
         "f317da0d-a45c-4897-9c1c-941e259cf5bd",
         "9eceb89b-f2c3-4007-b43d-a7ccb19768d7",
         "91c8c5dd-8379-4de6-885f-a79b89485eb7",
+        "aee8d198-06ff-445b-b658-f0762739095c",
         "1862586e-7d48-48f5-bc18-6346e9b5ae93",
         "24a0b06f-a8af-4bc4-81c8-d533bbcfd5de",
         "6dbead50-d482-4a75-8948-fba1d0486d59"
