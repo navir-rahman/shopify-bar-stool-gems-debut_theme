@@ -27,6 +27,11 @@
             "text": "<p>shipping in 14 days<\/p>"
           }
         },
+        "18c9d758-f0ca-42ea-b437-59e2023cdefb": {
+          "type": "shopify:\/\/apps\/product-color-swatches\/blocks\/platmart-product-colors\/3d4801b8-13e2-488f-8d06-69ca04fc155d",
+          "settings": {
+          }
+        },
         "1862586e-7d48-48f5-bc18-6346e9b5ae93": {
           "type": "form",
           "settings": {
@@ -61,18 +66,19 @@
         "9eceb89b-f2c3-4007-b43d-a7ccb19768d7",
         "91c8c5dd-8379-4de6-885f-a79b89485eb7",
         "aee8d198-06ff-445b-b658-f0762739095c",
+        "18c9d758-f0ca-42ea-b437-59e2023cdefb",
         "1862586e-7d48-48f5-bc18-6346e9b5ae93",
         "24a0b06f-a8af-4bc4-81c8-d533bbcfd5de",
         "6dbead50-d482-4a75-8948-fba1d0486d59"
       ],
       "settings": {
         "image_size": "medium",
-        "show_quantity_selector": true,
-        "show_variant_labels": true,
+        "show_quantity_selector": false,
+        "show_variant_labels": false,
         "show_vendor": false,
         "enable_zoom": true,
         "enable_payment_button": false,
-        "show_share_buttons": true,
+        "show_share_buttons": false,
         "expiring_coupon_text": "",
         "expiring_day": "",
         "show_eta": false,
@@ -83,9 +89,67 @@
         "product_page_max_width": "100",
         "product_reviews_enable": false
       }
+    },
+    "09c4466b-e7fc-494b-a2f5-a18dc384637a": {
+      "type": "feature-row",
+      "settings": {
+        "layout": "left",
+        "title": "Image with text",
+        "text": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "f1fca1bf-7a5e-48a7-a060-10bd9b2cbe11": {
+      "type": "bv_spacing",
+      "settings": {
+        "bv_margin": 27,
+        "bv_padding": 0
+      }
+    },
+    "678a3b25-942b-4df1-a38c-8ec40a369273": {
+      "type": "Benefits-section",
+      "blocks": {
+        "template--16089507987635__678a3b25-942b-4df1-a38c-8ec40a369273-167422802195ebfa88-0": {
+          "type": "Benefits",
+          "settings": {
+            "bv_feature_texttitle": "<p> Benefits<\/p>",
+            "bv_sub_Title_font_size": 24,
+            "bv_feature_textcontent": "<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, molestiae? <\/p>",
+            "bv_feature_containerFlip": true,
+            "bvBenefits_margin": 0,
+            "bvBenefits_padding": 0
+          }
+        },
+        "template--16089507987635__678a3b25-942b-4df1-a38c-8ec40a369273-167422802195ebfa88-1": {
+          "type": "Benefits",
+          "settings": {
+            "bv_feature_texttitle": "<p> Benefits<\/p>",
+            "bv_sub_Title_font_size": 24,
+            "bv_feature_textcontent": "<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, molestiae? <\/p>",
+            "bv_feature_containerFlip": false,
+            "bvBenefits_margin": 0,
+            "bvBenefits_padding": 0
+          }
+        }
+      },
+      "block_order": [
+        "template--16089507987635__678a3b25-942b-4df1-a38c-8ec40a369273-167422802195ebfa88-0",
+        "template--16089507987635__678a3b25-942b-4df1-a38c-8ec40a369273-167422802195ebfa88-1"
+      ],
+      "settings": {
+        "featureHeading": "<p>Heading <\/p>",
+        "bv_Title_font_size": 24,
+        "feature_sub_Heading": "<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam omnis, provident officia, ipsam a dignissimos, odio minus quis unde laboriosam eveniet? Provident <\/p>",
+        "bv_featureBgColor": "",
+        "bv_Title_container_padding": 24
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "09c4466b-e7fc-494b-a2f5-a18dc384637a",
+    "f1fca1bf-7a5e-48a7-a060-10bd9b2cbe11",
+    "678a3b25-942b-4df1-a38c-8ec40a369273"
   ]
 }
