@@ -6,12 +6,13 @@
         "aee8d198-06ff-445b-b658-f0762739095c": {
           "type": "text",
           "settings": {
-            "text": "Short intro sentence"
+            "text": "<p>Short intro sentence<\/p>"
           }
         },
         "f317da0d-a45c-4897-9c1c-941e259cf5bd": {
           "type": "title",
           "settings": {
+            "bv_Title_font_size": 28
           }
         },
         "91c8c5dd-8379-4de6-885f-a79b89485eb7": {
@@ -19,19 +20,19 @@
           "settings": {
           }
         },
-        "24a0b06f-a8af-4bc4-81c8-d533bbcfd5de": {
-          "type": "bv_bulletens",
-          "settings": {
-            "bv_bulletens1": "Lorem ipsum dolor sit amet.",
-            "bv_bulletens2": "Lorem ipsum dolor sit amet.",
-            "bv_bulletens3": "Lorem ipsum dolor sit amet.",
-            "bv_bulletens4": "Lorem ipsum dolor sit amet.",
-            "bv_bulletens5": "Lorem ipsum dolor sit amet."
-          }
-        },
         "1862586e-7d48-48f5-bc18-6346e9b5ae93": {
           "type": "form",
           "settings": {
+          }
+        },
+        "24a0b06f-a8af-4bc4-81c8-d533bbcfd5de": {
+          "type": "bv_bulletens",
+          "settings": {
+            "bv_bulletens1": "<p>Lorem ipsum dolor sit amet.<\/p>",
+            "bv_bulletens2": "<p>Lorem ipsum dolor sit amet.<\/p>",
+            "bv_bulletens3": "<p>Lorem ipsum dolor sit amet.<\/p>",
+            "bv_bulletens4": "<p>Lorem ipsum dolor sit amet.<\/p>",
+            "bv_bulletens5": "<p>Lorem ipsum dolor sit amet.<\/p>"
           }
         },
         "9eceb89b-f2c3-4007-b43d-a7ccb19768d7": {
@@ -40,9 +41,17 @@
             "bv_securePaymentText": ""
           }
         },
-        "aa7bc28d-3517-432d-aec8-b538bb14769c": {
-          "type": "bv_shippping_data",
+        "6dbead50-d482-4a75-8948-fba1d0486d59": {
+          "type": "bv_tab",
           "settings": {
+            "tab1label": "<p>First Tab<\/p>",
+            "tab1content": "<p>First Tab content<\/p>",
+            "tab2label": "<p>Sceond Tab<\/p>",
+            "tab2content": "<p>Sceond Tab<\/p>",
+            "tab3label": "<p>Third Tab<\/p>",
+            "tab3content": "<p>Third Tab<\/p>",
+            "bvtab_margin": 10,
+            "bvtab_padding": 10
           }
         }
       },
@@ -50,10 +59,10 @@
         "aee8d198-06ff-445b-b658-f0762739095c",
         "f317da0d-a45c-4897-9c1c-941e259cf5bd",
         "91c8c5dd-8379-4de6-885f-a79b89485eb7",
-        "24a0b06f-a8af-4bc4-81c8-d533bbcfd5de",
         "1862586e-7d48-48f5-bc18-6346e9b5ae93",
+        "24a0b06f-a8af-4bc4-81c8-d533bbcfd5de",
         "9eceb89b-f2c3-4007-b43d-a7ccb19768d7",
-        "aa7bc28d-3517-432d-aec8-b538bb14769c"
+        "6dbead50-d482-4a75-8948-fba1d0486d59"
       ],
       "settings": {
         "image_size": "medium",
@@ -61,7 +70,7 @@
         "show_variant_labels": true,
         "show_vendor": false,
         "enable_zoom": true,
-        "enable_payment_button": true,
+        "enable_payment_button": false,
         "show_share_buttons": true,
         "expiring_coupon_text": "",
         "expiring_day": "",
