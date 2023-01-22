@@ -1,0 +1,202 @@
+{% if content_for_header contains 'platmart-product-colors.js' %}
+
+  {% comment %}
+    PLEASE DO NOT MODIFY THIS FILE
+
+    This snippet is generated automatically and regularly updated.
+    To customize swatch appearance you can duplicate this snippet and
+    update render tag in your product template to reference new snippet.
+
+    In case of questions: support@platmart.io
+  {% endcomment %}
+
+  {%- liquid
+    assign settings = shop.metafields.pl_swatches.settings.value
+    assign groups = product.metafields.pl_swatches.groups.value
+    assign options = shop.metafields.pl_swatches.options.value
+    assign custom_css = shop.metafields.pl_swatches.custom_css
+    assign custom_js = shop.metafields.pl_swatches.custom_js
+    assign void_url = "javascript:void(0);"
+    assign label = settings.label
+    assign handle_out_of_stock = settings.handle_out_of_stock
+    assign out_of_stock_style = settings.out_of_stock_style
+
+    assign option_placeholder = "{{option_name}}" | escape
+    assign color_placeholder = "{{current_color}}" | escape
+    assign value_placeholder = "{{current_value}}" | escape
+
+    if request.design_mode
+      assign void_url = "#"
+      if groups == blank and options == blank
+        assign groups = shop.metafields.pl_swatches.groups_sample.value
+        assign label = label | append: " (swatches preview)"
+      endif
+    endif
+  -%}
+
+  {%- if settings and settings.enabled -%}
+    <style id="pl-swatches-styles">
+      .pl-swatches__group {
+        margin-bottom: 10px;
+      }
+      .pl-swatches__container {
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 4px;
+        row-gap: 4px;
+      }
+      .pl-swatches__label {
+        margin-bottom: 5px;
+      }
+      .pl-swatches__link, .pl-swatches__link:hover {
+        text-decoration: none;
+        display: inline-block;
+      }
+      .pl-swatches__link--disabled {
+        pointer-events: none;
+        opacity: .5;
+      }
+      .pl-swatches__link--hidden {
+        display: none;
+      }
+      .pl-swatches__swatch-wrapper {
+        position: relative;
+        display: inline-block;
+        margin: 3px 5px;
+        border: 2px solid #fff;
+        line-height: normal;
+        border-radius: var(--pl-swatch-radius);
+        box-shadow: 0 0 0 1.5px #e8e8e1;
+      }
+      .pl-swatches__swatch-wrapper--active {
+        box-shadow: 0 0 0 2px #888883;
+      }
+      .pl-swatches__swatch {
+        display: flex;
+        flex-direction: column-reverse;
+        margin: 0;
+        padding: 0;
+        box-shadow: 0;
+        border: 0;
+        width: var(--pl-swatch-size);
+        height: var(--pl-swatch-size);
+        overflow: hidden;
+        vertical-align: middle;
+        border-radius: inherit;
+      }
+      .pl-swatches__swatch--crossed-out::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        right: 0;
+        border-top: 2px solid;
+        border-color: #727070;
+        transform: rotate(320deg);
+      }
+      .pl-swatches__swatch--dynamic {
+        height: auto;
+        width: auto;
+        padding: calc(var(--pl-swatch-size) / 4);
+      }
+      .pl-swatches__color {
+        display: inline-block !important;
+        height: 100%;
+        width: 100%;
+      }
+      .pl-swatches__color img {
+        object-fit: contain;
+        vertical-align: initial;
+      }
+      .pl-swatches__pill {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #4a4a4a;
+      }
+    </style>
+
+    {%- if custom_css -%}
+      {%- comment -%}Added as separated <style> element to override theme customizations{%- endcomment -%}
+      <style>
+        {{ custom_css }}
+      </style>
+    {%- endif -%}
+
+    {%- if custom_js -%}
+      <script>
+        {{ custom_js }}
+      </script>
+    {%- endif -%}
+
+    <script>
+      var customCSS = '';
+      switch(Shopify.theme.theme_store_id) {
+        case 796: // Debut
+          customCSS = '.pl-swatches__label { margin-left: 5px; } .pl-swatches__container { margin-left: 2px; }';
+          break;
+        case 887: // Dawn
+          customCSS = '.pl-swatches__label { margin-bottom: .6rem; font-size: 1.3rem; line-height: 1.5 letter-spacing: .04rem; }';
+          break;
+      }
+      var styles = document.getElementById('pl-swatches-styles');
+      styles.insertAdjacentHTML('beforeend', customCSS);
+    </script>
+
+    <div class="pl-swatches" style="{{ settings.css_variables }}">
+      {%- if groups -%}
+        {%- for group in groups -%}
+          {%- assign current_option = group.swatches | where: "handle", product.handle | first -%}
+
+          {%- if settings.pass_option_to_properties and current_option.name != blank -%}
+            <input type="hidden" name="properties[{{ group.option_name }}]" value="{{ current_option.name }}">
+          {%- endif -%}
+
+          {%- if current_option or request.design_mode -%}
+            <div class="pl-swatches__group">
+              {% if settings.show_label %}
+                <div class="pl-swatches__label">
+                  {{ label | replace: color_placeholder, current_option.name | replace: value_placeholder, current_option.name | replace: option_placeholder, group.option_name }}
+                </div>
+              {% endif %}
+
+              <div class="pl-swatches__container">
+                {% for option in group.swatches %}
+                  {%- assign url = product.url | url_decode | replace: product.handle, option.handle | strip -%}
+                  <a
+                    href="{%- if product.handle == option.handle or option.handle == '{void}' -%}{{ void_url }}{%- else -%}{{ url }}{%- endif -%}"
+                    class="pl-swatches__link{% if handle_out_of_stock and option.out_of_stock %} pl-swatches__link--disabled{% endif %}{% if handle_out_of_stock and option.out_of_stock and out_of_stock_style == 'hide' %} pl-swatches__link--hidden{% endif %}"
+                    title="{{ option.name }}"
+                  >
+                    <div class="pl-swatches__swatch-wrapper{% if product.handle == option.handle %} pl-swatches__swatch-wrapper--active{% endif %}">
+                      <div class="pl-swatches__swatch{% if option.type == 'pill' %} pl-swatches__swatch--dynamic{% endif %}{% if handle_out_of_stock and option.out_of_stock and out_of_stock_style == 'cross_out' %} pl-swatches__swatch--crossed-out{% endif %}">
+                        {%- case option.type -%}
+                        {%- when "two_colors" -%}
+                          <div class="pl-swatches__color" style="background: {{ option.color_two }};"></div>
+                          <div class="pl-swatches__color" style="background: {{ option.color_one }};"></div>
+                        {%- when "custom_image", "product_image" -%}
+                          <div class="pl-swatches__color">
+                            <img src="{{ option.image }}" width="{{ settings.swatch_size }}" height="{{ settings.swatch_size }}" loading="lazy">
+                          </div>
+                        {%- when "pill" -%}
+                          <div class="pl-swatches__pill">
+                            {{ option.name }}
+                          </div>
+                        {%- else -%}
+                          <div class="pl-swatches__color" style="background: {{ option.color_one }};"></div>
+                        {%- endcase -%}
+                      </div>
+                    </div>
+                  </a>
+                {% endfor %}
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+{% endif %}
