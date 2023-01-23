@@ -1,3 +1,4 @@
+var ix;
 class PredictiveSearch extends HTMLElement {
   constructor() {
     super();
@@ -31,7 +32,7 @@ class PredictiveSearch extends HTMLElement {
       .then((text) => {
         const resultsMarkup = new DOMParser().parseFromString(text, 'text/html').querySelector('#shopify-section-predictive-search').innerHTML;
         resultsMarkup.querySelector('li').innerHTML = "blue";
-        
+        ix= resultsMarkup;
           document.querySelector('#shopify-section-predictive-search').innerHTML = resultsMarkup;
         	//this.predictiveSearchResults.innerHTML = resultsMarkup;
        // this.open();
