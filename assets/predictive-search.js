@@ -35,7 +35,7 @@ class PredictiveSearch extends HTMLElement {
        // resultsMarkup.querySelector('li').innerHTML = "blue";
          searchresult.style.display = 'none';
           searchresult.innerHTML = resultsMarkup;
-        const notinCollection = document.querySelectorall('li.c3po')
+        const notinCollection = document.querySelectorAll('li.c3po')
         console.log(notinCollection)
         	//this.predictiveSearchResults.innerHTML = resultsMarkup;
        // this.open();
