@@ -1,4 +1,4 @@
-aaa
+
 {% assign products_per_row = section.settings.grid | times: 1 %}
 {%- assign boost_settings = shop.metafields.bc-sf-filter.settings -%}
 {%- assign boost_in_collection_search = boost_settings | split: 'enableCollectionSearch":' | last | split: ',"' | first | strip -%}
