@@ -1,3 +1,37 @@
+
+
+<predictive-search>
+  <form action="{{ routes.search_url }}" method="get" role="search">
+    <label for="Search">Search</label>
+    <input
+      id="Search"
+      type="search"
+      name="q"
+      value="{{ search.terms | escape }}"
+      {%- if settings.predictive_search_enabled -%}
+        role="combobox"
+        aria-expanded="false"
+        aria-owns="predictive-search-results-list"
+        aria-controls="predictive-search-results-list"
+        aria-haspopup="listbox"
+        aria-autocomplete="list"
+        autocorrect="off"
+        autocomplete="off"
+        autocapitalize="off"
+        spellcheck="false"
+      {%- endif -%}
+    >
+    <input name="options[prefix]" type="hidden" value="last">
+
+    {%- if settings.predictive_search_enabled -%}
+      <div id="predictive-search" tabindex="-1"></div>
+    {%- endif -%}
+  </form>
+</predictive-search>
+
+<div id="shopify-section-predictive-search">
+  
+</div>
 <script>
   var ix;
 class PredictiveSearch extends HTMLElement {
@@ -71,38 +105,11 @@ customElements.define('predictive-search', PredictiveSearch);
 
 </script>
 
-<predictive-search>
-  <form action="{{ routes.search_url }}" method="get" role="search">
-    <label for="Search">Search</label>
-    <input
-      id="Search"
-      type="search"
-      name="q"
-      value="{{ search.terms | escape }}"
-      {%- if settings.predictive_search_enabled -%}
-        role="combobox"
-        aria-expanded="false"
-        aria-owns="predictive-search-results-list"
-        aria-controls="predictive-search-results-list"
-        aria-haspopup="listbox"
-        aria-autocomplete="list"
-        autocorrect="off"
-        autocomplete="off"
-        autocapitalize="off"
-        spellcheck="false"
-      {%- endif -%}
-    >
-    <input name="options[prefix]" type="hidden" value="last">
 
-    {%- if settings.predictive_search_enabled -%}
-      <div id="predictive-search" tabindex="-1"></div>
-    {%- endif -%}
-  </form>
-</predictive-search>
 
-<div id="shopify-section-predictive-search">
-  
-</div>
+
+
+
 
 
 
