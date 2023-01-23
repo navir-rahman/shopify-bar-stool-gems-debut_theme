@@ -37,7 +37,7 @@ class PredictiveSearch extends HTMLElement {
           searchresult.innerHTML = resultsMarkup;
 document.querySelectorAll('.predictive-search__list-item').forEach(p=> {return p.style.display = 'none'})
 document.querySelectorAll('.predictive-search__list-item .c3po').forEach(p=> {return p.style.display = 'block'})
-
+searchresult.style.display = 'block';
         
         const notinCollection = document.querySelectorAll('.c3po')
         console.log(notinCollection)
