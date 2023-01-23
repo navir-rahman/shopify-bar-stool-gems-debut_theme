@@ -5,7 +5,7 @@
       {%- for product in predictive_search.resources.products -%}
         <li class="predictive-search__list-item" role="option">
            {% for collection in product.collections %}
-<script> collectionOfsearchProduct.push(" {{ collection.handle }}" ) </script>
+<span> collectionOfsearchProduct.push(" {{ collection.handle }}" ) </apan>
 {% endfor %}
 
           <a href="{{ product.url }}" class="predictive-search__item" tabindex="-1">
