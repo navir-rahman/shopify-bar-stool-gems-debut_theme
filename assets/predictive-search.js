@@ -22,14 +22,25 @@ class PredictiveSearch extends HTMLElement {
   }
 
   getSearchResults(searchTerm) {
-    fetch(`/search/suggest.json?q=${searchTerm}&resources[type]=collection&resources[options][unavailable_products]=hide&resources[options][fields]=title,product_type,variants.title`)
-.then((response) => response.json())
+    fetch(`/search/suggest?q=${searchTerm}&resources[type]=product&resources[limit]=4&section_id=predictive-search`)
+      .then((response) => {
+        if (!response.ok) {
+          var error = new Error(response.status);
+          this.close();
+          throw error;
+        }
 
-      .then((text) => {
-       console.log(text)
-      //document.querySelector('#shopify-section-predictive-search').innerHTML =text;
+        return response.text();
       })
- 
+      .then((text) => {
+        const resultsMarkup = new DOMParser().parseFromString(text, 'text/html').querySelector('#shopify-section-predictive-search').innerHTML;
+        this.predictiveSearchResults.innerHTML = resultsMarkup;
+        this.open();
+      })
+      .catch((error) => {
+        this.close();
+        throw error;
+      });
   }
 
   open() {
