@@ -35,7 +35,10 @@ class PredictiveSearch extends HTMLElement {
        // resultsMarkup.querySelector('li').innerHTML = "blue";
          searchresult.style.display = 'none';
           searchresult.innerHTML = resultsMarkup;
-        const notinCollection = document.querySelectorAll('li.c3po')
+document.querySelectorAll('.predictive-search__list-item').forEach(p=> {return p.style.display = 'none'})
+document.querySelectorAll('.predictive-search__list-item> .c3po').forEach(p=> {return p.style.display = 'block';})
+        
+        const notinCollection = document.querySelectorAll('.c3po')
         console.log(notinCollection)
         	//this.predictiveSearchResults.innerHTML = resultsMarkup;
        // this.open();
