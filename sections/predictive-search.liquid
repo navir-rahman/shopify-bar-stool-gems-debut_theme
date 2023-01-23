@@ -1,4 +1,7 @@
 {%- if predictive_search.performed -%}
+  <script>
+    var collectionOfsearchProduct = [];
+  </script>
   <div id="predictive-search-results">
     {%- if predictive_search.resources.products.size > 0 -%}
       <h3 id="predictive-search-products" class="predictive-search__heading">
@@ -11,7 +14,7 @@
                  
           >
            {% for collection in product.collections %}
-<script>var collectionOfsearchProduct={ {{ collection.handle }} } </script>
+<script> collectionOfsearchProduct.push( {{ collection.handle }} ) </script>
 {% endfor %}
 
           <a href="{{ product.url }}" class="predictive-search__item" tabindex="-1">
