@@ -14,7 +14,7 @@
                  
           >
            {% for collection in product.collections %}
-<script> collectionOfsearchProduct.push( {{ collection.handle }} ) </script>
+<script> collectionOfsearchProduct.push(" {{ collection.handle }}" ) </script>
 {% endfor %}
 
           <a href="{{ product.url }}" class="predictive-search__item" tabindex="-1">
