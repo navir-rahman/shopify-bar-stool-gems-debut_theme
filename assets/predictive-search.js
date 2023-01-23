@@ -37,8 +37,7 @@ class PredictiveSearch extends HTMLElement {
        // this.open();
       })
       .catch((error) => {
-        this.close();
-        throw error;
+       console.log(error)
       });
   }
 
