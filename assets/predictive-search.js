@@ -30,11 +30,11 @@ class PredictiveSearch extends HTMLElement {
           throw error;
         }
 
-        return response.text();
+        return response.json();
       })
       .then((text) => {
        console.log(text)
-      document.querySelector('#shopify-section-predictive-search').innerHTML =text;
+      //document.querySelector('#shopify-section-predictive-search').innerHTML =text;
       })
  
   }
