@@ -3,7 +3,9 @@
   <div id="predictive-search-results">
     <ul id="predictive-search-results-list" class="predictive-search__results-list" role="listbox" aria-labelledby="predictive-search-products">
       {%- for product in predictive_search.resources.products -%}
-        <li class="predictive-search__list-item"
+        <li class="predictive-search__list-item {% for collection in product.collections %}
+ {{ collection.handle }}
+{% endfor %}"
           data-collectionLists = "{% for collection in product.collections %}
  {{ collection.handle }}
 {% endfor %}"
