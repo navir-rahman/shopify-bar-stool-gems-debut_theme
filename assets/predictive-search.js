@@ -22,7 +22,7 @@ class PredictiveSearch extends HTMLElement {
   }
 
   getSearchResults(searchTerm) {
-    fetch(`/search/suggest.json?q=${searchTerm}&resources[type]=product&resources[options][unavailable_products]=hide&resources[options][fields]=title,product_type,variants.title`)
+    fetch(`/search/suggest.json?q=${searchTerm}&resources[type]=collection&resources[options][unavailable_products]=hide&resources[options][fields]=title,product_type,variants.title`)
 .then((response) => response.json())
 
       .then((text) => {
