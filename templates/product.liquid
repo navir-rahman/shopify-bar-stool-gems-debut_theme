@@ -3,13 +3,13 @@ The contents of the product.liquid template can be found in /sections/product-te
 {% endcomment %}
 
 {%- comment -%}
-{%- endcomment -%}{%- comment -%}
+{%- endcomment -%}
 {% section 'product-template' %}
 
 {% section 'product-recommendations' %}
 {% section 'recently-viewed-products' %}
-{%- endcomment -%}
 
+{%- comment -%}
 {% section 'bv_iconSlider' %}
 {% section 'bv_Custome_product' %}
 {% section 'bv_Asrecommendedby' %}
@@ -19,7 +19,7 @@ The contents of the product.liquid template can be found in /sections/product-te
 {% section 'whatsIncluded' %}
 {% section 'bv_FAQ' %}
 {% section 'bv_EmotiveHeadline' %}
-
+{%- endcomment -%}
 {%- comment -%}
 {% render 'bottom-text', current_object: product %}
 {%- endcomment -%}{% if collection %}
