@@ -30,11 +30,13 @@ class PredictiveSearch extends HTMLElement {
         return response.text();
       })
       .then((text) => {
-        const resultsMarkup = new DOMParser().parseFromString(text, 'text/html').querySelector('#shopify-section-predictive-search').innerHTML;
+        const searchresult =document.querySelector('#shopify-section-predictive-search')
+        const resultsMarkup = new DOMParser().parseFromString(text, 'text/html').searchresult.innerHTML;
        // resultsMarkup.querySelector('li').innerHTML = "blue";
-        ix= resultsMarkup;
-        console.log(resultsMarkup)
-          document.querySelector('#shopify-section-predictive-search').innerHTML = resultsMarkup;
+         searchresult.style.display = 'none';
+          searchresult.innerHTML = resultsMarkup;
+        const notinCollection = document.querySelectorall('li.c3po')
+        console.log(notinCollection)
         	//this.predictiveSearchResults.innerHTML = resultsMarkup;
        // this.open();
       })
