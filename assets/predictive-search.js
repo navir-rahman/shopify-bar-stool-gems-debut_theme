@@ -36,7 +36,7 @@ class PredictiveSearch extends HTMLElement {
        console.log(text)
       })
       .then((text) => {
-       new DOMParser().parseFromString(text, 'text/html').querySelector('#shopify-section-predictive-search').innerHTML =text;
+      document.querySelector('#shopify-section-predictive-search').innerHTML =text;
        
 
       })
