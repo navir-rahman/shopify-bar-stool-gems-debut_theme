@@ -33,6 +33,7 @@ class PredictiveSearch extends HTMLElement {
         const resultsMarkup = new DOMParser().parseFromString(text, 'text/html').querySelector('#shopify-section-predictive-search').innerHTML;
        // resultsMarkup.querySelector('li').innerHTML = "blue";
         ix= resultsMarkup;
+        console.log(resultsMarkup)
           document.querySelector('#shopify-section-predictive-search').innerHTML = resultsMarkup;
         	//this.predictiveSearchResults.innerHTML = resultsMarkup;
        // this.open();
