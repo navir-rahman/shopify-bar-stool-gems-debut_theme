@@ -23,11 +23,7 @@ class PredictiveSearch extends HTMLElement {
 
   getSearchResults(searchTerm) {
     fetch(`/search/suggest?q=${searchTerm}&resources[type]=product&resources[options][unavailable_products]=hide&resources[options][fields]=title,product_type,variants.title`)
-      .then((response) => {
-       
-
-        return response.json();
-      })
+      .then((res) => res.JSON())
       .then((text) => {
        console.log(text)
       //document.querySelector('#shopify-section-predictive-search').innerHTML =text;
