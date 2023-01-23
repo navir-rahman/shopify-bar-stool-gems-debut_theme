@@ -1,12 +1,12 @@
 {%- if predictive_search.performed -%}
   <div id="predictive-search-results">
-    {%- if predictive_search.resources.products.size > 0 -%}
+    {%- if predictive_search.resources.collection.size > 0 -%}
       <h3 id="predictive-search-products" class="predictive-search__heading">
         Products
       </h3>
     {%- endif -%}
     <ul id="predictive-search-results-list" class="predictive-search__results-list" role="listbox" aria-labelledby="predictive-search-products">
-      {%- for product in predictive_search.resources.products -%}
+      {%- for product in predictive_search.resources.collection -%}
         <li class="predictive-search__list-item" role="option">
           <a href="{{ product.url }}" class="predictive-search__item" tabindex="-1">
             {%- if product.featured_media != blank -%}
