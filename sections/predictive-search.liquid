@@ -8,10 +8,11 @@
     <ul id="predictive-search-results-list" class="predictive-search__results-list" role="listbox" aria-labelledby="predictive-search-products">
       {%- for product in predictive_search.resources.products -%}
         <li class="predictive-search__list-item" role="option"
-                  {% for collection in product.collections %}
+                 
+          >
+           {% for collection in product.collections %}
 <script>var collectionOfsearchProduct={ {{ collection.handle }} } </script>
 {% endfor %}
-          >
 
           <a href="{{ product.url }}" class="predictive-search__item" tabindex="-1">
             {%- if product.featured_media != blank -%}
