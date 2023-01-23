@@ -30,7 +30,7 @@ class PredictiveSearch extends HTMLElement {
       })
       .then((text) => {
        // const resultsMarkup = new DOMParser().parseFromString(text, 'text/html').querySelector('#shopify-section-predictive-search').innerHTML;
-        this.predictiveSearchResults.innerHTML = text;
+        document.querySelector('#shopify-section-predictive-search').innerHTML = text;
        // this.open();
       })
       .catch((error) => {
