@@ -65,9 +65,8 @@ class PredictiveSearch extends HTMLElement {
         return response.text();
       })
       .then((text) => {
-        let searchresult =document.querySelector('#shopify-section-predictive-search')
+        const searchresult =document.querySelector('#shopify-section-predictive-search')
         const resultsMarkup = new DOMParser().parseFromString(text, 'text/html').querySelector('#shopify-section-predictive-search').innerHTML;
-       // resultsMarkup.querySelector('li').innerHTML = "blue";
          searchresult.style.display = 'none';
           searchresult.innerHTML = resultsMarkup;
 document.querySelectorAll('[data-collectionlists]').forEach(p=> {
@@ -77,15 +76,7 @@ document.querySelectorAll('[data-collectionlists]').forEach(p=> {
   return p.style.display = 'none'
 }
 })
-    
-        
-//document.querySelectorAll('.c3po').forEach(p=> {return p.style.display = 'block'})
 searchresult.style.display = 'block';
-        
-        const notinCollection = document.querySelectorAll('.c3po')
-        console.log(notinCollection)
-        	//this.predictiveSearchResults.innerHTML = resultsMarkup;
-       // this.open();
       })
       .catch((error) => {
        console.log(error)
