@@ -24,24 +24,11 @@
                 height="{{ 50 | divided_by: product.featured_media.preview_image.aspect_ratio }}"
               >
             {%- endif -%}
-            <div class="predictive-search__item-content">
-              {%- if settings.predictive_search_show_vendor -%}
-                <span class="visually-hidden">Vendor</span>
-                <div class="predictive-search__item-vendor">{{ product.vendor }}</div>
-              {%- endif -%}
-              <span class="predictive-search__item-heading">{{ product.title }}</span>
-              {%- if settings.predictive_search_show_price -%}
-                {% comment %}Render price{% endcomment %}
-              {%- endif -%}
-            </div>
+
           </a>
         </li>
       {%- endfor -%}
-      <li class="predictive-search__list-item" role="option">
-        <button class="predictive-search__item" tabindex="-1">
-          Search for “{{ predictive_search.terms }}”
-        </button>
-      </li>
+     
     </ul>
   </div>
 {%- endif -%}
