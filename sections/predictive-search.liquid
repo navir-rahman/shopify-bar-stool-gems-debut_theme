@@ -9,7 +9,7 @@
       {%- for product in predictive_search.resources.products -%}
         <li class="predictive-search__list-item" role="option">
         {% for collection in product.collections %}
-<p class="collection-title">col:{{ collection.title }}</p>
+<p class="collection-title">col:{{ collection.handle }}</p>
 {% endfor %}
           <a href="{{ product.url }}" class="predictive-search__item" tabindex="-1">
             {%- if product.featured_media != blank -%}
