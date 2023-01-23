@@ -1,16 +1,9 @@
 {%- if predictive_search.performed -%}
 
   <div id="predictive-search-results">
-    {%- if predictive_search.resources.products.size > 0 -%}
-      <h3 id="predictive-search-products" class="predictive-search__heading">
-        Products
-      </h3>
-    {%- endif -%}
     <ul id="predictive-search-results-list" class="predictive-search__results-list" role="listbox" aria-labelledby="predictive-search-products">
       {%- for product in predictive_search.resources.products -%}
-        <li class="predictive-search__list-item" role="option"
-                 
-          >
+        <li class="predictive-search__list-item" role="option">
            {% for collection in product.collections %}
 <script> collectionOfsearchProduct.push(" {{ collection.handle }}" ) </script>
 {% endfor %}
