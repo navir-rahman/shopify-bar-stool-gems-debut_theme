@@ -24,11 +24,7 @@ class PredictiveSearch extends HTMLElement {
   getSearchResults(searchTerm) {
     fetch(`/search/suggest?q=${searchTerm}&resources[type]=product&resources[limit]=4&section_id=predictive-search`)
       .then((response) => {
-        if (!response.ok) {
-          var error = new Error(response.status);
-          this.close();
-          throw error;
-        }
+        
 
         return response.text();
       })
