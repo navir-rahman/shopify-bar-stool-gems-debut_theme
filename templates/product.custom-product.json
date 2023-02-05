@@ -27,11 +27,6 @@
             "text": "<p>shipping in 14 days<\/p>"
           }
         },
-        "18c9d758-f0ca-42ea-b437-59e2023cdefb": {
-          "type": "shopify:\/\/apps\/product-color-swatches\/blocks\/platmart-product-colors\/3d4801b8-13e2-488f-8d06-69ca04fc155d",
-          "settings": {
-          }
-        },
         "1862586e-7d48-48f5-bc18-6346e9b5ae93": {
           "type": "form",
           "settings": {
@@ -66,7 +61,6 @@
         "9eceb89b-f2c3-4007-b43d-a7ccb19768d7",
         "91c8c5dd-8379-4de6-885f-a79b89485eb7",
         "aee8d198-06ff-445b-b658-f0762739095c",
-        "18c9d758-f0ca-42ea-b437-59e2023cdefb",
         "1862586e-7d48-48f5-bc18-6346e9b5ae93",
         "24a0b06f-a8af-4bc4-81c8-d533bbcfd5de",
         "6dbead50-d482-4a75-8948-fba1d0486d59"
