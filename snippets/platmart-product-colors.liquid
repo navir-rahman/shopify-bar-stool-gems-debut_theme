@@ -84,6 +84,9 @@
         vertical-align: middle;
         border-radius: inherit;
       }
+      .pl-swatches__swatch--crossed-out {
+        opacity: .5;
+      }
       .pl-swatches__swatch--crossed-out::after {
         content: "";
         position: absolute;
@@ -167,11 +170,11 @@
                   {%- assign url = product.url | url_decode | replace: product.handle, option.handle | strip -%}
                   <a
                     href="{%- if product.handle == option.handle or option.handle == '{void}' -%}{{ void_url }}{%- else -%}{{ url }}{%- endif -%}"
-                    class="pl-swatches__link{% if handle_out_of_stock and option.out_of_stock %} pl-swatches__link--disabled{% endif %}{% if handle_out_of_stock and option.out_of_stock and out_of_stock_style == 'hide' %} pl-swatches__link--hidden{% endif %}"
+                    class="pl-swatches__link{% if handle_out_of_stock and option.out_of_stock and out_of_stock_style != 'cross_out_enable' %} pl-swatches__link--disabled{% endif %}{% if handle_out_of_stock and option.out_of_stock and out_of_stock_style == 'hide' %} pl-swatches__link--hidden{% endif %}"
                     title="{{ option.name }}"
                   >
                     <div class="pl-swatches__swatch-wrapper{% if product.handle == option.handle %} pl-swatches__swatch-wrapper--active{% endif %}">
-                      <div class="pl-swatches__swatch{% if option.type == 'pill' %} pl-swatches__swatch--dynamic{% endif %}{% if handle_out_of_stock and option.out_of_stock and out_of_stock_style == 'cross_out' %} pl-swatches__swatch--crossed-out{% endif %}">
+                      <div class="pl-swatches__swatch{% if option.type == 'pill' %} pl-swatches__swatch--dynamic{% endif %}{% if handle_out_of_stock and option.out_of_stock and out_of_stock_style contains 'cross_out' %} pl-swatches__swatch--crossed-out{% endif %}">
                         {%- case option.type -%}
                         {%- when "two_colors" -%}
                           <div class="pl-swatches__color" style="background: {{ option.color_two }};"></div>
