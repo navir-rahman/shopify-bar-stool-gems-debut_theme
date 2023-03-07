@@ -148,7 +148,12 @@
       styles.insertAdjacentHTML('beforeend', customCSS);
     </script>
 
-    <div class="pl-swatches" style="{{ settings.css_variables }}">
+    <div class="pl-swatches"
+      style="{{ settings.css_variables }}" 
+      data-type="{{ type }}"
+      data-platmart-product-selector="{{ settings.product_selector }}"
+      data-platmart-product-target-path="{{ settings.product_target_path }}"
+    >
       {%- if groups -%}
         {%- for group in groups -%}
           {%- assign current_option = group.swatches | where: "handle", product.handle | first -%}
