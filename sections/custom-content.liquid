@@ -33,7 +33,7 @@
         {% capture img_wrapper_id %}CustomImageWrapper--{{ forloop.index }}-{{ block.settings.image.id }}{% endcapture %}
 
         {% unless block.settings.image == blank %}
-          {% include 'image-style' with image: block.settings.image, small_style: false, width: max_height, height: max_height, wrapper_id: img_wrapper_id, img_id: img_id %}
+          {% include 'image-style' with image, image: block.settings.image, small_style: false, width: max_height, height: max_height, wrapper_id: img_wrapper_id, img_id: img_id %}
         {% endunless %}
       {% endif %}
 
@@ -2451,3 +2451,17 @@
   ]
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% include 'image-style' with image: block.settings.image, small_style: false,
+    width: max_height, height: max_height, wrapper_id: img_wrapper_id, img_id: img_id
+    %}"
+  to: "{% include 'image-style' with image, image: block.settings.image, small_style:
+    false, width: max_height, height: max_height, wrapper_id: img_wrapper_id, img_id:
+    img_id %}"
+  position: 1457..1627
+{% endcomment %}

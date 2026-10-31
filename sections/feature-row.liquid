@@ -5,7 +5,7 @@
         {% capture img_id %}FeatureRowImage-{{ section.id }}{% endcapture %}
         {% capture wrapper_id %}FeatureRowImageWrapper-{{ section.id }}{% endcapture %}
         {%- assign img_url = section.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
-        {% include 'image-style' with image: section.settings.image, width: 545, height: 545, small_style: true, wrapper_id: wrapper_id, img_id: img_id %}
+        {% include 'image-style' with image, image: section.settings.image, width: 545, height: 545, small_style: true, wrapper_id: wrapper_id, img_id: img_id %}
         <div id="{{ wrapper_id }}" class="feature-row__image-wrapper js">
           <div style="padding-top:{{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100}}%;">
             <img id="{{ img_id }}"
@@ -372,3 +372,15 @@
   ]
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% include 'image-style' with image: section.settings.image, width: 545,
+    height: 545, small_style: true, wrapper_id: wrapper_id, img_id: img_id %}"
+  to: "{% include 'image-style' with image, image: section.settings.image, width:
+    545, height: 545, small_style: true, wrapper_id: wrapper_id, img_id: img_id %}"
+  position: 428..581
+{% endcomment %}

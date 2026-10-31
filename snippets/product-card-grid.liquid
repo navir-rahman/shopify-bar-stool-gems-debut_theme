@@ -8,7 +8,7 @@
   {%- assign img_url = product.featured_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
 
   {% unless product.featured_image == blank %}
-    {% include 'image-style' with image: product.featured_image, width: max_height, height: max_height, small_style: true, wrapper_id: wrapper_id, img_id: img_id %}
+    {% include 'image-style' with image, image: product.featured_image, width: max_height, height: max_height, small_style: true, wrapper_id: wrapper_id, img_id: img_id %}
   {% endunless %}
 
   <div class="product-card__image-with-placeholder-wrapper" data-image-with-placeholder-wrapper>
@@ -46,3 +46,17 @@
     {% render 'hextom_usb_coll', product: product %}
     <!-- **END** Hextom USB Integration // Collection Include - DO NOT MODIFY -->
 </div>
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% include 'image-style' with image: product.featured_image, width: max_height,
+    height: max_height, small_style: true, wrapper_id: wrapper_id, img_id: img_id
+    %}"
+  to: "{% include 'image-style' with image, image: product.featured_image, width:
+    max_height, height: max_height, small_style: true, wrapper_id: wrapper_id, img_id:
+    img_id %}"
+  position: 649..816
+{% endcomment %}

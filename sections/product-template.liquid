@@ -169,7 +169,7 @@ customElements.define('predictive-search', PredictiveSearch);
             {{ zoom_img_id }}-wrapper{% endcapture %}
           {%- assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
 
-          {% include 'image-style' with small_style: true, width: height, height: height, wrapper_id: img_wrapper_id, img_id: img_id %}
+          {% include 'image-style' with small_style, small_style: true, width: height, height: height, wrapper_id: img_wrapper_id, img_id: img_id %}
 
           <div id="{{ img_wrapper_id }}" class="product-single__photo-wrapper js">
             <div id="{{ zoom_img_id }}" style="padding-top:{{ 1 | divided_by: image.aspect_ratio | times: 100}}%;" class="product-single__photo{% if enable_zoom %} js-zoom-enabled{% endif %}{% if product.images.size > 1 %} product-single__photo--has-thumbnails{% endif %}{% unless featured_image == image %} hide{% endunless %}" data-image-id="{{ image.id }}"
@@ -263,7 +263,7 @@ customElements.define('predictive-search', PredictiveSearch);
             </div>
           {%- endif -%}
 
-          {% capture "form_classes" -%}
+          {% capture form_classes -%}
             product-form product-form-{{ section.id }}{% unless section.settings.show_variant_labels %}
               product-form--hide-variant-labels{% endunless %}
             {% if section.settings.enable_payment_button and product.has_only_default_variant%}
@@ -783,4 +783,18 @@ customElements.define('predictive-search', PredictiveSearch);
       }
     ]
   }
-{% endschema %}
+{% endschema %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% include 'image-style' with small_style: true, width: height, height: height,
+    wrapper_id: img_wrapper_id, img_id: img_id %}"
+  to: "{% include 'image-style' with small_style, small_style: true, width: height,
+    height: height, wrapper_id: img_wrapper_id, img_id: img_id %}"
+  position: 6086..6224
+- from: '{% capture "form_classes" -%}'
+  to: "{% capture form_classes -%}"
+  position: 11712..11739
+{%- endcomment -%}
